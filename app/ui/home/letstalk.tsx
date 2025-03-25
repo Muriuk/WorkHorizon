@@ -1,6 +1,7 @@
 'use client'
 import { countries } from "@/app/lib/countries";
 import { Message } from "@/app/lib/elements";
+import ContactMessageMail from "@/app/lib/mailingServices";
 import { MailIcon, MapPin, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -53,7 +54,8 @@ export default function LetsTalk(){
             credentials: 'include',
             body: JSON.stringify(Message)
         })
-        if(response.ok){
+        const mailResponse = ContactMessageMail(Message)
+        if(response.ok && mailResponse){
             setSubmit(true)
         }
     }
