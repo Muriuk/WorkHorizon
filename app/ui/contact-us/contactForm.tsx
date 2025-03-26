@@ -35,7 +35,6 @@ export default function ContactForm(){
     const contactOptions = [
         'For general query', 'Getting services information', 'Getting job options'
     ]
-    console.log('Reasons of contacting us=> ', contactReason)
      const handleSubmission = async(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
             const formData = new FormData(e.currentTarget);
@@ -59,7 +58,16 @@ export default function ContactForm(){
                 credentials: 'include',
                 body: JSON.stringify(Message)
             })
-            if(response.ok){
+            const response2 = await fetch('/api/message/sendEmail',{
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(Message)
+            })
+            
+            if(response.ok && response2.ok){
                 setSubmit(true)
             }
         }
@@ -74,8 +82,8 @@ export default function ContactForm(){
             }, [submit]);
     
     return(
-        <div className='container w-[88%] lg:w-full min-h-[92vh] flex items-center'>
-            <div className="grid lg:grid-cols-[70%,30%] w-full mb-10 py-10 lg:py-20 lg:mb-1">
+        <div className='container w-[88%] max-w-[88%] lg:max-w-full lg:w-full min-h-[92vh] flex items-center'>
+            <div className="grid grid-cols-1 lg:grid-cols-[70%,30%] w-full mb-10 py-10 lg:py-20 lg:mb-1">
                 <div className='block mb-8 lg:m-0'>
                     <h3 className="text-2xl xl:text-3xl font-bold tracking-wide text-sky-900 mb-3">Contact Us.</h3>
                     <h4 className="text-md 2xl:text-xl font-semibold tracking-wide mb-3">For employment related queries, try to visit our <Link className="font-bold text-orange-500 capitalize" href={'/careers/jobs'}>Careers page.</Link></h4>
