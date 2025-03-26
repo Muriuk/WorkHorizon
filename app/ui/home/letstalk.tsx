@@ -54,7 +54,7 @@ export default function LetsTalk(){
             credentials: 'include',
             body: JSON.stringify(Message)
         })
-        const response2 = await fetch('/api/message/sendEmail',{
+        const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/message/sendEmail`,{
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
