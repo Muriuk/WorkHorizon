@@ -43,7 +43,7 @@ export async function POST(request: NextRequest){
         `;
         const mailManagement = {
             from: '"Admin@WorkHorizon" <admin@workhorizon.pk> ',
-            to: ['anser@workhorizon.pk'],
+            to: ['hr@workhorizon.pk'],
             cc: 'anser@workhorizon.pk',
             subject: `${data.firstname} ${data.lastname} - ${data.reason} - Contact Message`,
             html: ManagementMessage,
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest){
         const mailClient = {
             from: '"Admin@WorkHorizon" <admin@workhorizon.pk> ',
             to: [data.email],
-            reply: 'hr@workhorizon.pk',
+            replyTo: 'hr@workhorizon.pk',
             subject: `Thank you for contacting us`,
             html: ClientMessage,
         }

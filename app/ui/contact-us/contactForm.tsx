@@ -82,7 +82,7 @@ export default function ContactForm(){
             }, [submit]);
     
     return(
-        <div className='container w-[88%] max-w-[88%] lg:max-w-full lg:w-full min-h-[92vh] flex items-center'>
+        <div className='container w-[88%] lg:w-full min-h-[92vh] flex items-center'>
             <div className="grid grid-cols-1 lg:grid-cols-[70%,30%] w-full mb-10 py-10 lg:py-20 lg:mb-1">
                 <div className='block mb-8 lg:m-0'>
                     <h3 className="text-2xl xl:text-3xl font-bold tracking-wide text-sky-900 mb-3">Contact Us.</h3>
