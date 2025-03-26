@@ -10,7 +10,7 @@ export default function ContactForm(){
         const [selectCountry, setSelectedCountry] = useState<string|undefined>('+92');
         const [submit, setSubmit] = useState<boolean>(false);
         const [contactNumber, setContactNumber] = useState<string|undefined> ('');
-        const [contactReason, setContactReason] = useState<string>('');
+        // const [contactReason, setContactReason] = useState<string>('');
         const handleCountry = (e:React.ChangeEvent<HTMLSelectElement>) => {
             e.preventDefault()
             setSelectedCountry(e.target?.value);
