@@ -46,25 +46,34 @@ export default function LetsTalk(){
             date: '',
             status: '',
         }
-        const response = await fetch('/api/message',{
+        const response = await fetch('/api/message', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
             },
             credentials: 'include',
             body: JSON.stringify(Message)
-        })
-        const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/message/sendEmail`,{
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            credentials: 'include',
-            body: JSON.stringify(Message)
-        })
-        if(response.ok && response2.ok){
-            setSubmit(true)
+        });
+        
+        if (response.ok) {
+            const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/message/sendEmail`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(Message)
+            });
+        
+            if (response2.ok) {
+                setSubmit(true);
+            } else {
+                console.error('Email sending failed');
+            }
+        } else {
+            console.error('Message saving failed');
         }
+        
     }
 
     useEffect(() => {
