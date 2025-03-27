@@ -141,7 +141,7 @@ export default function LetsTalk(){
                         </div>
                         <div className="w-full flex flex-col gap-1 mt-4">
                             <label className='text-md xl:text-md font-[500] tracking-wide'>Contact Number <span className="text-red-500">*</span></label>
-                            <div className='grid grid-cols-[18%,82%]'>
+                            <div className='grid lg:grid-cols-[20%,80%] 2xl:grid-cols-[18%,82%]'>
                                 <select className="border pl-2 rounded-l-xl bg-gray-200 cursor-pointer" name="country" id='country' value={selectCountry} onChange={handleCountry} required>
                                     <option value=''></option>
                                     {
