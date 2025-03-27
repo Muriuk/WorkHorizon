@@ -12,7 +12,7 @@ export default function JobDescription({JobDetails,setActiveSection}:{JobDetails
             <div className="flex flex-col">
                 {/* Introduction */}
                 {
-                    JobDetails.intro ? <p className="text-md lg:text-lg">{JobDetails.intro}</p> : null
+                    JobDetails.intro ? <p className="text-md lg:text-lg"  dangerouslySetInnerHTML={{__html: JobDetails.intro}} />: null
                 }
 
                 {/* Salary Range */}
