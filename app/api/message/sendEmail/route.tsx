@@ -62,6 +62,6 @@ export async function POST(request: NextRequest){
         return NextResponse.json({message: 'Email sent successfully'},{status: 200});
     } catch (error) {
         console.log('Unable to send email', error)
-        NextResponse.json({message: 'Sending email unsuccessful'},{status: 404});
+        return NextResponse.json({message: 'Sending email unsuccessful'},{status: 500});
     }
 }
