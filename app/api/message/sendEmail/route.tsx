@@ -43,7 +43,7 @@ export async function POST(request: NextRequest){
         `;
         const mailManagement = {
             from: '"Work Horizon" <admin@workhorizon.pk>',
-            to: ['anser@workhorizon.pk'],
+            to: ['hr@workhorizon.pk'],
             cc: 'anser@workhorizon.pk',
             subject: `${data.firstname} ${data.lastname} - ${data.reason} - Contact Message`,
             html: ManagementMessage,

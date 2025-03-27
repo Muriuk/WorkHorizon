@@ -96,7 +96,7 @@ export default function JobDescription({JobDetails,setActiveSection}:{JobDetails
                 }
                 {/* Join tagline */}
                 {
-                    JobDetails.jointagline ? <p className="text-md lg:text-lg">{JobDetails.jointagline}</p> : null
+                    JobDetails.jointagline ? <p className="text-md lg:text-lg" dangerouslySetInnerHTML={{__html: JobDetails.jointagline}} /> : null
                 }
                 <button onClick={() => setActiveSection('application')} className='w-fit mt-5 text-lg xl:text-xl px-5 py-2 rounded-lg bg-sky-900 text-gray-100'>Apply Now</button>
           </div>
