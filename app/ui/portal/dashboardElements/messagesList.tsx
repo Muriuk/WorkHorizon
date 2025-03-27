@@ -28,7 +28,7 @@ export default function MessagesList(){
         <div className='mx-14 my-10 bg-gray-200 rounded-3xl p-8  shadow-xl shadow-gray-300'>
             <div className='bg-gray-100 h-full flex flex-col items-center rounded-3xl py-3 relative'> 
             <h3 className="w-fit mx-auto mt-2 text-2xl font-semibold text-sky-900 border-b border-orange-500">Latest Messages </h3> 
-                <div className='mx-4 mt-4 w-[95%] min-h-[250px] max-h-[300px] overflow-auto flex flex-col relative'>
+                <div className='mx-4 mt-4 w-[95%] min-h-[200px] max-h-[200px] 2xl:min-h-[250px] 2xl:max-h-[300px] overflow-auto flex flex-col relative'>
                     <div className="grid grid-cols-[20%,20%,60%] w-[98%] grid items-center border-b border-sky-900 text-lg mb-1">
                         <h3 className='py-2 px-3 font-semibold capitalize text-sky-900'>{`Sender's Name`}</h3>
                         <h3 className='py-2 px-3 font-semibold capitalize text-sky-900'>{`Reason`}</h3>
