@@ -26,6 +26,8 @@ export default function AgentsPage({ user }: { user: User | null }) {
             if (user?.post === 'admin') {
                 setSortedAgents(agents);
             } else if (user?.post === 'Pak HR') {
+                setSortedAgents(agents.filter(agent => agent.post !== 'admin'));
+            }else if (user?.post === 'Head HR') {
                 setSortedAgents(agents.filter(agent => agent.post !== 'admin' && agent.post !== 'Pak HR'));
             }
         };
