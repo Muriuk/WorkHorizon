@@ -119,7 +119,7 @@ export default function LetsTalk(){
                         <h4 className="text-lg capitalize text-gray-100 tracking-wider">Social just you connected us!</h4>
                         <div className="flex justify-start mt-3 gap-4">
                             <Link className="text-sm text-gray-300 flex flex-col items-center gap-1" href={'https://www.facebook.com/people/Work-Horizon/61573683541545/'}><FaFacebook className="w-6 h-auto" /> Facebook</Link>
-                            <Link className="text-sm text-gray-300 flex flex-col items-center gap-1" href={'https://www.linkedin.com/in/work-horizon-a954b4353'}><FaLinkedin className="w-6 h-auto" /> LinkedIn</Link>
+                            <Link className="text-sm text-gray-300 flex flex-col items-center gap-1" href={'https://www.linkedin.com/company/work-horizon'}><FaLinkedin className="w-6 h-auto" /> LinkedIn</Link>
                             <Link className="text-sm text-gray-300 flex flex-col items-center gap-1" href={'https://www.instagram.com/work.horizon/#'}><FaInstagram className="w-6 h-auto" /> Instagram</Link>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ export default function LetsTalk(){
                         </div>
                         <div className="w-full flex flex-col gap-1 mt-4">
                             <label className='text-md xl:text-md font-[500] tracking-wide'>Contact Number <span className="text-red-500">*</span></label>
-                            <div className='grid lg:grid-cols-[20%,80%] 2xl:grid-cols-[18%,82%]'>
+                            <div className='grid grid-cols-[25%,75%] lg:grid-cols-[20%,80%] 2xl:grid-cols-[18%,82%]'>
                                 <select className="border pl-2 rounded-l-xl bg-gray-200 cursor-pointer" name="country" id='country' value={selectCountry} onChange={handleCountry} required>
                                     <option value=''></option>
                                     {
