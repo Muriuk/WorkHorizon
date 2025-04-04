@@ -4,6 +4,7 @@ import MainHeader from "@/app/ui/header";
 import Footer from '@/app/ui/footer'
 import {Noto_Sans} from 'next/font/google'
 import AOSProvider from "./aosinitializer";
+import { Analytics } from '@vercel/analytics/next';
 // import { SessionProvider } from "next-auth/react";
 
 const notosans = Noto_Sans({
@@ -28,6 +29,7 @@ export default function RootLayout({
         <MainHeader />
         <div className="bg-white">
           {children}
+          <Analytics />
         </div>
         <Footer />
       </body>
