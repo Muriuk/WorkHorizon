@@ -3,7 +3,6 @@ import { TailSpin } from "react-loader-spinner";
 import NewAgentCreation from "./newAgentAddition";
 import { useEffect, useState } from "react";
 import { Agent, User } from "@/app/lib/elements";
-import Link from "next/link";
 
 
 export default function AgentsPage({ user }: { user: User | null }) {
@@ -129,9 +128,9 @@ export default function AgentsPage({ user }: { user: User | null }) {
                                             ) : (
                                                 <>
                                                     <td className="px-4 py-1 lg:py-3 font-semibold capitalize text-start lg:text-center text-sky-900 text-lg lg:text-lg break-words">
-                                                        <Link href={`/portal/dashboard/contact-messages/cm-wh-${agent.id}`} className="underline">
+                                                        <span className="underline">
                                                             {agent.name}
-                                                        </Link>
+                                                        </span>
                                                     </td>
                                                     <td className="px-4 py-1 lg:py-3 text-start lg:text-center text-md capitalize">{agent.post}</td>
                                                     <td className="px-4 py-1 lg:py-3 text-start lg:text-center text-md break-words">{agent.email}</td>
