@@ -10,21 +10,21 @@ export default function Footer(){
         { link: '/contact-us', name: 'Contact Us' },
     ];
     const careerItems=[
-        { link: '/careers/jobs?department=Sales+%26+marketing', name: 'Sales & Marketing' },
-        { link: '/careers/jobs?department=Digital+marketing+%26+I.T', name: 'Customer Support & Operations' },
-        { link: '/careers/jobs?department=Human+resources+%26+Recruitment', name: 'HR & Recruitment' },
-        { link: '/careers/jobs?department=Finance+%26+Accounting', name: 'Finance & Accounting' },
+        { link: '/', name: 'Professional WorkerS' },
+        { link: '/', name: 'View Jobs Available' },
+        { link: '/', name: 'Create Worker Account' },
+        { link: '/', name: 'Post task for workers' },
     ];
     return(
         <div className="block lg:mt-[500px]">
             <div className="bg-gray-300 relative lg:fixed bottom-0 -z-10 w-full lg:min-h-[500px]">
                 <div className='container pb-6 pt-10 lg:pt-20 lg:pb-16'>
-                    <h3 className="text-3xl lg:text-5xl font-bold tracking-wide text-sky-900 leading-tight">Next-Level Customer Experiences <br className="hidden lg:block"/>For Leading Brands</h3>
+                    <h3 className="text-3xl lg:text-5xl font-bold tracking-wide text-sky-900 leading-tight">Next-Level Customer Experiences <br className="hidden lg:block"/>At Your Home</h3>
                     <div className="grid lg:grid-cols-[40%,13%,20%,27%] gap-2 mt-6">
                         <div>
-                            <h3 className="text-md lg:text-lg text-gray-900 font-normal border-b border-orange-500 w-fit capitalize leading-1"> Achieve success with Work Horizon</h3>
+                            <h3 className="text-md lg:text-lg text-gray-900 font-normal border-b border-orange-500 w-fit capitalize leading-1"> Achieve success with KaziBase Kenya</h3>
                             <h3 className='text-2xl lg:text-5xl font-bold text-sky-900 capitalize tracking-wider lg:leading-tight my-3'>{`What sets us apart?`}</h3>
-                            <h4 className="text-md lg:text-lg text-gray-900">We serve diverse sectors such as real estate, staffing, security, and more, offering a wide range of services and dynamic career growth opportunities.</h4>
+                            <h4 className="text-md lg:text-lg text-gray-900">We connect all workers with clients who needs to solve his/her manual work quick and with success.</h4>
                         </div>
                         <div />
                         <div >
@@ -38,7 +38,7 @@ export default function Footer(){
                             </div>
                         </div>
                         <div >
-                            <h3 className="text-xl xl:text-2xl font-bold text-sky-900 tracking-wide mb-3">Careers</h3>
+                            <h3 className="text-xl xl:text-2xl font-bold text-sky-900 tracking-wide mb-3">Shortcuts</h3>
                             <div className="flex flex-col">
                                 {
                                     careerItems.map((item,index) => 
@@ -51,7 +51,14 @@ export default function Footer(){
                     </div>
                 </div>
                 <div className="border-t container border-transparent-three py-1">
-                    <h4 className="text-sm text-gray-700"><b>Work Horizon</b> - Copyright 2025 | All rights reserved.</h4>
+                   <h4 className="text-sm text-gray-700">
+  <b>
+    <span className="text-sky-900">KAZI</span>
+    <span className="text-orange-500">BASE</span>
+  </b>{" "}
+  - Copyright {new Date().getFullYear()} | All rights reserved.
+</h4>
+
                 </div>
             </div>
         </div>      
