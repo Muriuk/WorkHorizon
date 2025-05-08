@@ -67,7 +67,12 @@ export default function MainHeader() {
             <div className={`flex justify-between px-0 lg:grid ${adminMenu ? 'lg:grid-cols-[20%,10%,70%]':'lg:grid-cols-[20%,60%,20%]'} container`}>
                 <div className="flex">
                     <Link className="block" href={'/'}>
-                        <Image src={'/assets/Logo.png'} className="w-[13rem] lg:w-[15rem] h-auto" alt='Work Horizon' width={300} height={200} />
+                        <div className="w-[13rem] lg:w-[15rem] h-auto flex items-center">
+                            <h1 className="text-2xl lg:text-3xl font-bold">
+                                <span className="text-[#F7801E]">Kazi</span>
+                                <span className="text-sky-900">base</span>
+                            </h1>
+                        </div>
                     </Link>
                 </div>
                 <div className="hidden lg:flex justify-center items-center gap-8">
