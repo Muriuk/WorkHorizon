@@ -69,8 +69,8 @@ export default function MainHeader() {
                         <div className="w-[13rem] lg:w-[15rem] h-auto flex items-center">
                             <div className="flex flex-col">
                                 <h1 className="text-2xl lg:text-3xl font-bold tracking-wide">
-                                    <span className="text-sky-900">Kazi</span>
-                                    <span className="text-[#F7801E]">base</span>
+                                    <span className="text-sky-900">KAZI</span>
+                                    <span className="text-[#F7801E]">BASE</span>
                                 </h1>
                                 <p className="text-xs lg:text-sm text-sky-700 font-medium tracking-tight">
                                     Connecting Skilled Labor in Kenya
