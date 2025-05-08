@@ -78,21 +78,40 @@ export default function HomeHead() {
         <div className="container w-[88%] lg:w-full">
             <div className="mx-auto w-full pt-6 xl:pt-32 pb-16 lg:pb-20 xl:pb-40 grid lg:grid-cols-[50%,50%]">
                 <div className="lg:pr-10">
-                    <h3 className="text-sm font-normal leading-1">
-                        <span className="font-bold uppercase">Kazibase</span> - Real Hustles, Real Jobs, Real People
-                    </h3>
+                    <h3 className="text-sm font-normal leading-1 border border-black rounded-md inline-block px-2 py-1">
+  <span className="font-bold uppercase">
+    <span className="text-sky-900">Kazi</span>
+    <span className="text-orange-500">base</span>
+  </span>{" "}
+  - Real Hustles, Real Jobs, Real People
+</h3>
                     <h3 className="text-3xl lg:text-5xl font-bold text-sky-900 uppercase lg:leading-tight mb-3">
-                        Manual Jobs Made Easy in Kenya 🇰🇪
+                        Manual Jobs Made Easy in Kenya
                     </h3>
                     <p className="text-md lg:text-xl font-normal tracking-wide">
-                        Kazibase ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka kazi, hustler anaiona, anakuchat WhatsApp – kazi inaanza!
-                    </p>
+  <span className="text-black font-semibold">Kazibase</span> ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka <span className="text-orange-500 font-medium">kazi</span>, hustler anaiona, anakuchat <span className="text-orange-500 font-medium">WhatsApp</span> – kazi inaanza!
+</p>
+
                 </div>
                 <div className="lg:pl-12 pt-5">
-                    <p className="text-md lg:text-xl font-normal tracking-wide">
-                        Wafanyakazi wote wanathibitisha ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao. Kazibase inalenga kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret ama Garissa.
-                    </p>
+                   <p className="text-md lg:text-xl font-normal tracking-wide">
+  Wafanyakazi wote<span className="text-orange-500 font-medium"> wanathibitisha</span> ujuzi wao. Hii inamaanisha unaweza kuwa na <span className="text-orange-500 font-medium">imani</span> na kazi yao. <span className="text-black font-semibold">Kazibase</span> inalenga <span className="text-orange-500 font-medium">kila mtaa</span>, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret,Nakuru, Meru, Kiambu, Mombasa,Garissa na kila mahali katika taifa letu la Kenya.
+</p>
+
                 </div>
+                <div className="flex flex-row justify-center lg:justify-start gap-4 mt-6">
+  <Link href="/post-kazi">
+    <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-5 rounded-full shadow-md transition-transform hover:scale-105 text-sm sm:text-base">
+      Post Kazi
+    </button>
+  </Link>
+  <Link href="/jiunge">
+    <button className="bg-sky-900 hover:bg-sky-800 text-white font-medium py-2 px-5 rounded-full shadow-md transition-transform hover:scale-105 text-sm sm:text-base">
+      Jiunge Kama Hustler
+    </button>
+  </Link>
+</div>
+
             </div>
             <div className="w-full 2xl:w-full relative mx-auto">
                 <SlideShow />
