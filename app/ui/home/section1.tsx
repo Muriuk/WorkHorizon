@@ -1,13 +1,13 @@
 'use client'
 import { TargetWindowCheck } from "@/app/hooks/windowSize";
 import Image from "next/image";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 function SlideShow() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const width: string = TargetWindowCheck();
 
-    const Slides = [
+    const slides = [
         {
             img: width === 'D' ? '/assets/kazibase.png' : '/assets/kazibase.png',
             head: 'Post Kazi, Pata Hustler',
@@ -27,14 +27,14 @@ function SlideShow() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentSlide((prevIndex) => (prevIndex + 1) % Slides.length);
+            setCurrentSlide((prevIndex) => (prevIndex + 1) % slides.length);
         }, 7000);
         return () => clearInterval(interval);
-    }, []);
+    }, [slides.length]); // Added dependency array
 
     return (
         <div className="relative w-full h-[600px] lg:h-[650px] xl:h-[750px] overflow-hidden lg:rounded-2xl transition-transform duration-300 delay-100 translate-x-0 ease-in shadow-lg shadow-transparent-one">
-            {Slides.map((slide, index) => (
+            {slides.map((slide, index) => (
                 <div
                     key={index}
                     className={`absolute inset-0 transition-opacity duration-1000 ease-in-out delay-300 ${currentSlide === index ? 'opacity-100' : 'opacity-0'}`}
@@ -61,7 +61,7 @@ function SlideShow() {
             ))}
 
             <div className="absolute bottom-4 z-10 left-0 right-0 flex justify-center gap-2">
-                {Slides.map((_, idx) => (
+                {slides.map((_, idx) => (
                     <div
                         key={idx}
                         onClick={() => setCurrentSlide(idx)}
@@ -74,8 +74,6 @@ function SlideShow() {
 }
 
 export default function HomeHead() {
-    const width: string = TargetWindowCheck();
-
     return (
         <div className="container w-[88%] lg:w-full">
             <div className="mx-auto w-full pt-6 xl:pt-32 pb-16 lg:pb-20 xl:pb-40 grid lg:grid-cols-[50%,50%]">
