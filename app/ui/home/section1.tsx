@@ -99,9 +99,8 @@ export default function HomeHead() {
       <div className="mx-auto w-full pt-10 xl:pt-32 pb-16 lg:pb-20 xl:pb-40 grid lg:grid-cols-2 gap-8">
         <div className="lg:pr-12">
           <div className="flex items-center gap-2 mb-3">
-            <span className="h-1 w-12 bg-orange-500"></span>
            <h4 className="text-sm font-medium leading-4 tracking-wider border border-black p-2">
-  <span className="font-bold text-orange-500">Kazibase</span> Real Hustles. Real Jobs. Real People.
+  <span className="font-bold text-orange-500">Kazibase :</span> Real Hustles, Real Jobs, Real People.
 </h4>
 
 
@@ -127,9 +126,13 @@ export default function HomeHead() {
               </svg>
             </button>
             
-            <button className="border-2 border-sky-800 text-sky-800 hover:bg-sky-800 hover:text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
-              <span>Weka Kazi</span>
-            </button>
+           <button className="border-2 border-sky-800 text-sky-800 hover:bg-sky-800 hover:text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
+  <span>Weka Kazi</span>
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-current" viewBox="0 0 20 20" fill="currentColor">
+    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+  </svg>
+</button>
+
           </div>
         </div>
         
