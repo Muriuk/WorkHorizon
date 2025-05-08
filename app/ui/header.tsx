@@ -67,10 +67,15 @@ export default function MainHeader() {
                 <div className="flex">
                     <Link className="block" href={'/'}>
                         <div className="w-[13rem] lg:w-[15rem] h-auto flex items-center">
-                            <h1 className="text-2xl lg:text-3xl font-bold">
-                                <span className="text-[#F7801E]">Kazi</span>
-                                <span className="text-sky-900">base</span>
-                            </h1>
+                            <div className="flex flex-col">
+                                <h1 className="text-2xl lg:text-3xl font-bold tracking-wide">
+                                    <span className="text-sky-900">Kazi</span>
+                                    <span className="text-[#F7801E]">base</span>
+                                </h1>
+                                <p className="text-xs lg:text-sm text-sky-700 font-medium tracking-tight">
+                                    Connecting Skilled Labor in Kenya
+                                </p>
+                            </div>
                         </div>
                     </Link>
                 </div>
@@ -97,8 +102,8 @@ export default function MainHeader() {
                         adminMenu ? 
                             <PortalHeader />
                         :
-                            <Link href={'tel:+923206460085'} className="relative text-md font-semibold text-orange-500 border-2 border-orange-500 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px]  px-5 py-1 rounded-xl">
-                                +92 320 6460085
+                            <Link href={'tel:+254768258491'} className="relative text-md font-semibold text-orange-500 border-2 border-orange-500 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px]  px-5 py-1 rounded-xl">
+                                +254768258491
                             </Link>
                     }
                 </div>
