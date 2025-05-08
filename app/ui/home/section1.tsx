@@ -9,25 +9,28 @@ function SlideShow(){
     const Slides = [
         {
             img: width === 'D' ? '/assets/hs1.jpg' : '/assets/hs4.jpg',
-            head: 'Exciting Career Opportunities', 
-            desc: 'Join Work Horizon for diverse roles across multiple domains like sales, HR, marketing, and customer support, where each role offers room for growth and the chance to work in a fast-paced, innovative environment.'},
+            head: 'Post Kazi, Pata Hustler', 
+            desc: 'Kazibase connects you with local verified workers (hustlers) for quick manual jobs – chat on WhatsApp and get it done instantly.'
+        },
         {
-            img:width === 'D' ? '/assets/hs2.jpg' : '/assets/hs5.jpg', 
-            head: 'Global Career Growth', 
-            desc:"Work with a globally expanding team that provides career development opportunities on an international scale. Gain valuable experience and exposure, allowing you to grow professionally while working with clients and colleagues from various regions."},
+            img: width === 'D' ? '/assets/hs2.jpg' : '/assets/hs5.jpg', 
+            head: 'Verified Local Talent', 
+            desc:"All Kazibase workers (hustlers) verify their skills before taking jobs. Get trusted help for cleaning, mechanics, bodaboda, mama fua, and more."
+        },
         {
             img: width === 'D' ? '/assets/hs3.jpg' : '/assets/hs6.jpg', 
-            head: 'Professional Development Focus', 
-            desc: 'At Work Horizon, we prioritize your personal and professional growth. We offer continuous learning opportunities, training programs, and mentorship, ensuring you have the tools and support needed to advance in your career and reach new heights.'}
+            head: 'Jobs for Every Hustler', 
+            desc: 'From Mkokoteni to Mama fua, Househelp to Fundi, Kazibase lists all local manual jobs done by Kenyans across all counties.'
+        }
     ]
     useEffect(() => {
         const interval = setInterval(() => {
-          setCurrentSlide((prevIndex) => (prevIndex + 1) % Slides.length);
-        }, 7000); // Change slide every 10 seconds
-    
+            setCurrentSlide((prevIndex) => (prevIndex + 1) % Slides.length);
+        }, 7000); // Change slide every 7 seconds
+
         return () => clearInterval(interval);
-      });
-    
+    });
+
     return(
         <div className="relative w-full h-[600px] lg:h-[650px] xl:h-[750px] overflow-hidden lg:rounded-2xl transition-transform duration-300 delay-100 translate-x-0 ease-in shadow-lg shadow-transparent-one">
             {Slides.map((slide, index) => (
@@ -37,7 +40,7 @@ function SlideShow(){
                     currentSlide === index ? 'opacity-100' : 'opacity-0'
                 }`}
                 >
-                <Image src={slide.img} className="object-cover object-center" fill sizes="100% xl:80% 2xl:100%" alt={`Work_Horizon_Slide_${index + 1}`}/>
+                <Image src={slide.img} className="object-cover object-center" fill sizes="100% xl:80% 2xl:100%" alt={`Kazibase_Slide_${index + 1}`}/>
                 <div className={`absolute left-0 top-0 z-10 flex flex-col px-4 xl:px-32 pb-14 xl:pt-[575px] items-center justify-end xl:items-start xl:justify-start w-full h-full bg-transparent-bg-one `}>
                     <div className={` transform transition-transform duration-1000 text-center lg:text-start ease-in-out ${ currentSlide === index ? 'translate-x-0' : '-translate-x-full'}`}>
                         <h2 className="text-2xl lg:text-4xl font-bold text-orange-400 uppercase leading-tight">
@@ -63,9 +66,7 @@ function SlideShow(){
             </div>
 
         </div>
-
     )
-
 }
 
 export default function HomeHead(){
@@ -74,20 +75,27 @@ export default function HomeHead(){
         <div className="container w-[88%] lg:w-full">
             <div className="mx-auto w-full pt-6 xl:pt-32 pb-16 lg:pb-20 xl:pb-40 grid lg:grid-cols-[50%,50%]">
                 <div className="lg:pr-10">
-                    <h3 className="text-sm font-normal leading-1"> <span className="font-bold uppercase ">Work Horizon</span> - Driving Sales, Expanding Horizons</h3>
-                    <h3 className='text-3xl lg:text-5xl font-bold text-sky-900 uppercase lg:leading-tight mb-3'>Take your career to new heights with Work Horizon</h3>
-                    <p className="text-md lg:text-xl font-normal tracking-wide">We empower businesses & professionals through innovative call center solutions, ensuring growth & success in a competitive world.</p>
+                    <h3 className="text-sm font-normal leading-1">
+                        <span className="font-bold uppercase text-orange-500">Kazibase</span> - Real Hustles. Real Jobs. Real People.
+                    </h3>
+                    <h3 className='text-3xl lg:text-5xl font-bold text-sky-900 uppercase lg:leading-tight mb-3'>Manual Jobs Made Easy in Kenya 🇰🇪</h3>
+                    <p className="text-md lg:text-xl font-normal tracking-wide">
+                        Kazibase ni jukwaa kwa Wakenya kutafuta au kupewa kazi ndogo ndogo (manual jobs) kama mama fua, house cleaning, bodaboda, fundi, na kazi zingine za mikono. Unaweka kazi, hustler anaiona, anakuchat WhatsApp – kazi inaanza!
+                    </p>
                 </div>
                 <div className="lg:pl-12 pt-5">
-                    <p className="text-md lg:text-xl font-normal tracking-wide">Join us on a journey of <span className='font-semibold italic text-orange-500'>Excellence</span>, where <span className='font-semibold italic text-orange-500'>Expertise</span> meets opportunity, & <span className='font-semibold italic text-orange-500'>Innovation</span> drives success. 
-                        With a commitment to Professionalism & Customer Satisfaction, we provide Top-Tier Sales, Administration, HR, & Accounting 
-                        services to help <span className="font-semibold uppercase text-orange-500">BUSINESSES THRIVE</span>.</p>
-                    <p className="text-md lg:text-xl font-normal mt-3 tracking-wide">We operate on a global scale, serving clients across multiple industries & regions, ensuring seamless business solutions worldwide.</p>
+                    <p className="text-md lg:text-xl font-normal tracking-wide">
+                        Wafanyakazi wote wanathibitisha ujuzi wao. Hii inamaanisha fundi au mama fua anaweza kuaminika na kazi yake iko juu. 
+                        Kazibase inalenga kila mtaa, kijiji au jiji – iwe Nairobi, Kisumu, Eldoret ama Garissa.
+                    </p>
+                    <p className="text-md lg:text-xl font-normal mt-3 tracking-wide">
+                        <strong>Categories:</strong> Mama fua, Mechanic, Electrician, Carpenter, Cleaner, Househelp, Mkokoteni, Bodaboda, Plumber, Watchman, Cook, Juakali artisan, TV/simu repair, and more. Kama ni kazi ya mikono – iko Kazibase!
+                    </p>
                 </div>
             </div>
             <div className="w-full 2xl:w-full relative mx-auto">
                 <SlideShow />
-                <Image className="w-[10vw] h-[10vw] hidden lg:block relative lg:absolute lg:-right-12 lg:-top-16 2xl:-right-16 rotate-6 z-40" width={width === 'D' ? 200:150} height={width === 'D' ? 200:150} src={'/assets/borderedLogo.png'} alt="Work Horizon Logo - Bordered" />
+                <Image className="w-[10vw] h-[10vw] hidden lg:block relative lg:absolute lg:-right-12 lg:-top-16 2xl:-right-16 rotate-6 z-40" width={width === 'D' ? 200:150} height={width === 'D' ? 200:150} src={'/assets/borderedLogo.png'} alt="Kazibase Logo" />
             </div>
         </ div>
     )
