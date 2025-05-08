@@ -3,28 +3,37 @@ import Image from "next/image"
 
 export default function HiringProcess() {
     const HP = [
-        {
-            image: '/assets/step1.jpg',
-            head:'Application Submission',
-            text: 'Browse our available positions and submit your application online.',
-        },{
-            image: '/assets/step1.jpg',
-            head:'Initial Screening',
-            text: 'Our HR team reviews applications & shortlists candidates based on skills & experience.',
-        },{
-            image: '/assets/step1.jpg',
-            head:'Interview Process',
-            text: 'Shortlisted candidates go through interviews with our hiring managers to assess their fit for the role.',
-        },{
-            image: '/assets/step1.jpg',
-            head:'Final Selection & Offer',
-            text: 'Successful candidates receive an offer letter and guidance on the onboarding process.',
-        },{
-            image: '/assets/step1.jpg',
-            head:'Onboarding & Training',
-            text: 'Join Work Horizon and receive training to ensure a smooth transition into your new role.',
-        },
-    ]
+    {
+        image: '/assets/post-job.jpg',
+        head: 'Tuma Kazi Yako (Post a Job)',
+        text: 'Elezea kazi unayotaka ifanywe—cleaning, delivery, repair, etc. Fill a quick form in seconds.',
+    },
+    {
+        image: '/assets/select-worker.jpg',
+        head: 'Chagua Hustler (Pick a Worker)',
+        text: 'Angalia walio karibu, read reviews, na chagua yule unaeamini anaweza kazi vizuri.',
+    },
+    {
+        image: '/assets/contact-whatsapp.jpg',
+        head: 'Wasiliana kwa WhatsApp',
+        text: 'Piga ama tuma ujumbe kwenye WhatsApp moja kwa moja to the worker you have selected — no delays, no third parties.',
+    },
+    {
+        image: '/assets/work-done.jpg',
+        head: 'Kazi Inafanyika (Job Gets Done)',
+        text: 'Hustler mwenye umechagua anakuja na anafanya kazi yako haraka na kwa uaminifu.',
+    },
+    {
+        image: '/assets/feedback.jpg',
+        head: 'Toa Maoni (Rate & Review)',
+        text: 'Baada ya kazi, toa maoni na rating ili kusaidia wengine kupata huduma bora.',
+    }, {
+        image: '/assets/disclaimer.jpg',
+        head: 'Angalizo Muhimu (Disclaimer)',
+        text: 'Kazibase haikusanyi wala kupokea malipo. Malipo yote hufanywa moja kwa moja kati ya mteja na hustler.',
+    },
+];
+
     return(
         <div className="container flex flex-col my-14 lg:my-28 overflow-hidden">
             <h3 className="text-3xl xl:text-4xl capitalize text-sky-900 font-bold xl:mb-3 text-center" data-aos='fade-up'>Our Hiring Process</h3>
