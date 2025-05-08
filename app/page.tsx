@@ -13,12 +13,12 @@ export default function Home() {
   return (
     <>
       <HomeHead />
+      <HiringProcess />
       <AboutSection />
       <WhyChooseUs />
       <JoinGlobalTeam />
       <CareerOpportunities />
-      <HiringProcess />
-      <LetsTalk />
+        <LetsTalk />
     </>
   );
 }
