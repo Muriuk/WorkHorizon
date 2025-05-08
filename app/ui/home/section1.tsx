@@ -100,18 +100,24 @@ export default function HomeHead() {
         <div className="lg:pr-12">
           <div className="flex items-center gap-2 mb-3">
             <span className="h-1 w-12 bg-orange-500"></span>
-            <h3 className="text-sm font-medium leading-1 tracking-wider uppercase">
-              <span className="font-bold text-orange-500">Kazibase</span> – Real Hustles. Real Jobs. Real People.
-            </h3>
+           <h4 className="text-sm font-medium leading-4 tracking-wider border border-black p-2">
+  <span className="font-bold text-orange-500">Kazibase</span> Real Hustles. Real Jobs. Real People.
+</h4>
+
+
           </div>
           
           <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-sky-900 uppercase lg:leading-tight mb-4 sm:mb-6">
             Manual Jobs Made Easy in Kenya 🇰🇪
           </h1>
           
-          <p className="text-lg lg:text-xl font-normal tracking-wide text-gray-700 max-w-xl">
-            Kazibase ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka kazi, hustler anaiona, anakuchat WhatsApp – kazi inaanza!
-          </p>
+         <p className="text-sm lg:text-base font-normal tracking-wide text-gray-700 max-w-xl">
+  Kazibase ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka kazi, hustler anaiona, anakuchat WhatsApp – kazi inaanza!
+</p>
+          <p className="text-sm lg:text-base font-normal tracking-wide text-gray-700 max-w-xl">
+   Wafanyakazi wote wanathibitisha ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao. Kazibase inalenga kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret ama Garissa.
+           </p>
+
           
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <button className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto">
@@ -127,49 +133,7 @@ export default function HomeHead() {
           </div>
         </div>
         
-        <div className="lg:pl-12 pt-8 sm:pt-5">
-          <div className="bg-white p-4 sm:p-6 rounded-xl shadow-lg border-l-4 border-orange-500">
-            <p className="text-md lg:text-xl font-normal tracking-wide text-gray-700">
-              Wafanyakazi wote wanathibitisha ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao. Kazibase inalenga kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret ama Garissa.
-            </p>
-            
-            <div className="mt-6">
-              <h4 className="font-bold text-orange-500 text-lg mb-3 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 116 0z" clipRule="evenodd" />
-                </svg>
-                Categories:
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Mama fua", 
-                  "Mechanic", 
-                  "Electrician", 
-                  "Cleaner", 
-                  "Househelp", 
-                  "Mkokoteni", 
-                  "Bodaboda", 
-                  "Fundi", 
-                  "Watchman", 
-                  "Cook", 
-                  "Simu/TV repair", 
-                  "Juakali artisan", 
-                  "Painter", 
-                  "Plumber", 
-                  "Gardener", 
-                  "Carpenter", 
-                  "Tailor", 
-                  "Security",
-                  "Driver"
-                ].map((category, idx) => (
-                  <span key={idx} className="bg-sky-50 text-sky-800 px-3 py-1 rounded-full text-sm whitespace-nowrap mb-1">
-                    {category}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
       
       <div className="w-full 2xl:w-full relative mx-auto">
