@@ -57,13 +57,13 @@ function SlideShow() {
           />
           <div className="absolute left-0 top-0 z-10 flex flex-col px-4 xl:px-32 pb-14 xl:pt-[575px] items-center justify-end xl:items-start xl:justify-start w-full h-full bg-gradient-to-t from-black/70 to-transparent">
             <div className={`transform transition-transform duration-1000 text-center lg:text-start ease-in-out ${currentSlide === index ? 'translate-x-0' : '-translate-x-full'}`}>
-              <h2 className="text-3xl lg:text-5xl font-bold text-orange-400 uppercase leading-tight drop-shadow-md">
+              <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-orange-400 uppercase leading-tight drop-shadow-md">
                 {slide.head}
               </h2>
-              <p className="text-md lg:text-xl font-normal text-white leading-tight mb-5 mt-2 max-w-2xl drop-shadow-md">
+              <p className="text-sm sm:text-md lg:text-xl font-normal text-white leading-tight mb-3 sm:mb-5 mt-2 max-w-2xl drop-shadow-md">
                 {slide.desc}
               </p>
-              <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+              <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 sm:px-6 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg text-sm sm:text-base">
                 Anza Sasa
               </button>
             </div>
@@ -72,14 +72,14 @@ function SlideShow() {
       ))}
 
       {/* Slide Navigation Indicators */}
-      <div className="absolute bottom-6 z-10 left-0 right-0 flex justify-center gap-3">
+      <div className="absolute bottom-6 z-10 left-0 right-0 flex justify-center gap-2 md:gap-3">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentSlide(idx)}
             aria-label={`Go to slide ${idx + 1}`}
-            className={`h-3 w-3 rounded-full transition-all cursor-pointer transform hover:scale-110 ${
-              idx === currentSlide ? 'bg-orange-500 scale-125 w-8' : 'bg-white/70 hover:bg-white'
+            className={`h-2 md:h-3 transition-all cursor-pointer transform hover:scale-110 ${
+              idx === currentSlide ? 'bg-orange-500 scale-125 w-6 md:w-8 rounded-full' : 'bg-white/70 hover:bg-white w-2 md:w-3 rounded-full'
             }`}
           />
         ))}
@@ -105,7 +105,7 @@ export default function HomeHead() {
             </h3>
           </div>
           
-          <h1 className="text-3xl lg:text-5xl xl:text-6xl font-bold text-sky-900 uppercase lg:leading-tight mb-6">
+          <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-sky-900 uppercase lg:leading-tight mb-4 sm:mb-6">
             Manual Jobs Made Easy in Kenya 🇰🇪
           </h1>
           
@@ -113,37 +113,59 @@ export default function HomeHead() {
             Kazibase ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka kazi, hustler anaiona, anakuchat WhatsApp – kazi inaanza!
           </p>
           
-          <div className="mt-8 flex gap-4">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-8 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center gap-2">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <button className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto">
               <span>Tafuta Kazi</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </button>
             
-            <button className="border-2 border-sky-800 text-sky-800 hover:bg-sky-800 hover:text-white py-3 px-8 rounded-full font-medium transition-all duration-300 ease-in-out">
-              Weka Kazi
+            <button className="border-2 border-sky-800 text-sky-800 hover:bg-sky-800 hover:text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
+              <span>Weka Kazi</span>
             </button>
           </div>
         </div>
         
-        <div className="lg:pl-12 pt-5">
-          <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-orange-500">
+        <div className="lg:pl-12 pt-8 sm:pt-5">
+          <div className="bg-white p-4 sm:p-6 rounded-xl shadow-lg border-l-4 border-orange-500">
             <p className="text-md lg:text-xl font-normal tracking-wide text-gray-700">
               Wafanyakazi wote wanathibitisha ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao. Kazibase inalenga kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret ama Garissa.
             </p>
             
             <div className="mt-6">
-              <h4 className="font-bold text-orange-500 text-lg mb-2">Categories:</h4>
+              <h4 className="font-bold text-orange-500 text-lg mb-3 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 116 0z" clipRule="evenodd" />
+                </svg>
+                Categories:
+              </h4>
               <div className="flex flex-wrap gap-2">
-                {["Mama fua", "Mechanic", "Electrician", "Cleaner", "Househelp", "Mkokoteni", "Bodaboda", "Fundi", "Watchman", "Cook"].map((category, idx) => (
-                  <span key={idx} className="bg-sky-50 text-sky-800 px-3 py-1 rounded-full text-sm">
+                {[
+                  "Mama fua", 
+                  "Mechanic", 
+                  "Electrician", 
+                  "Cleaner", 
+                  "Househelp", 
+                  "Mkokoteni", 
+                  "Bodaboda", 
+                  "Fundi", 
+                  "Watchman", 
+                  "Cook", 
+                  "Simu/TV repair", 
+                  "Juakali artisan", 
+                  "Painter", 
+                  "Plumber", 
+                  "Gardener", 
+                  "Carpenter", 
+                  "Tailor", 
+                  "Security",
+                  "Driver"
+                ].map((category, idx) => (
+                  <span key={idx} className="bg-sky-50 text-sky-800 px-3 py-1 rounded-full text-sm whitespace-nowrap mb-1">
                     {category}
                   </span>
                 ))}
-                <span className="bg-sky-50 text-sky-800 px-3 py-1 rounded-full text-sm">
-                  +more
-                </span>
               </div>
             </div>
           </div>
