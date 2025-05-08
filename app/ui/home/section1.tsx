@@ -2,6 +2,8 @@
 import { TargetWindowCheck } from "@/app/hooks/windowSize";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Link from 'next/link';
+
 
 function SlideShow() {
     const [currentSlide, setCurrentSlide] = useState(0);
