@@ -13,17 +13,17 @@ function SlideShow() {
   // Define slides as a memoized constant
   const slides = useMemo(() => [
     {
-      img: width === 'D' ? '/assets/hs1.jpg' : '/assets/hs4.jpg',
+      img: width === 'D' ? '/assets/kazibase.png' : '/assets/kazibase.png',
       head: 'Post Kazi, Pata Hustler',
       desc: 'Weka kazi haraka – hustler anaiona papo hapo, anakuchat WhatsApp na kazi inaanza. Whether ni kusafisha nyumba, kubeba vitu au kuosha gari – help iko karibu na wewe, anytime.'
     },
     {
-      img: width === 'D' ? '/assets/hs2.jpg' : '/assets/hs5.jpg',
+      img: width === 'D' ? '/assets/kazibase.png' : '/assets/kazibase.png',
       head: 'Local Talent You Can Trust',
       desc: 'Hustlers wetu wameverify skills zao – mama fua, fundi wa umeme, dereva bodaboda, na wengineo. Hawa ni watu wa mtaa wako, wanaojali kazi safi na huduma ya kweli.'
     },
     {
-      img: width === 'D' ? '/assets/hs3.jpg' : '/assets/hs6.jpg',
+      img: width === 'D' ? '/assets/kazibase.png' : '/assets/kazibase.png',
       head: 'Jobs for Every Hustler',
       desc: 'Kazibase inafungua milango ya kazi ndogo ndogo kwa kila mkenya – fundi, mama fua, watchman, au jamaa wa mkokoteni. Kama ni kazi ya mikono, iko hapa. Post, connect, maliza kazi.'
     }
@@ -140,18 +140,14 @@ export default function HomeHead() {
       </div>
       
       <div className="w-full 2xl:w-full relative mx-auto">
-        <SlideShow />
-        <div className="absolute lg:-right-12 lg:-top-16 2xl:-right-16 hidden lg:block z-40 transform rotate-6 transition-transform hover:rotate-12 duration-500 cursor-pointer">
-          <Image
-            className="drop-shadow-xl"
-            width={width === 'D' ? 200 : 150}
-            height={width === 'D' ? 200 : 150}
-            src="/assets/borderedLogo.png"
-            alt="Kazibase Logo"
-            priority
-          />
-        </div>
-      </div>
+  <SlideShow />
+  <div className="absolute lg:-right-12 lg:-top-16 2xl:-right-16 hidden lg:block z-40 transform rotate-6 transition-transform hover:rotate-12 duration-500 cursor-pointer">
+    <div className="text-4xl font-extrabold text-orange-500 drop-shadow-xl">
+      Kazibase
+    </div>
+  </div>
+</div>
+
     </section>
   );
 }
