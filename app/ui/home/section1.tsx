@@ -29,12 +29,10 @@ function SlideShow() {
     }
   ], [width]);
 
-  // Auto-rotate slideshow
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevIndex) => (prevIndex + 1) % slides.length);
     }, 7000);
-
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -43,9 +41,7 @@ function SlideShow() {
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out delay-300 ${
-            currentSlide === index ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out delay-300 ${currentSlide === index ? 'opacity-100' : 'opacity-0'}`}
         >
           <Image
             src={slide.img}
@@ -70,8 +66,6 @@ function SlideShow() {
           </div>
         </div>
       ))}
-
-      {/* Slide Navigation Indicators */}
       <div className="absolute bottom-6 z-10 left-0 right-0 flex justify-center gap-2 md:gap-3">
         {slides.map((_, idx) => (
           <button
@@ -92,32 +86,27 @@ function SlideShow() {
  * Main component for the home page header section
  */
 export default function HomeHead() {
-  const width = TargetWindowCheck();
-
   return (
     <section className="container w-[88%] lg:w-full">
       <div className="mx-auto w-full pt-10 xl:pt-32 pb-16 lg:pb-20 xl:pb-40 grid lg:grid-cols-2 gap-8">
         <div className="lg:pr-12">
           <div className="flex items-center gap-2 mb-3">
-           <h4 className="text-sm font-medium leading-4 tracking-wider border border-black p-2">
-  <span className="font-bold text-orange-500">Kazibase :</span> Real Hustles, Real Jobs, Real People.
-</h4>
-
-
+            <h4 className="text-sm font-medium leading-4 tracking-wider border border-black p-2">
+              <span className="font-bold text-orange-500">KAZIBASE :</span> Real Hustles, Real Jobs.
+            </h4>
           </div>
           
           <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-sky-900 uppercase lg:leading-tight mb-4 sm:mb-6">
             Manual Jobs Made Easy in Kenya 🇰🇪
           </h1>
           
-         <p className="text-sm lg:text-base font-normal tracking-wide text-gray-700 max-w-xl">
-  Kazibase ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka kazi, hustler anaiona, anakuchat WhatsApp – kazi inaanza!
-</p>
           <p className="text-sm lg:text-base font-normal tracking-wide text-gray-700 max-w-xl">
-   Wafanyakazi wote wanathibitisha ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao. Kazibase inalenga kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret ama Garissa.
-           </p>
+            Kazibase ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka kazi, hustler anaiona, anakuchat WhatsApp – kazi inaanza!
+          </p>
+          <p className="text-sm lg:text-base font-normal tracking-wide text-gray-700 max-w-xl">
+            Wafanyakazi wote wanathibitisha ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao. Kazibase inalenga kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret ama Garissa.
+          </p>
 
-          
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <button className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto">
               <span>Tafuta Kazi</span>
@@ -126,28 +115,24 @@ export default function HomeHead() {
               </svg>
             </button>
             
-           <button className="border-2 border-sky-800 text-sky-800 hover:bg-sky-800 hover:text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
-  <span>Weka Kazi</span>
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-current" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-  </svg>
-</button>
-
+            <button className="border-2 border-sky-800 text-sky-800 hover:bg-sky-800 hover:text-white py-3 px-6 sm:px-8 rounded-full font-medium transition-all duration-300 ease-in-out flex items-center justify-center gap-2 w-full sm:w-auto">
+              <span>Weka Kazi</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-current" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
           </div>
         </div>
-        
-        
       </div>
-      
-      <div className="w-full 2xl:w-full relative mx-auto">
-  <SlideShow />
-  <div className="absolute lg:-right-12 lg:-top-16 2xl:-right-16 hidden lg:block z-40 transform rotate-6 transition-transform hover:rotate-12 duration-500 cursor-pointer">
-    <div className="text-4xl font-extrabold text-orange-500 drop-shadow-xl">
-      Kazibase
-    </div>
-  </div>
-</div>
 
+      <div className="w-full 2xl:w-full relative mx-auto">
+        <SlideShow />
+        <div className="absolute lg:-right-12 lg:-top-16 2xl:-right-16 hidden lg:block z-40 transform rotate-6 transition-transform hover:rotate-12 duration-500 cursor-pointer">
+          <div className="text-4xl font-extrabold text-orange-500 drop-shadow-xl">
+            Kazibase
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
