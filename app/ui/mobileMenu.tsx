@@ -1,6 +1,5 @@
 'use client'
 import { Grip, MailIcon, MapPin, PhoneCall, X } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import DropDown from './dropdown';
@@ -37,7 +36,17 @@ export default function MobileMenu() {
                     <div className={`w-[88%] h-auto min-h-[100vh] bg-sidemenu-bg px-5 fixed top-0 left-0 transform transition-transform ease-in-out duration-[0.7s] ${openMenu ? 'translate-x-0':'-translate-x-full'} `}>
                         <div className='grid grid-rows-[30%,45%,20%] h-[90vh] my-[3vh]'>
                         <div className=''>
-                            <Image src={'/assets/mobile-logo-2.png'} alt='Work horizon mobile logo' width={200} height={100} className='w-[11rem] h-auto' />
+                            <div className="w-[11rem] h-auto">
+                                <div className="flex flex-col">
+                                    <h1 className="text-2xl font-bold tracking-wide">
+                                        <span className="text-sky-900">KAZI</span>
+                                        <span className="text-[#F7801E]">BASE</span>
+                                    </h1>
+                                    <p className="text-xs text-sky-700 font-medium tracking-tight">
+                                        Connecting Skilled Labor in Kenya
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div className='flex flex-col pr-8'>
                             {
@@ -56,7 +65,7 @@ export default function MobileMenu() {
                                 </div>
                                 <div className='flex flex-col pl-1'>
                                     <h3 className='text-md font-semibold tracking-wide text-gray-700'>Phone</h3>
-                                    <Link href='tel:+923206460085' className='text-md font-semibold tracking-wide text-sky-900'>92 320 6460085</Link>
+                                    <Link href='tel:+254768258491' className='text-md font-semibold tracking-wide text-sky-900'>+254768258491</Link>
                                 </div>
                             </div>
                             <div className='grid grid-cols-[20%,80%] mb-3 items-center'>
@@ -65,7 +74,7 @@ export default function MobileMenu() {
                                 </div>
                                 <div className='flex flex-col pl-1'>
                                     <h3 className='text-md font-semibold tracking-wide text-gray-700'>Email Us</h3>
-                                    <Link href='mailto:hr@workhorizon.pk' className='text-md font-semibold tracking-wide text-sky-900'>hr@workhorizon.pk</Link>
+                                    <Link href='mailto:info@kazibase.co.ke' className='text-md font-semibold tracking-wide text-sky-900'>info@kazibase.co.ke</Link>
                                 </div>
                             </div>
                             <div className='grid grid-cols-[20%,80%] items-start'>
@@ -74,7 +83,7 @@ export default function MobileMenu() {
                                 </div>
                                 <div className='flex flex-col pl-1'>
                                     <h3 className='text-md font-semibold tracking-wide text-gray-700'>Our Office</h3>
-                                    <h3 className='text-md font-semibold tracking-wide text-sky-900'>Sunny Plaza, Eden City, DHA Phase 8, Lahore,PK.</h3>
+                                    <h3 className='text-md font-semibold tracking-wide text-sky-900'>Nairobi, Kenya</h3>
                                 </div>
                             </div>
                         </div>
