@@ -102,14 +102,14 @@ export default function HomeHead() {
 
                 </div>
                 <div className="flex flex-row justify-center lg:justify-start gap-4 mt-6">
-  <Link href="/post-kazi">
+  <Link href="/login">
     <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-5 rounded-full shadow-md transition-transform hover:scale-105 text-sm sm:text-base">
-      Post Kazi
+      Post Job
     </button>
   </Link>
-  <Link href="/jiunge">
+  <Link href="/register">
     <button className="bg-sky-900 hover:bg-sky-800 text-white font-medium py-2 px-5 rounded-full shadow-md transition-transform hover:scale-105 text-sm sm:text-base">
-      Jiunge Kama Hustler
+      Join as a worker
     </button>
   </Link>
 </div>
