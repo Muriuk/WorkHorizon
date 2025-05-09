@@ -85,7 +85,7 @@ export default function HomeHead() {
     <span className="text-sky-900">Kazi</span>
     <span className="text-orange-500">base</span>
   </span>{" "}
-  - Real Hustles, Real Jobs, Real People
+  - Work, Get Paid, Happy Life
 </h3>
                     <h3 className="text-3xl lg:text-5xl font-bold text-sky-900 uppercase lg:leading-tight mb-3">
                         Manual Jobs Made Easy in Kenya
