@@ -4,12 +4,12 @@ export default function HiringProcess() {
     const HP = [
         {
             image: '/assets/post-job.jpg',
-            head: 'Tuma Kazi Yako (Post a Job)',
+            head: 'Post a Job (Tuma Kazi Yako)',
             text: 'Elezea kazi unayotaka ifanywe—cleaning, delivery, repair, etc. Fill a quick form in seconds.',
         },
         {
             image: '/assets/select-worker.jpg',
-            head: 'Chagua Hustler (Pick a Worker)',
+            head: 'Pick a Worker (Chagua Hustler)',
             text: 'Angalia walio karibu, read reviews, na chagua yule unaeamini anaweza kazi vizuri.',
         },
         {
@@ -19,7 +19,7 @@ export default function HiringProcess() {
         },
         {
             image: '/assets/work-done.jpg',
-            head: 'Kazi Inafanyika (Job Gets Done)',
+            head: 'Job Gets Done (Kazi Inafanyika)',
             text: 'Hustler mwenye umechagua anakuja na anafanya kazi yako haraka na kwa uaminifu.',
         },
         {
@@ -29,7 +29,7 @@ export default function HiringProcess() {
         },
         {
             image: '/assets/disclaimer.jpg',
-            head: 'Angalizo Muhimu (Disclaimer)',
+            head: 'Disclaimer (Angalizo Muhimu)',
             text: 'Kazibase haikusanyi wala kupokea malipo. Malipo yote hufanywa moja kwa moja kati ya mteja na hustler.',
         },
     ];
@@ -41,8 +41,8 @@ export default function HiringProcess() {
             </h3>
 
             <p className="text-md lg:text-xl font-normal tracking-wide text-center" data-aos='fade-up'>
-                {' We believe in a transparent and efficient environment for both worker and the employer to bring the best work solving mechanism.
-                Here’s how <span className="text-sky-900 font-semibold">Kazi</span><span className="text-orange-500 font-semibold">base</span> works: '}
+                { We believe in a transparent and efficient environment for both worker and the employer to bring the best work solving mechanism.
+                Here’s how <span className="text-sky-900 font-semibold">Kazi</span><span className="text-orange-500 font-semibold">base</span> works: }
             </p>
 
             {/* Steps 1 to 3 */}
