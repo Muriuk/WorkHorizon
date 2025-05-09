@@ -91,7 +91,7 @@ export default function ContactForm() {
         <div className='block mb-8 lg:m-0'>
           <h3 className="text-2xl xl:text-3xl font-bold tracking-wide text-sky-900 mb-3">Contact Us.</h3>
           <h4 className="text-md 2xl:text-xl font-semibold tracking-wide mb-3 border border-black p-3 rounded-md">
-            For employment related queries, try to visit our{" "}
+            For job finding related queries, try to visit our{" "}
             <Link className="font-bold text-orange-500 capitalize" href={'/careers/jobs'}>
               Jobs available.
             </Link>
@@ -129,7 +129,7 @@ export default function ContactForm() {
             </div>
 
             <div className='flex flex-col mb-2'>
-              <label className="text-md lg:text-lg font-[500] tracking-wide mb-1">County (Kenya):</label>
+              <label className="text-md lg:text-lg font-[500] tracking-wide mb-1">County:</label>
               <select name='county' required value={selectedCounty} onChange={handleCountyChange}
                 className="bg-gray-100 px-2 py-1 lg:px-4 lg:py-2 border-2 border-gray-200 rounded-lg">
                 <option value="">Select your county</option>
@@ -143,7 +143,7 @@ export default function ContactForm() {
               <label className="text-md lg:text-lg font-[500] tracking-wide mb-1">Contact number:</label>
               <input type='tel' name='contactnumber' required value={contactNumber}
                 onChange={(e) => handleContactNumber(e.target.value)}
-                placeholder="07xx xxx xxx"
+                placeholder="Enter your number"
                 className="bg-gray-100 px-2 py-1 lg:px-4 lg:py-2 border-2 border-gray-200 rounded-lg" />
             </div>
 
@@ -172,7 +172,7 @@ export default function ContactForm() {
             <MailOpen className="h-[4rem] w-auto text-orange-500 mb-3" />
             <h3 className="text-xl font-[500] text-sky-900">To Mail Us:</h3>
             <Link href={'mailto:hr@workhorizon.pk'} className="text-2xl font-bold text-sky-900 border-b border-orange-500">
-              info@kazibase.com
+              info@kazibase.co.ke
             </Link>
           </div>
 
