@@ -16,7 +16,7 @@ export default function MainHeader() {
     const [menuItems, setMenuItems] = useState([
         { link: '/', name: 'Home', active: false },
         { link: '/about-us', name: 'About Us', active: false },
-        { link: '/careers', name: 'Jobs', active: false, dropdown:[ {link: '/careers', name: 'Understand KaziBase'},{link:'/careers/jobs', name: 'Available Jobs'}] },
+        { link: '/careers', name: 'Careers', active: false, dropdown:[ {link: '/careers', name: 'Careers Road Map'},{link:'/careers/jobs', name: 'Explore Jobs'}] },
         { link: '/contact-us', name: 'Contact Us', active: false },
     ]);
 
@@ -103,10 +103,10 @@ export default function MainHeader() {
                             <PortalHeader />
                         :
                             <>
-                                <Link href={'/'} className="relative text-md font-semibold text-white bg-sky-800 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px] px-4 py-2 rounded-xl">
+                                <Link href={'/worker-signup'} className="relative text-md font-semibold text-white bg-sky-800 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px] px-4 py-2 rounded-xl">
                                     Join as a Worker
                                 </Link>
-                                <Link href={'/'} className="relative text-md font-semibold text-white bg-orange-500 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px] px-4 py-2 rounded-xl">
+                                <Link href={'/post-job'} className="relative text-md font-semibold text-white bg-orange-500 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px] px-4 py-2 rounded-xl">
                                     Post a Job
                                 </Link>
                             </>
