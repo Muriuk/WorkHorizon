@@ -16,7 +16,7 @@ export default function MainHeader() {
     const [menuItems, setMenuItems] = useState([
         { link: '/', name: 'Home', active: false },
         { link: '/about-us', name: 'About Us', active: false },
-        { link: '/careers', name: 'Careers', active: false, dropdown:[ {link: '/careers', name: 'Careers Road Map'},{link:'/careers/jobs', name: 'Explore Jobs'}] },
+        { link: '/careers', name: 'Jobs', active: false, dropdown:[ {link: '/careers', name: 'Understand KaziBase'},{link:'/careers/jobs', name: 'Available Jobs'}] },
         { link: '/contact-us', name: 'Contact Us', active: false },
     ]);
 
@@ -97,14 +97,19 @@ export default function MainHeader() {
                         )
                     }
                 </div>
-                <div className="hidden lg:flex items-center justify-end">
+                <div className="hidden lg:flex items-center justify-end gap-4">
                     {
                         adminMenu ? 
                             <PortalHeader />
                         :
-                            <Link href={'tel:+254768258491'} className="relative text-md font-semibold text-orange-500 border-2 border-orange-500 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px]  px-5 py-1 rounded-xl">
-                                +254768258491
-                            </Link>
+                            <>
+                                <Link href={'/'} className="relative text-md font-semibold text-white bg-sky-800 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px] px-4 py-2 rounded-xl">
+                                    Join as a Worker
+                                </Link>
+                                <Link href={'/'} className="relative text-md font-semibold text-white bg-orange-500 transition-all ease-in-out duration-500 hover:scale-[1.05] hover:-top-[2px] px-4 py-2 rounded-xl">
+                                    Post a Job
+                                </Link>
+                            </>
                     }
                 </div>
                 <div className="flex lg:hidden items-center justify-end">
