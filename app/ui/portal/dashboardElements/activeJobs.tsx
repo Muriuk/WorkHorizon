@@ -22,10 +22,10 @@ export default function ActiveJobs(){
 
     return(
         <div className='w-full max-w-[95%] md:max-w-[90%] lg:max-w-[85%] my-4 bg-gray-200 rounded-xl md:rounded-3xl p-3 md:p-4 lg:p-8 mx-auto shadow-lg shadow-gray-300'>
-            <div className='bg-gray-100 h-full flex flex-col items-center rounded-xl md:rounded-3xl py-3'>  
+            <div className='bg-gray-100 h-full flex flex-col items-center rounded-xl md:rounded-3xl py-3 min-h-[300px] sm:min-h-[320px]'>  
                 <h3 className="w-fit mx-auto mt-2 text-xl md:text-2xl lg:text-3xl font-semibold text-sky-900 border-b border-orange-500">Jobs Active</h3>
                 
-                <div className='px-2 sm:px-4 mt-4 w-full min-h-[180px] md:min-h-[200px] 2xl:min-h-[250px]'>
+                <div className='px-2 sm:px-4 mt-4 w-full min-h-[180px] md:min-h-[200px] 2xl:min-h-[250px] flex-1'>
                     {
                         loading ? 
                         <div className="w-full h-full flex flex-col justify-center items-center">
@@ -51,12 +51,14 @@ export default function ActiveJobs(){
                     }
                 </div>
                 
-                <Link 
-                    href='/portal/dashboard/jobs-list' 
-                    className="mt-4 md:mt-6 px-3 sm:px-4 py-1.5 sm:py-2 text-sm md:text-base text-gray-100 rounded-lg md:rounded-xl font-medium md:font-semibold tracking-wide bg-sky-900 border-2 border-transparent hover:border-sky-900 hover:text-sky-900 hover:bg-transparent w-fit mx-auto transition-transform ease-in-out duration-300 hover:scale-[1.03]"
-                >
-                    View All
-                </Link>
+                <div className="w-full mt-auto pt-4">
+                    <Link 
+                        href='/portal/dashboard/jobs-list' 
+                        className="mt-2 md:mt-6 px-3 sm:px-4 py-1.5 sm:py-2 text-sm md:text-base text-gray-100 rounded-lg md:rounded-xl font-medium md:font-semibold tracking-wide bg-sky-900 border-2 border-transparent hover:border-sky-900 hover:text-sky-900 hover:bg-transparent w-fit mx-auto block transition-transform ease-in-out duration-300 hover:scale-[1.03]"
+                    >
+                        View All
+                    </Link>
+                </div>
             </div>
         </div>
     )
