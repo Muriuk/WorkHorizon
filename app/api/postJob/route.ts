@@ -1,9 +1,6 @@
-// app/api/postJob/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 
-// This function creates and returns a new connection every time it's called
 async function getConnection() {
   return await mysql.createConnection({
     host: process.env.DB_HOST,
@@ -13,7 +10,6 @@ async function getConnection() {
   });
 }
 
-// Handle POST request
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
@@ -31,7 +27,7 @@ export async function POST(req: NextRequest) {
       whatsapp,
     } = data;
 
-    const connection = await getConnection(); // ✅ Create and wait for connection
+    const connection = await getConnection();
 
     const query = `
       INSERT INTO job_posts (client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp)
@@ -51,11 +47,12 @@ export async function POST(req: NextRequest) {
       whatsapp,
     ]);
 
-    await connection.end(); // ✅ Always close your connection
+    await connection.end();
 
     return NextResponse.json({ message: 'Job posted successfully' }, { status: 200 });
-  } catch (error: any) {
-    console.error("POST /api/postJob error:", error);
-    return NextResponse.json({ error: 'Failed to post job', details: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error("POST /api/postJob error:", err.message);
+    return NextResponse.json({ error: 'Failed to post job', details: err.message }, { status: 500 });
   }
 }
