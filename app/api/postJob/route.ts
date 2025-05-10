@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
-    const [result] = await db.query(query, [
+    await db.query(query, [
       client_name,
       title,
       description,
@@ -54,3 +54,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to post job' }, { status: 500 });
   }
 }
+
