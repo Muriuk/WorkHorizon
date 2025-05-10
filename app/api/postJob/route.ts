@@ -3,19 +3,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 
-// Setup database connection
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+// This function creates and returns a new connection every time it's called
+async function getConnection() {
+  return await mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  });
+}
 
 // Handle POST request
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    
+
     const {
       client_name,
       title,
@@ -29,16 +31,14 @@ export async function POST(req: NextRequest) {
       whatsapp,
     } = data;
 
-    // Await the database connection before querying
-    const connection = await db; // Await the resolved connection
+    const connection = await getConnection(); // ✅ Create and wait for connection
 
     const query = `
       INSERT INTO job_posts (client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    
-    // Now perform the query on the connection
-    await connection.query(query, [
+
+    await connection.execute(query, [
       client_name,
       title,
       description,
@@ -51,9 +51,11 @@ export async function POST(req: NextRequest) {
       whatsapp,
     ]);
 
+    await connection.end(); // ✅ Always close your connection
+
     return NextResponse.json({ message: 'Job posted successfully' }, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: 'Failed to post job' }, { status: 500 });
+  } catch (error: any) {
+    console.error("POST /api/postJob error:", error);
+    return NextResponse.json({ error: 'Failed to post job', details: error.message }, { status: 500 });
   }
 }
