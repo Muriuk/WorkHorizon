@@ -153,19 +153,19 @@ export default function LoginForm() {
                         
                         <label className="text-md sm:text-lg font-medium mb-1 mt-4">Phone Number:</label>
                         <div className="flex">
-                            <span className="bg-gray-300 px-3 py-2 rounded-l-lg flex items-center">+254</span>
+                           
                             <input
                                 className="bg-gray-200 px-3 py-2 rounded-r-lg shadow-md flex-1"
                                 type="tel"
                                 name="phone_number"
                                 id="phone_number"
-                                placeholder="7XXXXXXXX"
-                                pattern="[0-9]{9}"
+                                placeholder="Enter your number"
+                                pattern="[0-10]{10}"
                                 title="Please enter a valid 9-digit Kenyan phone number without country code"
                                 required
                             />
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">Enter 9 digits without leading zero (e.g., 712345678)</p>
+                        <p className="text-xs text-gray-500 mt-1">Use your active number for clients to reach you</p>
                         
                         <label className="text-md sm:text-lg font-medium mb-1 mt-4">Work Category:</label>
                         <select
@@ -174,7 +174,7 @@ export default function LoginForm() {
                             id="work_category"
                             required
                         >
-                            <option value="">-- Select your work category --</option>
+                            <option value="">-- Select work you can do --</option>
                             <option value="construction">Construction Worker</option>
                             <option value="plumbing">Plumber</option>
                             <option value="electrical">Electrician</option>
