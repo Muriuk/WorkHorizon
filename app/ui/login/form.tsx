@@ -31,7 +31,7 @@ export default function LoginForm() {
         // You'll need to integrate with a Google OAuth provider
     };
 
-    // We're no longer using this function since we have direct button onClick handlers
+    // We no longer using this function since we have direct button onClick handlers
     // but keeping it commented in case needed for future reference
     // const toggleForm = () => {
     //     setShowLogin(!showLogin);
