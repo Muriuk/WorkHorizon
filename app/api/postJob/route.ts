@@ -29,13 +29,16 @@ export async function POST(req: NextRequest) {
       whatsapp,
     } = data;
 
-    // Perform SQL Insert
+    // Await the database connection before querying
+    const connection = await db; // Await the resolved connection
+
     const query = `
       INSERT INTO job_posts (client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
-    await db.query(query, [
+    // Now perform the query on the connection
+    await connection.query(query, [
       client_name,
       title,
       description,
@@ -54,4 +57,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to post job' }, { status: 500 });
   }
 }
-
