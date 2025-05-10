@@ -1,4 +1,4 @@
-// app/api/jobs/route.js
+// app/api/jobs/route.ts
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
@@ -34,8 +34,16 @@ export async function GET() {
     const [rows] = await connection.execute(query);
     await connection.end();
     
+    // Ensure 'rows' is an array
+    if (!Array.isArray(rows)) {
+      return NextResponse.json(
+        { error: 'Invalid response format from database' },
+        { status: 500 }
+      );
+    }
+
     // If the result is empty, return an empty array (no jobs available)
-    if (!rows || rows.length === 0) {
+    if (rows.length === 0) {
       return NextResponse.json({ message: 'No jobs available' }, { status: 200 });
     }
 
