@@ -24,7 +24,6 @@ export default function PostJobForm() {
                 body: JSON.stringify(data),
             });
 
-            const result = await response.json();
             if (response.ok) {
                 alert("Job posted successfully");
                 router.push("/portal/dashboard"); // Navigate to dashboard
