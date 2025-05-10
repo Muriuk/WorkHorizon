@@ -24,7 +24,6 @@ export default function JobsPage() {
     const fetchJobs = async () => {
         try {
             setLoading(true);
-            // Using our MySQL API endpoint that connects to job_posts table
             const response = await fetch('/api/jobs');
             if (!response.ok) {
                 throw new Error('Failed to fetch jobs');
@@ -59,9 +58,6 @@ export default function JobsPage() {
 }
 
 function JobsHead({ singleJob }) {
-    // Using underscore to indicate intentionally unused variable
-    const _pathname = usePathname();
-
     return (
         <div className='bg-neutral-100 w-full shadow-md shadow-gray-200'>
             <div className={`container w-[88%] lg:w-[77%] 2xl:w-[70%] flex pt-6 ${singleJob ? 'hidden' : ''}`}>
@@ -72,7 +68,6 @@ function JobsHead({ singleJob }) {
                 <Link href={'/careers/jobs'} className="hidden lg:block text-orange-500 font-semibold text-sm underline">Available Jobs</Link>
             </div>
             <div className='container w-[88%] flex flex-col bg-neutral-100 items-center justify-center lg:w-full py-8 lg:pt-8 lg:pb-12'>
-                {/* Inserted Logo Block */}
                 <Link href={'/careers/jobs'}>
                     <div className="w-[13rem] lg:w-[15rem] h-auto flex items-center justify-center mb-3">
                         <div className="flex flex-col items-center">
@@ -131,10 +126,8 @@ function JobCard({ job }) {
         gender,
         duration,
         budget
-        // Removed unused variables phone and whatsapp
     } = job;
 
-    // Format budget with commas for thousands
     const formattedBudget = new Intl.NumberFormat('en-KE').format(budget);
 
     return (
