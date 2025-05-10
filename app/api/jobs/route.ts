@@ -34,20 +34,28 @@ export async function GET() {
     const [rows] = await connection.execute(query);
     await connection.end();
     
+    // If the result is empty, return an empty array (no jobs available)
+    if (!rows || rows.length === 0) {
+      return NextResponse.json({ message: 'No jobs available' }, { status: 200 });
+    }
+
     return NextResponse.json(rows);
-  } catch (error: unknown) {
+
+  } catch (error) {
+    // Handle known errors
+    console.error('Database error:', error);
     if (error instanceof Error) {
-      console.error('Database error:', error);
       return NextResponse.json(
         { error: 'Failed to fetch jobs from database', details: error.message },
         { status: 500 }
       );
-    } else {
-      console.error('Unknown error:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch jobs from database', details: 'Unknown error' },
-        { status: 500 }
-      );
     }
+
+    // Fallback for unknown errors
+    console.error('Unknown error:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch jobs from database', details: 'Unknown error' },
+      { status: 500 }
+    );
   }
 }
