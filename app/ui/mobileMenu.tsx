@@ -9,7 +9,7 @@ export default function MobileMenu() {
     const menu = [
         { link: '/', name: 'Home', active: false },
         { link: '/about-us', name: 'About Us', active: false },
-        { link: '/careers', name: 'Jobs', active: false, dropdown:[{name:'Understand KaziBase', link: '/careers'}, {name: 'Available Jobs', link: '/careers/jobs'}] },
+        { link: '/careers', name: 'Jobs', active: false, dropdown:[{name:'Understand KaziBase', link: '/careers'}, {name: 'Available Jobs', link: '/jobspage'}] },
         { link: '/contact-us', name: 'Contact Us', active: false },
     ]
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function MobileMenu() {
                         {/* Action Buttons Section */}
                         <div className='flex flex-col gap-3 mb-4'>
                             <Link 
-                                href={'/'} 
+                                href={'/login'} 
                                 onClick={() => setOpenMenu(false)}
                                 className="relative group overflow-hidden bg-gradient-to-br from-sky-700 to-sky-900 text-white font-bold text-base py-3 px-4 rounded-xl shadow-md transition-all duration-300"
                             >
@@ -76,7 +76,7 @@ export default function MobileMenu() {
                             </Link>
                             
                             <Link 
-                                href={'/'} 
+                                href={'/postjob'} 
                                 onClick={() => setOpenMenu(false)}
                                 className="relative group overflow-hidden bg-gradient-to-br from-orange-500 to-orange-600 text-white font-bold text-base py-3 px-4 rounded-xl shadow-md transition-all duration-300"
                             >
