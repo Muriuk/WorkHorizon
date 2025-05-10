@@ -23,7 +23,10 @@ export default function PostJobForm() {
                 },
                 body: JSON.stringify(data),
             });
-
+            
+ const result = await response.json(); // ✅ Log the response details
+        console.log("Server response:", result); // 👀 This is what you will check
+            
             if (response.ok) {
                 alert("Job posted successfully");
                 router.push("/portal/dashboard"); // Navigate to dashboard
