@@ -4,7 +4,7 @@ import ContactUsBody from "./body"
 
 
 export const metadata:Metadata = {
-    title: 'Contact Us - Work Horizon'
+    title: 'Contact Us - KaziBase'
 }
 
 export default function ContactUs(){
