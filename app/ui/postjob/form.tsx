@@ -2,10 +2,17 @@
 
 import { useState } from "react";
 
-
 export default function PostJobForm() {
-    
     const [loading, setLoading] = useState(false);
+    const [toast, setToast] = useState({ show: false, message: "", type: "" });
+
+    // Function to show toast message
+    const showToast = (message, type) => {
+        setToast({ show: true, message, type });
+        setTimeout(() => {
+            setToast({ show: false, message: "", type: "" });
+        }, 4000); // Hide after 4 seconds
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,25 +31,40 @@ export default function PostJobForm() {
                 body: JSON.stringify(data),
             });
             
- const result = await response.json(); // ✅ Log the response details
-        console.log("Server response:", result); // 👀 This is what you will check
+            const result = await response.json();
+            console.log("Server response:", result);
             
             if (response.ok) {
-                alert("Job posted successfully");
-               
+                showToast("Job posted successfully", "success");
             } else {
-                alert("Failed to post job");
+                showToast("Failed to post job", "error");
             }
         } catch (error) {
             console.error("Error posting job:", error);
-            alert("Failed to post job");
+            showToast("Failed to post job", "error");
         }
 
         setLoading(false);
     };
 
     return (
-        <div className="container mx-auto max-w-xl px-4 py-8">
+        <div className="container mx-auto max-w-xl px-4 py-8 relative">
+            {/* Toast notification */}
+            {toast.show && (
+                <div 
+                    className={`fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 p-4 rounded-lg shadow-lg transition-all duration-300 z-50 flex items-center justify-between
+                    ${toast.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}
+                >
+                    <span className="flex-1">{toast.message}</span>
+                    <button 
+                        onClick={() => setToast({ show: false, message: "", type: "" })}
+                        className="ml-2 text-white hover:text-gray-200"
+                    >
+                        ×
+                    </button>
+                </div>
+            )}
+
             <h2 className="text-2xl font-semibold text-sky-900 mb-6 text-center border-b pb-2 border-orange-500">Post a Job</h2>
 
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
