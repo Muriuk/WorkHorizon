@@ -16,7 +16,7 @@ export default function MainHeader() {
     const [menuItems, setMenuItems] = useState([
         { link: '/', name: 'Home', active: false },
         { link: '/about-us', name: 'About Us', active: false },
-        { link: '/careers', name: 'Jobs', active: false, dropdown: [{ link: '/careers', name: 'Understand KaziBase' }, { link: '/careers/jobs', name: 'Available Jobs' }] },
+        { link: '/careers', name: 'Jobs', active: false, dropdown: [{ link: '/careers', name: 'Understand KaziBase' }, { link: '/jobspage', name: 'Available Jobs' }] },
         { link: '/contact-us', name: 'Contact Us', active: false },
     ]);
 
