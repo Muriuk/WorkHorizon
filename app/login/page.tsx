@@ -1,23 +1,29 @@
-"use client"
+// "use client" // Uncomment when needed for full client-side behavior
 
-import { authentication } from "@/app/lib/authenticate";
+// import { authentication } from "@/app/lib/authenticate"; // Skip this in dev
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation"; // Not using router for dev mode
 import { useState } from "react";
 
 export default function LoginForm() {
-    const router = useRouter();
+    // const router = useRouter(); // Not using router in dev mode
     const [errors, setErrors] = useState<boolean>(false);
     const [checking, setChecking] = useState<boolean>(false);
-    const formAction = async (e:React.FormEvent<HTMLFormElement>) => {
+
+    const formAction = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setChecking(true);
-        const formData = new FormData(e.currentTarget)
-        const result = await authentication(formData);
-        console.log("Result from Authentication => ", result);
+
+        // Skip real authentication and just redirect
+        // const result = await authentication(formData);
+        // Simulate success for dev
+        const result = { success: true }; 
+
+        console.log("Result from Fake Authentication => ", result);
 
         if (result?.success) {
-            router.push("/portal/dashboard");
+            // Dev-only: simple redirect using window.location
+            window.location.href = "/portal/dashboard";
             setChecking(false);
         } else {
             setErrors(true);
@@ -54,7 +60,6 @@ export default function LoginForm() {
                     checking ? 'Logging In...' : 'Login'
                 }</button>
             </form>
-            
         </div>
     );
 }
