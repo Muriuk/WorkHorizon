@@ -58,7 +58,7 @@ export default function PostJobForm() {
             {/* Toast notification */}
             {toast.show && (
                 <div 
-                    className={`fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 p-4 rounded-lg shadow-lg transition-all duration-300 z-50 flex items-center justify-between
+                    className={`fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-80 p-4 rounded-lg shadow-lg transition-all duration-300 z-50 flex items-center justify-between
                     ${toast.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}
                 >
                     <span className="flex-1">{toast.message}</span>
