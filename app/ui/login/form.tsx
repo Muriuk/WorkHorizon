@@ -34,8 +34,8 @@ export default function LoginForm() {
                 <input
                     className="bg-gray-200 px-3 py-1 rounded-lg shadow-md"
                     type="text"
-                    name="admin_email"
-                    id="admin_email"
+                    name="email"
+                    id="email"
                     placeholder="Enter your email"
                 />
                 
