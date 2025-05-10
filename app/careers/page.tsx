@@ -12,7 +12,7 @@ export default function Careers(){
     return(
         <>
             <Careers_Start />
-            <JoiningPath />
+            
             <WhyWorkWithUs />
             <ForJobEnquiries />
         </>
