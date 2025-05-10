@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 import mysql from 'mysql2/promise';
 
 interface JobPost {
@@ -15,10 +15,10 @@ interface JobPost {
 }
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: process.env.DB_HOST, // Your database hostname
+  user: process.env.DB_USER, // Your database username
+  password: process.env.DB_PASSWORD, // Your database password
+  database: process.env.DB_NAME, // Your database name
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -34,25 +34,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       budget,
       phone,
       whatsapp,
-    } = req.body;
+    }: JobPost = req.body;  // Apply JobPost interface here
 
     const query = `
       INSERT INTO job_posts (client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
-
+    
     try {
-      const [result]: [mysql.ResultSetHeader] = await db.execute(query, [
-        client_name, title, description, county, number_of_workers, gender,
-        duration, budget, phone, whatsapp
-      ]);
-      console.log('Insert result:', result);
+      const connection = await db;
+      await connection.query(query, [client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp]);
       res.status(200).json({ message: 'Job posted successfully' });
     } catch (err) {
-      console.error(err);
+      console.error("Error inserting job post:", err);
       res.status(500).json({ error: 'Failed to post job' });
     }
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }
 }
+
