@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import ForJobEnquiries from "../ui/careers/jobenquiries";
-import JoiningPath from "../ui/careers/joiningPath";
 import Careers_Start from "../ui/careers/startup";
 import WhyWorkWithUs from "../ui/careers/whyWorkWithUs";
 
