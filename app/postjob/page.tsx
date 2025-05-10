@@ -1,5 +1,5 @@
-import postjobForm from "../ui/postjob/form"; // path to client component
+import PostjobForm from "../ui/postjob/form"; // Ensure the component name follows Pascal case
 
-export default function postjobpage() {
-    return <postjobForm />;
+export default function PostjobPage() {
+    return <PostjobForm />;
 }
