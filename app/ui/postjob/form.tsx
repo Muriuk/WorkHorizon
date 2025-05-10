@@ -29,7 +29,7 @@ export default function PostJobForm() {
             
             if (response.ok) {
                 alert("Job posted successfully");
-                router.push("/portal/dashboard"); // Navigate to dashboard
+               
             } else {
                 alert("Failed to post job");
             }
