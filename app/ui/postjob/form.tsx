@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -12,10 +12,31 @@ export default function PostJobForm() {
         setLoading(true);
 
         const formData = new FormData(e.currentTarget);
-        console.log("Job Post Submitted:", Object.fromEntries(formData));
+        const data = Object.fromEntries(formData.entries());
+
+        // Send data to the backend API
+        try {
+            const response = await fetch("/api/postJob", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert("Job posted successfully");
+                router.push("/portal/dashboard"); // Navigate to dashboard
+            } else {
+                alert("Failed to post job");
+            }
+        } catch (error) {
+            console.error("Error posting job:", error);
+            alert("Failed to post job");
+        }
 
         setLoading(false);
-        router.push("/portal/dashboard");
     };
 
     return (
@@ -24,10 +45,19 @@ export default function PostJobForm() {
 
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
                 <label className="block text-sm font-medium mb-1">Your Name:</label>
-                <input name="client_name" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow" placeholder="Your full name" />
+                <input
+                    name="client_name"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                    placeholder="Your full name"
+                />
 
                 <label className="block text-sm font-medium mb-1">Job Category / Title:</label>
-                <select name="title" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow">
+                <select
+                    name="title"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                >
                     <option value="">-- Select job category --</option>
                     <option value="construction">Construction Worker</option>
                     <option value="plumbing">Plumber</option>
@@ -49,25 +79,39 @@ export default function PostJobForm() {
                 </select>
 
                 <label className="block text-sm font-medium mb-1">Job Description:</label>
-                <textarea name="description" required rows={4} className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow" placeholder="Describe the job clearly..."></textarea>
+                <textarea
+                    name="description"
+                    required
+                    rows={4}
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                    placeholder="Describe the job clearly..."
+                ></textarea>
 
                 <label className="block text-sm font-medium mb-1">Preferred County:</label>
-                <select name="county" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow">
+                <select
+                    name="county"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                >
                     <option value="">-- Select county --</option>
                     {[
-                        "Baringo","Bomet","Bungoma","Busia","Elgeyo-Marakwet","Embu","Garissa","Homa Bay",
-                        "Isiolo","Kajiado","Kakamega","Kericho","Kiambu","Kilifi","Kirinyaga","Kisii",
-                        "Kisumu","Kitui","Kwale","Laikipia","Lamu","Machakos","Makueni","Mandera",
-                        "Marsabit","Meru","Migori","Mombasa","Murang'a","Nairobi","Nakuru","Nandi",
-                        "Narok","Nyamira","Nyandarua","Nyeri","Samburu","Siaya","Taita-Taveta","Tana River",
-                        "Tharaka-Nithi","Trans Nzoia","Turkana","Uasin Gishu","Vihiga","Wajir","West Pokot"
+                        "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet", "Embu", "Garissa", "Homa Bay",
+                        "Isiolo", "Kajiado", "Kakamega", "Kericho", "Kiambu", "Kilifi", "Kirinyaga", "Kisii",
+                        "Kisumu", "Kitui", "Kwale", "Laikipia", "Lamu", "Machakos", "Makueni", "Mandera",
+                        "Marsabit", "Meru", "Migori", "Mombasa", "Murang'a", "Nairobi", "Nakuru", "Nandi",
+                        "Narok", "Nyamira", "Nyandarua", "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River",
+                        "Tharaka-Nithi", "Trans Nzoia", "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
                     ].map((county) => (
                         <option key={county} value={county.toLowerCase()}>{county}</option>
                     ))}
                 </select>
 
                 <label className="block text-sm font-medium mb-1">How Many People Do You Need?</label>
-                <select name="number_of_workers" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow">
+                <select
+                    name="number_of_workers"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                >
                     <option value="">-- Select number --</option>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                         <option key={num} value={num}>{num}</option>
@@ -75,7 +119,11 @@ export default function PostJobForm() {
                 </select>
 
                 <label className="block text-sm font-medium mb-1">Preferred Gender:</label>
-                <select name="gender" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow">
+                <select
+                    name="gender"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                >
                     <option value="">-- Select gender preference --</option>
                     <option value="any">Any</option>
                     <option value="male">Male</option>
@@ -83,16 +131,40 @@ export default function PostJobForm() {
                 </select>
 
                 <label className="block text-sm font-medium mb-1">How Long Will the Job Take?</label>
-                <input name="duration" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow" placeholder="e.g. 3 days, 2 weeks" />
+                <input
+                    name="duration"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                    placeholder="e.g. 3 days, 2 weeks"
+                />
 
                 <label className="block text-sm font-medium mb-1">Proposed Budget (Ksh):</label>
-                <input type="number" name="budget" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow" placeholder="e.g. 5000" />
+                <input
+                    type="number"
+                    name="budget"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                    placeholder="e.g. 5000"
+                />
 
                 <label className="block text-sm font-medium mb-1">Your Phone Number:</label>
-                <input type="tel" name="phone" pattern="[0-9]{10}" required className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow" placeholder="07XXXXXXXX" />
+                <input
+                    type="tel"
+                    name="phone"
+                    pattern="[0-9]{10}"
+                    required
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                    placeholder="07XXXXXXXX"
+                />
 
                 <label className="block text-sm font-medium mb-1">WhatsApp Number (optional):</label>
-                <input type="tel" name="whatsapp" pattern="[0-9]{10}" className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow" placeholder="07XXXXXXXX" />
+                <input
+                    type="tel"
+                    name="whatsapp"
+                    pattern="[0-9]{10}"
+                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
+                    placeholder="07XXXXXXXX"
+                />
 
                 <button
                     type="submit"
