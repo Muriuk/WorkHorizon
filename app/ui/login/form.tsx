@@ -31,10 +31,12 @@ export default function LoginForm() {
         // You'll need to integrate with a Google OAuth provider
     };
 
-    const toggleForm = () => {
-        setShowLogin(!showLogin);
-        setErrors(false);
-    };
+    // We're no longer using this function since we have direct button onClick handlers
+    // but keeping it commented in case needed for future reference
+    // const toggleForm = () => {
+    //     setShowLogin(!showLogin);
+    //     setErrors(false);
+    // };
     
     return (
         <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
@@ -44,12 +46,12 @@ export default function LoginForm() {
                     className="w-full h-auto mb-6 sm:mb-8" 
                     width={3000} 
                     height={1000} 
-                    alt="kazibase - Login page" 
+                    alt="Work Horizon - Login page" 
                     priority
                 />
                 
                 <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
-                    {`Welcome to Kazibase Portal`}
+                    {`Welcome to Work Horizon's Portal`}
                 </h2>
                 
                 <div className="mt-4 flex gap-2 justify-center">
