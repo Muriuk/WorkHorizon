@@ -5,7 +5,7 @@ import Careers_Start from "../ui/careers/startup";
 import WhyWorkWithUs from "../ui/careers/whyWorkWithUs";
 
 export const metadata:Metadata = {
-    title: 'Careers - Work Horizon'
+    title: 'Careers - KaziBase'
 }
 
 export default function Careers(){
