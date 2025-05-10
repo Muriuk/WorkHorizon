@@ -1,37 +1,22 @@
-'use client'
+'use client';
 import { TailSpin } from "react-loader-spinner";
 import NewAgentCreation from "./newAgentAddition";
 import { useEffect, useState } from "react";
-import { Agent, User } from "@/app/lib/elements";
+import { Agent } from "@/app/lib/elements";
 
-
-export default function AgentsPage({ user }: { user: User | null }) {
+export default function AgentsPage() {
     const [loading, setLoading] = useState<boolean>(false);
     const [agents, setAgents] = useState<Agent[]>([]);
-    const [sortedAgents, setSortedAgents] = useState<Agent[]>([]);
     const [editingAgent, setEditingAgent] = useState<Agent | null>(null); 
 
     useEffect(() => {
         const getAllAgents = async () => {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/agents/getAll`).then(res => res.json());
             setAgents(response);
-            setLoading(false)
+            setLoading(false);
         };
         getAllAgents();
     }, []);
-
-    useEffect(() => {
-        const SortAgents = () => {
-            if (user?.post === 'admin') {
-                setSortedAgents(agents);
-            } else if (user?.post === 'Pak HR') {
-                setSortedAgents(agents.filter(agent => agent.post !== 'admin'));
-            }else if (user?.post === 'Head HR') {
-                setSortedAgents(agents.filter(agent => agent.post !== 'admin' && agent.post !== 'Pak HR'));
-            }
-        };
-        SortAgents();
-    }, [user, agents]);
 
     const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>, field: keyof Agent) => {
         if (editingAgent) {
@@ -56,17 +41,17 @@ export default function AgentsPage({ user }: { user: User | null }) {
         setEditingAgent(null);
     };
 
-    const handleDelete = async(agent_id: string ) => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/agents/delete?agent_id=${agent_id}`,{
+    const handleDelete = async (agent_id: string) => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/agents/delete?agent_id=${agent_id}`, {
             method: 'DELETE',
-        })
-        if(response.ok){
-            setLoading(true)
+        });
+        if (response.ok) {
+            setLoading(true);
             const updatedAgents = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/agents/getAll`).then(res => res.json());
             setAgents(updatedAgents);
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="container w-[88%] lg:w-full min-h-[90vh] py-10 flex flex-col justify-center">
@@ -94,7 +79,7 @@ export default function AgentsPage({ user }: { user: User | null }) {
                                     </td>
                                 </tr>
                             ) :
-                                sortedAgents.map((agent) =>
+                                agents.map((agent) =>
                                     <tr className='grid grid-cols-1 lg:grid-cols-[15%,15%,15%,15%,15%,15%,10%] items-center w-full border-b border-gray-300 hover:bg-gray-100 py-2' key={agent.id}>
                                         {
                                             editingAgent?.id === agent.id ? (
@@ -102,22 +87,19 @@ export default function AgentsPage({ user }: { user: User | null }) {
                                                     <td className="px-2 py-1 lg:py-3 text-sky-900 text-md"><input className="px-2 py-1 w-full border" value={editingAgent.name} onChange={(e) => handleFieldChange(e, "name")} /></td>
                                                     <td className="px-2 py-1 lg:py-3 text-sky-900 text-md">
                                                         <select className="px-2 py-1 w-full border" value={editingAgent.post} onChange={(e) => handleFieldChange(e, "post")}>
-                                                            {
-                                                                user?.post === 'admin'  ? <option value={'admin'} >{`Admin`}</option> : null
-                                                            }
-                                                            <option value={'Pak HR'} >{`Pak HR`}</option>
-                                                            <option value={'Head HR'} >{`Head HR`}</option>
-                                                            <option value={'Recruiter'} >{`Recruiter`}</option>
-                                                        </select>    
+                                                            <option value={'admin'}>Admin</option>
+                                                            <option value={'Pak HR'}>Pak HR</option>
+                                                            <option value={'Head HR'}>Head HR</option>
+                                                            <option value={'Recruiter'}>Recruiter</option>
+                                                        </select>
                                                     </td>
                                                     <td className="px-2 py-1 lg:py-3 text-sky-900 text-md"><input className="px-2 py-1 w-full border" value={editingAgent.email} onChange={(e) => handleFieldChange(e, "email")} /></td>
                                                     <td className="px-2 py-1 lg:py-3 text-sky-900 text-md"><input className="px-2 py-1 w-full border" value={editingAgent.password} onChange={(e) => handleFieldChange(e, "password")} /></td>
                                                     <td className="px-2 py-1 lg:py-3 text-sky-900 text-md"><input className="px-2 py-1 w-full border" value={editingAgent.contact} onChange={(e) => handleFieldChange(e, "contact")} /></td>
                                                     <td className="px-2 py-1 lg:py-3 text-sky-900 text-md">
-                                                        {/* <input className="px-2 py-1 w-full border" value={editingAgent.gender} onChange={(e) => handleFieldChange(e, "gender")} /> */}
                                                         <select className="px-2 py-1 w-full border" value={editingAgent.gender} onChange={(e) => handleFieldChange(e, "gender")}>
-                                                            <option value={'male'} >{`Male`}</option>
-                                                            <option value={'female'} >{`Female`}</option>
+                                                            <option value={'male'}>Male</option>
+                                                            <option value={'female'}>Female</option>
                                                         </select>
                                                     </td>
                                                     <td className="px-4 py-1 flex items-center justify-center gap-2">
@@ -128,9 +110,7 @@ export default function AgentsPage({ user }: { user: User | null }) {
                                             ) : (
                                                 <>
                                                     <td className="px-4 py-1 lg:py-3 font-semibold capitalize text-start lg:text-center text-sky-900 text-lg lg:text-lg break-words">
-                                                        <span className="underline">
-                                                            {agent.name}
-                                                        </span>
+                                                        <span className="underline">{agent.name}</span>
                                                     </td>
                                                     <td className="px-4 py-1 lg:py-3 text-start lg:text-center text-md capitalize">{agent.post}</td>
                                                     <td className="px-4 py-1 lg:py-3 text-start lg:text-center text-md break-words">{agent.email}</td>
