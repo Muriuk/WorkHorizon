@@ -6,7 +6,7 @@ import Values from '../ui/about-us/values';
 import { Metadata } from "next";
 
 export const metadata:Metadata = {
-  title: 'About Us - Work Horizon'
+  title: 'About Us - KaziBase'
 }
 
 export default function AboutUs(){
