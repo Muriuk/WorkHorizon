@@ -38,15 +38,15 @@ export const authConfig: NextAuthConfig = {
 
             const isLoggedIn = auth?.user;
 
-            const isOnPortal = nextUrl.pathname === '/portal'
+            const isOnPortal = nextUrl.pathname === '/portall'
 
-            const isOnDashboard = nextUrl.pathname === '/portal/dashboard'
+            const isOnDashboard = nextUrl.pathname === '/portall/dashboard'
             if (isOnDashboard) {
               if (isLoggedIn) return true;
               return false; // Redirect unauthenticated users to the login page
             }
             if (isLoggedIn && isOnPortal) {
-              return Response.redirect(new URL('/portal/dashboard', nextUrl));
+              return Response.redirect(new URL('/portall/dashboard', nextUrl));
             }
             return true;
         },
