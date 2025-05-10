@@ -46,12 +46,12 @@ export default function LoginForm() {
                     className="w-full h-auto mb-6 sm:mb-8" 
                     width={3000} 
                     height={1000} 
-                    alt="Work Horizon - Login page" 
+                    alt="Kazibase - Login page" 
                     priority
                 />
                 
                 <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
-                    {`Welcome to Work Horizon's Portal`}
+                    {`Welcome to Kazibase Portal`}
                 </h2>
                 
                 <div className="mt-4 flex gap-2 justify-center">
@@ -71,7 +71,7 @@ export default function LoginForm() {
                 
                 {showLogin ? (
                     <form onSubmit={formAction} className="flex flex-col border border-gray-300 rounded-lg mt-2 shadow-md p-4 sm:p-6 w-full">
-                        <label className="text-md sm:text-lg font-medium mb-1">Email Id:</label>
+                        <label className="text-md sm:text-lg font-medium mb-1">Email:</label>
                         <input
                             className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
                             type="email"
@@ -141,7 +141,7 @@ export default function LoginForm() {
                             required
                         />
                         
-                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Email Id:</label>
+                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Email:</label>
                         <input
                             className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
                             type="email"
@@ -150,6 +150,106 @@ export default function LoginForm() {
                             placeholder="Enter your email"
                             required
                         />
+                        
+                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Phone Number:</label>
+                        <div className="flex">
+                            <span className="bg-gray-300 px-3 py-2 rounded-l-lg flex items-center">+254</span>
+                            <input
+                                className="bg-gray-200 px-3 py-2 rounded-r-lg shadow-md flex-1"
+                                type="tel"
+                                name="phone_number"
+                                id="phone_number"
+                                placeholder="7XXXXXXXX"
+                                pattern="[0-9]{9}"
+                                title="Please enter a valid 9-digit Kenyan phone number without country code"
+                                required
+                            />
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">Enter 9 digits without leading zero (e.g., 712345678)</p>
+                        
+                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Work Category:</label>
+                        <select
+                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
+                            name="work_category"
+                            id="work_category"
+                            required
+                        >
+                            <option value="">-- Select your work category --</option>
+                            <option value="construction">Construction Worker</option>
+                            <option value="plumbing">Plumber</option>
+                            <option value="electrical">Electrician</option>
+                            <option value="carpentry">Carpenter</option>
+                            <option value="painting">Painter</option>
+                            <option value="cleaning">Cleaner</option>
+                            <option value="gardening">Gardener</option>
+                            <option value="driving">Driver</option>
+                            <option value="delivery">Delivery Personnel</option>
+                            <option value="mechanic">Mechanic</option>
+                            <option value="cooking">Cook/Chef</option>
+                            <option value="tailoring">Tailor</option>
+                            <option value="welding">Welder</option>
+                            <option value="hair_beauty">Hair & Beauty</option>
+                            <option value="security">Security Guard</option>
+                            <option value="farming">Farm Worker</option>
+                            <option value="other">Other</option>
+                        </select>
+                        
+                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">County:</label>
+                        <select
+                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
+                            name="county"
+                            id="county"
+                            required
+                        >
+                            <option value="">-- Select your county --</option>
+                            <option value="baringo">Baringo</option>
+                            <option value="bomet">Bomet</option>
+                            <option value="bungoma">Bungoma</option>
+                            <option value="busia">Busia</option>
+                            <option value="elgeyo_marakwet">Elgeyo Marakwet</option>
+                            <option value="embu">Embu</option>
+                            <option value="garissa">Garissa</option>
+                            <option value="homa_bay">Homa Bay</option>
+                            <option value="isiolo">Isiolo</option>
+                            <option value="kajiado">Kajiado</option>
+                            <option value="kakamega">Kakamega</option>
+                            <option value="kericho">Kericho</option>
+                            <option value="kiambu">Kiambu</option>
+                            <option value="kilifi">Kilifi</option>
+                            <option value="kirinyaga">Kirinyaga</option>
+                            <option value="kisii">Kisii</option>
+                            <option value="kisumu">Kisumu</option>
+                            <option value="kitui">Kitui</option>
+                            <option value="kwale">Kwale</option>
+                            <option value="laikipia">Laikipia</option>
+                            <option value="lamu">Lamu</option>
+                            <option value="machakos">Machakos</option>
+                            <option value="makueni">Makueni</option>
+                            <option value="mandera">Mandera</option>
+                            <option value="marsabit">Marsabit</option>
+                            <option value="meru">Meru</option>
+                            <option value="migori">Migori</option>
+                            <option value="mombasa">Mombasa</option>
+                            <option value="muranga">Murang'a</option>
+                            <option value="nairobi">Nairobi</option>
+                            <option value="nakuru">Nakuru</option>
+                            <option value="nandi">Nandi</option>
+                            <option value="narok">Narok</option>
+                            <option value="nyamira">Nyamira</option>
+                            <option value="nyandarua">Nyandarua</option>
+                            <option value="nyeri">Nyeri</option>
+                            <option value="samburu">Samburu</option>
+                            <option value="siaya">Siaya</option>
+                            <option value="taita_taveta">Taita Taveta</option>
+                            <option value="tana_river">Tana River</option>
+                            <option value="tharaka_nithi">Tharaka Nithi</option>
+                            <option value="trans_nzoia">Trans Nzoia</option>
+                            <option value="turkana">Turkana</option>
+                            <option value="uasin_gishu">Uasin Gishu</option>
+                            <option value="vihiga">Vihiga</option>
+                            <option value="wajir">Wajir</option>
+                            <option value="west_pokot">West Pokot</option>
+                        </select>
                         
                         <label className="text-md sm:text-lg font-medium mb-1 mt-4">Password:</label>
                         <input
