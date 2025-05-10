@@ -1,14 +1,13 @@
 'use client'
-import { User } from '@/app/lib/elements';
 import DashboardBody from '@/app/ui/portal/dashboard';
 import { useEffect, useState } from 'react';
 
 export default function DashboardMainBody() {
 
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<any>(null); // No User type, as no authentication
 
     useEffect(() => {
-        // Mock the user for development purposes
+        // Directly set the mock user data for development purposes
         const mockUser = {
             id: 1,
             email: 'admin@example.com',
