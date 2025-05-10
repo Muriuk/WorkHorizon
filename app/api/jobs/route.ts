@@ -25,9 +25,7 @@ export async function GET() {
         number_of_workers, 
         gender, 
         duration, 
-        budget,
-        phone,
-        whatsapp
+        budget
       FROM job_posts 
       WHERE status = 'active' OR status IS NULL
       ORDER BY created_at DESC
@@ -37,11 +35,19 @@ export async function GET() {
     await connection.end();
     
     return NextResponse.json(rows);
-  } catch (error) {
-    console.error('Database error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch jobs from database', details: error.message },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Database error:', error);
+      return NextResponse.json(
+        { error: 'Failed to fetch jobs from database', details: error.message },
+        { status: 500 }
+      );
+    } else {
+      console.error('Unknown error:', error);
+      return NextResponse.json(
+        { error: 'Failed to fetch jobs from database', details: 'Unknown error' },
+        { status: 500 }
+      );
+    }
   }
 }
