@@ -15,21 +15,20 @@ export async function GET() {
   try {
     const connection = await getConnection();
     
-    const query = `
-      SELECT 
-        id, 
-        client_name, 
-        title, 
-        description, 
-        county, 
-        number_of_workers, 
-        gender, 
-        duration, 
-        budget
-      FROM job_posts 
-      WHERE status = 'active' OR status IS NULL
-      ORDER BY created_at DESC
-    `;
+   const query = `
+  SELECT 
+    id, 
+    client_name, 
+    title, 
+    description, 
+    county, 
+    number_of_workers, 
+    gender, 
+    duration, 
+    budget
+  FROM job_posts
+`;
+
     
     const [rows] = await connection.execute(query);
     await connection.end();
