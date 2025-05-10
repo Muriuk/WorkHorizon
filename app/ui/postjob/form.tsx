@@ -4,10 +4,16 @@ import { useState } from "react";
 
 export default function PostJobForm() {
     const [loading, setLoading] = useState(false);
-    const [toast, setToast] = useState({ show: false, message: "", type: "" });
+    interface ToastState {
+    show: boolean;
+    message: string;
+    type: string;
+}
+
+    const [toast, setToast] = useState<ToastState>({ show: false, message: "", type: "" });
 
     // Function to show toast message
-    const showToast = (message, type) => {
+    const showToast = (message: string, type: string): void => {
         setToast({ show: true, message, type });
         setTimeout(() => {
             setToast({ show: false, message: "", type: "" });
