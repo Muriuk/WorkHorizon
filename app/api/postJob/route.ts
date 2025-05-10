@@ -1,28 +1,21 @@
-import { NextApiRequest, NextApiResponse } from "next";
+// app/api/postJob/route.ts
+
+import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 
-interface JobPost {
-  client_name: string;
-  title: string;
-  description: string;
-  county: string;
-  number_of_workers: number;
-  gender: string;
-  duration: string;
-  budget: number;
-  phone: string;
-  whatsapp: string;
-}
-
+// Setup database connection
 const db = mysql.createConnection({
-  host: process.env.DB_HOST, // Your database hostname
-  user: process.env.DB_USER, // Your database username
-  password: process.env.DB_PASSWORD, // Your database password
-  database: process.env.DB_NAME, // Your database name
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
+// Handle POST request
+export async function POST(req: NextRequest) {
+  try {
+    const data = await req.json();
+    
     const {
       client_name,
       title,
@@ -34,23 +27,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       budget,
       phone,
       whatsapp,
-    }: JobPost = req.body;  // Apply JobPost interface here
+    } = data;
 
+    // Perform SQL Insert
     const query = `
       INSERT INTO job_posts (client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
-    try {
-      const connection = await db;
-      await connection.query(query, [client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp]);
-      res.status(200).json({ message: 'Job posted successfully' });
-    } catch (err) {
-      console.error("Error inserting job post:", err);
-      res.status(500).json({ error: 'Failed to post job' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
+    const [result] = await db.query(query, [
+      client_name,
+      title,
+      description,
+      county,
+      number_of_workers,
+      gender,
+      duration,
+      budget,
+      phone,
+      whatsapp,
+    ]);
+
+    return NextResponse.json({ message: 'Job posted successfully' }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Failed to post job' }, { status: 500 });
   }
 }
-
