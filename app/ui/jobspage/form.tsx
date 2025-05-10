@@ -59,7 +59,8 @@ export default function JobsPage() {
 }
 
 function JobsHead({ singleJob }) {
-    const pathname = usePathname();
+    // Using underscore to indicate intentionally unused variable
+    const _pathname = usePathname();
 
     return (
         <div className='bg-neutral-100 w-full shadow-md shadow-gray-200'>
@@ -129,10 +130,8 @@ function JobCard({ job }) {
         number_of_workers,
         gender,
         duration,
-        budget,
-        // Additional fields from your database structure
-        phone, 
-        whatsapp
+        budget
+        // Removed unused variables phone and whatsapp
     } = job;
 
     // Format budget with commas for thousands
