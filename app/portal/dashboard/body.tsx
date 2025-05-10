@@ -6,18 +6,22 @@ import { useEffect, useState } from 'react';
 export default function DashboardMainBody() {
 
     const [user, setUser] = useState<User | null>(null);
+
     useEffect(() => {
-        const fetchUser = async () => {
-            const resp = await fetch('/api/getAdmin/activeUser').then(res => res.json());
-            setUser(resp)
-        }
-        fetchUser();
+        // Mock the user for development purposes
+        const mockUser = {
+            id: 1,
+            email: 'admin@example.com',
+            full_name: 'Admin User',
+            role: 'admin',
+            created_at: '2025-05-10T00:00:00Z',
+            updated_at: '2025-05-10T00:00:00Z',
+        };
+
+        setUser(mockUser);  // Directly set the mock user
     },[])
-    // console.log('User =>', user);
 
     return (
-        <>
-            <DashboardBody user={user}/>
-        </>
+        <DashboardBody user={user} />
     )
 }
