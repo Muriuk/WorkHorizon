@@ -76,12 +76,12 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
       <div className={`container w-[88%] lg:w-[77%] 2xl:w-[70%] flex pt-6 ${singleJob ? 'hidden' : ''}`}>
         <Link href='/' className="hidden lg:block text-gray-500 font-semibold text-sm underline">Home</Link>
         <ArrowRight className="w-4 h-auto text-gray-500 mr-2 lg:mx-3 rotate-180 lg:rotate-0" />
-        <Link href='/careers' className="text-gray-500 font-semibold text-sm underline">Jobs</Link>
+        <Link href='/jobspage' className="text-gray-500 font-semibold text-sm underline">Jobs</Link>
         <ArrowRight className="hidden lg:block w-4 h-auto text-gray-500 mx-3" />
-        <Link href='/careers/jobs' className="hidden lg:block text-orange-500 font-semibold text-sm underline">Available Jobs</Link>
+        <Link href='/jobspage' className="hidden lg:block text-orange-500 font-semibold text-sm underline">Available Jobs</Link>
       </div>
       <div className='container w-[88%] flex flex-col bg-neutral-100 items-center justify-center lg:w-full py-8 lg:pt-8 lg:pb-12'>
-        <Link href='/careers/jobs'>
+        <Link href='/jobspage'>
           <div className="w-[13rem] lg:w-[15rem] h-auto flex items-center justify-center mb-3">
             <div className="flex flex-col items-center">
               <h1 className="text-2xl lg:text-3xl font-bold tracking-wide">
@@ -176,7 +176,7 @@ function JobCard({ job }: { job: Job }) {
           </div>
         </div>
 
-        <Link href={`/jobs/${id}/contact`}>
+        <Link href={`/login`}>
           <button className="w-full bg-[#F7801E] hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center">
             Contact Client
             <ArrowRight className="ml-2 w-4 h-4" />
