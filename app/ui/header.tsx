@@ -105,7 +105,7 @@ export default function MainHeader() {
                             :
                             <div className="flex gap-2 xl:gap-4 items-center">
                                  <Link
-                                    href={'/'}
+                                    href={'/postjob'}
                                     className="text-sm xl:text-base text-center relative group overflow-hidden bg-gradient-to-br from-orange-500 to-orange-600 text-white font-semibold py-2 px-3 xl:py-2 xl:px-4 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-orange-500/50"
                                 >
                                     <span className="relative z-10 flex items-center justify-center">
@@ -116,7 +116,7 @@ export default function MainHeader() {
                                     </span>
                                 </Link>
                                 <Link
-                                    href={'/'}
+                                    href={'/login'}
                                     className="text-sm xl:text-base text-center relative group overflow-hidden bg-gradient-to-br from-sky-700 to-sky-900 text-white font-semibold py-2 px-3 xl:py-2 xl:px-4 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-sky-700/50"
                                 >
                                     <span className="relative z-10 flex items-center justify-center">
