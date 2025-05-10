@@ -6,7 +6,7 @@ import SearchJob from "@/app/ui/careers/jobs/searchjob"
 import { Metadata } from "next"
 
 export const metadata:Metadata={
-    title: 'Job Options - Work Horizon'
+    title: 'Job Options - KaziBase'
 }
 
 export default async function Page(props:{
