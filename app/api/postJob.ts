@@ -30,7 +30,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
-    db.query(query, [client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp], (err, results) => {
+    db.query(query, [client_name, title, description, county, number_of_workers, gender, duration, budget, phone, whatsapp], (err) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ error: 'Failed to post job' });
