@@ -5,15 +5,18 @@ import Link from "next/link";
 export default function Footer(){
     const menuItems=[
         { link: '/', name: 'Home' },
-        { link: '/about-us', name: 'About Us' },
-        { link: '/careers', name: 'Careers' },
+         { link: '/jobspage', name: 'Jobs Today' },
         { link: '/contact-us', name: 'Contact Us' },
+         { link: '/', name: 'Terms of Service' },
+        { link: '/', name: 'Privacy Policy' },
+        { link: '/', name: 'Accessibility' },
+        { link: '/', name: 'Cookies Settings' },
     ];
     const careerItems=[
-        { link: '/', name: 'Professional WorkerS' },
-        { link: '/', name: 'View Jobs Available' },
-        { link: '/', name: 'Create Worker Account' },
-        { link: '/', name: 'Post task for workers' },
+        { link: '/login', name: 'Workers Login' },
+        { link: '/jobspage', name: 'View Jobs Available' },
+        { link: '/login', name: 'Create Worker Account' },
+        { link: '/postjob', name: 'Post task for workers' },
     ];
     return(
         <div className="block lg:mt-[500px]">
@@ -24,7 +27,7 @@ export default function Footer(){
                         <div>
                             <h3 className="text-md lg:text-lg text-gray-900 font-normal border-b border-orange-500 w-fit capitalize leading-1"> Achieve success with KaziBase Kenya</h3>
                             <h3 className='text-2xl lg:text-5xl font-bold text-sky-900 capitalize tracking-wider lg:leading-tight my-3'>{`What sets us apart?`}</h3>
-                            <h4 className="text-md lg:text-lg text-gray-900">We connect all workers with clients who needs to solve his/her manual work quick and with success.</h4>
+                            <h4 className="text-md lg:text-lg text-gray-900">We connect all workers with clients who needs to solve his/her manual work quick and with success in Kenya.</h4>
                         </div>
                         <div />
                         <div >
