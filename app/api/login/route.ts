@@ -2,6 +2,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  // Add any other fields in your "users" table
+};
+
 async function getConnection() {
   return await mysql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -14,7 +22,6 @@ async function getConnection() {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-
     const { email, password } = data;
 
     if (!email || !password) {
@@ -23,13 +30,11 @@ export async function POST(req: NextRequest) {
 
     const connection = await getConnection();
 
-    // Check if user exists
-    const [rows] = await connection.execute(
+    const [rows] = await connection.execute<User[]>(
       'SELECT * FROM users WHERE email = ?',
       [email]
     );
 
-    // Ensure that rows is an array and not empty
     if (rows.length === 0 || rows[0].password !== password) {
       await connection.end();
       return NextResponse.json({ success: false, message: "Invalid email or password." }, { status: 401 });
