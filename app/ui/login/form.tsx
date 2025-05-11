@@ -182,16 +182,63 @@ export default function LoginForm() {
                     </select>
 
                     <label className="text-md sm:text-lg font-medium mb-1 mt-4">County:</label>
-                    <select
-                        className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                        name="county"
-                        id="county"
-                        required
-                        onChange={handleChange}
-                    >
-                        <option value="">-- Select your county --</option>
-                        {/* Include all county options here */}
-                    </select>
+                   <select
+    className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
+    name="county"
+    id="county"
+    required
+    onChange={handleChange}
+>
+    <option value="">-- Select your county --</option>
+    <option value="Baringo">Baringo</option>
+    <option value="Bomet">Bomet</option>
+    <option value="Bungoma">Bungoma</option>
+    <option value="Busia">Busia</option>
+    <option value="Elgeyo-Marakwet">Elgeyo-Marakwet</option>
+    <option value="Embu">Embu</option>
+    <option value="Garissa">Garissa</option>
+    <option value="Homa Bay">Homa Bay</option>
+    <option value="Isiolo">Isiolo</option>
+    <option value="Kajiado">Kajiado</option>
+    <option value="Kakamega">Kakamega</option>
+    <option value="Kericho">Kericho</option>
+    <option value="Kiambu">Kiambu</option>
+    <option value="Kilifi">Kilifi</option>
+    <option value="Kirinyaga">Kirinyaga</option>
+    <option value="Kisii">Kisii</option>
+    <option value="Kisumu">Kisumu</option>
+    <option value="Kitui">Kitui</option>
+    <option value="Kwale">Kwale</option>
+    <option value="Laikipia">Laikipia</option>
+    <option value="Lamu">Lamu</option>
+    <option value="Machakos">Machakos</option>
+    <option value="Makueni">Makueni</option>
+    <option value="Mandera">Mandera</option>
+    <option value="Marsabit">Marsabit</option>
+    <option value="Meru">Meru</option>
+    <option value="Migori">Migori</option>
+    <option value="Mombasa">Mombasa</option>
+    <option value="Murang'a">Murang'a</option>
+    <option value="Nairobi">Nairobi</option>
+    <option value="Nakuru">Nakuru</option>
+    <option value="Nandi">Nandi</option>
+    <option value="Narok">Narok</option>
+    <option value="Nyamira">Nyamira</option>
+    <option value="Nyandarua">Nyandarua</option>
+    <option value="Nyeri">Nyeri</option>
+    <option value="Samburu">Samburu</option>
+    <option value="Siaya">Siaya</option>
+    <option value="Taita-Taveta">Taita-Taveta</option>
+    <option value="Tana River">Tana River</option>
+    <option value="Tharaka-Nithi">Tharaka-Nithi</option>
+    <option value="Trans Nzoia">Trans Nzoia</option>
+    <option value="Turkana">Turkana</option>
+    <option value="Uasin Gishu">Uasin Gishu</option>
+    <option value="Vihiga">Vihiga</option>
+    <option value="Wajir">Wajir</option>
+    <option value="West Pokot">West Pokot</option>
+</select>
+
 
                     <label className="text-md sm:text-lg font-medium mb-1 mt-4">Password:</label>
                     <input
