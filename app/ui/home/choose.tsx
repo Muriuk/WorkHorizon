@@ -24,7 +24,7 @@ export default function WhyChooseUs(){
         <div className="flex flex-col items-center my-8 lg:my-20 w-[92%] lg:w-full container">
             <h3 className="text-3xl lg:text-4xl capitalize text-sky-900 font-bold lg:mb-3" data-aos='fade-up'>Why Choose Us?</h3>
             <p className='text-md lg:text-xl font-normal tracking-wide text-center xl:mx-24 mb-6' data-aos='fade-up'>
-                Kazibase connects everyday hustlers to real work opportunities across Kenya. We're trusted, easy to use, affordable, and committed to supporting your hustle—wherever you are.
+                Kazibase connects everyday hustlers to real work opportunities across Kenya. We are trusted, easy to use, affordable, and committed to supporting your hustle—wherever you are.
             </p>
             <div className=" mx-8 lg:mx-0 grid lg:flex 2xl:grid grid-cols-1 md:grid-cols-2 lg:flex-wrap 2xl:grid-cols-5 gap-4 justify-center xl:gap-10" data-aos='fade-up'>
                 {
