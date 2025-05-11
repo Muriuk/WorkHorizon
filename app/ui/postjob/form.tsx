@@ -85,20 +85,14 @@ export default function PostJobForm() {
     };
 
     const viewJobDetails = () => {
-        // Navigate to job details page or open a modal
-        // This would typically use router.push or state management
-        console.log("View job details for:", jobPosted);
-        // Example: router.push(`/jobs/${jobPosted.id}`);
-        alert("Viewing job details: " + JSON.stringify(jobPosted));
+        // Navigate to /jobspage route
+        window.location.href = "/jobspage";
         setModal({ show: false, title: "" }); // Close modal
     };
 
     const viewInterestedWorkers = () => {
-        // Navigate to login page or interested workers page
-        // This would typically use router.push
-        console.log("View interested workers");
-        // Example: router.push('/login?redirect=interested-workers');
-        alert("Redirecting to login page to view interested workers");
+        // Navigate to /login route
+        window.location.href = "/login";
         setModal({ show: false, title: "" }); // Close modal
     };
 
