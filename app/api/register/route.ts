@@ -1,6 +1,7 @@
 // app/api/register/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
+import { RowDataPacket } from 'mysql2';
 
 async function getConnection() {
   return await mysql.createConnection({
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
     const connection = await getConnection();
 
     // Check if user already exists
-    const [existingUser] = await connection.execute(
+    const [existingUser] = await connection.execute<RowDataPacket[]>(
       'SELECT * FROM users WHERE email = ?',
       [email]
     );
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
     // Insert new user into the database
     await connection.execute(
       `INSERT INTO users (full_name, email, phone_number, password, work_category, county) 
-      VALUES (?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?)`,
       [full_name, email, phone_number, password, work_category, county]
     );
 
