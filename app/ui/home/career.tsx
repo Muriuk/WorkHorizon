@@ -6,22 +6,22 @@ export default function CareerOpportunities() {
     const Oppos = [
         {
             icon: '/assets/icons/home/salesandmarketing.png',
-            head: 'Housekeeping &amp; Cleaning',
+            head: 'Housekeeping & Cleaning',
             desc: 'Join our network of trusted housekeepers and cleaners. Kazibase connects you to homes and offices in need of reliable cleaning and domestic help services across Kenya.',
             link: '/jobspage',
         },{
             icon: '/assets/icons/home/customersupport.png',
-            head: 'Construction &amp; Masonry',
+            head: 'Construction & Masonry',
             desc: 'Find hands-on work in building, masonry, painting, and more. Skilled and semi-skilled hustlers can get matched with clients looking to improve or build structures.',
             link: '/jobspage',
         },{
             icon: '/assets/icons/home/humanresources.png',
-            head: 'Delivery &amp; Errands',
+            head: 'Delivery & Errands',
             desc: 'Take on gigs in delivering items, running errands, or courier support. Ideal for bodaboda riders or anyone with a passion for fast, reliable service.',
             link: '/jobspage',
         },{
             icon: '/assets/icons/home/financeandaccounting.png',
-            head: 'Repairs &amp; Maintenance',
+            head: 'Repairs & Maintenance',
             desc: 'Offer repair services for electronics, plumbing, furniture, or general maintenance. Skilled jua kali workers can get noticed and booked by locals.',
             link: '/jobspage',
         },
