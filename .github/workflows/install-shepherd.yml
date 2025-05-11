@@ -20,10 +20,10 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install project dependencies (using legacy-peer-deps to avoid React 19 conflict)
+      - name: Install project dependencies safely
         run: npm install --legacy-peer-deps
 
-      - name: Install Shepherd.js (if not already in package.json)
+      - name: Install Shepherd.js
         run: npm install shepherd.js
 
       - name: Build project
