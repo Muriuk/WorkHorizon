@@ -1,13 +1,12 @@
-// app/api/login/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise";
+import { RowDataPacket } from "mysql2";
 
 type User = {
   id: number;
   name: string;
   email: string;
   password: string;
-  // Add any other fields in your "users" table
 };
 
 async function getConnection() {
@@ -21,17 +20,11 @@ async function getConnection() {
 
 export async function POST(req: NextRequest) {
   try {
-    const data = await req.json();
-    const { email, password } = data;
-
-    if (!email || !password) {
-      return NextResponse.json({ success: false, message: "Missing fields." }, { status: 400 });
-    }
-
+    const { email, password } = await req.json();
     const connection = await getConnection();
 
-    const [rows] = await connection.execute<User[]>(
-      'SELECT * FROM users WHERE email = ?',
+    const [rows] = await connection.execute<RowDataPacket[] & User[]>(
+      "SELECT * FROM users WHERE email = ?",
       [email]
     );
 
@@ -42,9 +35,8 @@ export async function POST(req: NextRequest) {
 
     await connection.end();
     return NextResponse.json({ success: true, message: "Login successful." }, { status: 200 });
-  } catch (error: unknown) {
-    const err = error as Error;
-    console.error("POST /api/login error:", err.message);
+  } catch (error) {
+    console.error("Login error:", error);
     return NextResponse.json({ success: false, message: "Server error." }, { status: 500 });
   }
 }
