@@ -20,11 +20,11 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install project dependencies (ignore peer conflicts)
+      - name: Install project dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Install Shepherd.js (ignore peer conflicts)
-        run: npm install shepherd.js --legacy-peer-deps
+      - name: Install Shepherd.js
+        run: npm install shepherd.js
 
       - name: Build project
         run: npm run build
