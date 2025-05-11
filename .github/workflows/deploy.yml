@@ -20,7 +20,11 @@ jobs:
         with:
           node-version: '16'
 
-      # Install dependencies
+      # Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Install dependencies using pnpm
       - name: Install dependencies
         run: pnpm install
 
@@ -31,7 +35,7 @@ jobs:
           git add pnpm-lock.yaml
           git commit -m "Update lockfile"
           git push origin main
-        continue-on-error: true # In case the lockfile update is not needed, we don’t want it to fail.
+        continue-on-error: true
 
       # Build the project
       - name: Build project
