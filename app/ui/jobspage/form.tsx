@@ -471,9 +471,6 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
         </Link>
         {!singleJob && (
           <>
-            <h3 className="text-3xl 2xl:text-4xl capitalize text-sky-900 font-bold mb-4 text-center">
-              Job Available <br className='block lg:hidden' /> at Kazibase
-            </h3>
             <p className="text-md lg:text-lg 2xl:text-xl font-normal tracking-wide text-center lg:mx-[20%]">
               We&apos;re eager to connect you with manual jobs in Kenya. Below, you&apos;ll find the current jobs at Kazibase, select any job and apply.
             </p>
