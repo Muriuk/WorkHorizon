@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function PostJobForm() {
     const [loading, setLoading] = useState(false);
+
     interface ToastState {
         show: boolean;
         message: string;
@@ -22,7 +23,7 @@ export default function PostJobForm() {
         phone?: string;
         whatsapp?: string;
         id?: string;
-        [key: string]: string | number | undefined; // Allow for additional properties
+        [key: string]: string | number | undefined;
     }
 
     interface ModalState {
@@ -33,17 +34,15 @@ export default function PostJobForm() {
 
     const [toast, setToast] = useState<ToastState>({ show: false, message: "", type: "" });
     const [modal, setModal] = useState<ModalState>({ show: false, title: "" });
-    const [jobPosted, setJobPosted] = useState<JobData | null>(null);
+    const [jobPosted, setJobPosted] = useState<JobData | null>(null); // ✅ Correct position
 
-    // Function to show toast message
     const showToast = (message: string, type: string): void => {
         setToast({ show: true, message, type });
         setTimeout(() => {
             setToast({ show: false, message: "", type: "" });
-        }, 4000); // Hide after 4 seconds
+        }, 4000);
     };
 
-    // Function to show success modal
     const showSuccessModal = (title: string, jobData: JobData): void => {
         setJobPosted(jobData);
         setModal({ show: true, title, jobData });
@@ -56,7 +55,6 @@ export default function PostJobForm() {
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
 
-        // Send data to the backend API
         try {
             const response = await fetch("/api/postJob", {
                 method: "POST",
@@ -65,13 +63,12 @@ export default function PostJobForm() {
                 },
                 body: JSON.stringify(data),
             });
-            
+
             const result = await response.json();
             console.log("Server response:", result);
-            
+
             if (response.ok) {
                 showToast("Job posted successfully", "success");
-                // Show success modal instead of enhanced toast
                 showSuccessModal("Success!", result.job || data);
             } else {
                 showToast("Failed to post job", "error");
@@ -85,15 +82,13 @@ export default function PostJobForm() {
     };
 
     const viewJobDetails = () => {
-        // Navigate to /jobspage route
         window.location.href = "/jobspage";
-        setModal({ show: false, title: "" }); // Close modal
+        setModal({ show: false, title: "" });
     };
 
     const viewInterestedWorkers = () => {
-        // Navigate to /login route
         window.location.href = "/login";
-        setModal({ show: false, title: "" }); // Close modal
+        setModal({ show: false, title: "" });
     };
 
     const closeModal = () => {
@@ -102,7 +97,6 @@ export default function PostJobForm() {
 
     return (
         <div className="container mx-auto max-w-xl px-4 py-8 relative">
-            {/* Regular Toast notification */}
             {toast.show && (
                 <div 
                     className={`fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-80 p-4 rounded-lg shadow-lg transition-all duration-300 z-40
@@ -119,24 +113,19 @@ export default function PostJobForm() {
                     </div>
                 </div>
             )}
-            
-            {/* Success Modal - Separate from toast */}
+
             {modal.show && (
                 <div className="fixed inset-0 flex items-center justify-center z-50">
-                    {/* Overlay */}
                     <div className="absolute inset-0 bg-black bg-opacity-50" onClick={closeModal}></div>
-                    
-                    {/* Modal */}
+
                     <div className="bg-white rounded-lg shadow-xl w-11/12 max-w-md p-6 z-10 relative">
-                        {/* Close button */}
                         <button 
                             onClick={closeModal}
                             className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
                         >
                             ×
                         </button>
-                        
-                        {/* Modal content */}
+
                         <div className="text-center mb-6">
                             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
                                 <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -146,8 +135,7 @@ export default function PostJobForm() {
                             <h3 className="text-lg font-semibold text-gray-900 mb-2">Job Posted Successfully!</h3>
                             <p className="text-sm text-gray-500">Your job has been posted successfully. What would you like to do next?</p>
                         </div>
-                        
-                        {/* Action buttons */}
+
                         <div className="flex flex-col space-y-3">
                             <button 
                                 onClick={viewJobDetails}
@@ -184,23 +172,14 @@ export default function PostJobForm() {
                     className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
                 >
                     <option value="">-- Select job category --</option>
-                    <option value="construction">Construction Worker</option>
-                    <option value="plumbing">Plumber</option>
-                    <option value="electrical">Electrician</option>
-                    <option value="carpentry">Carpenter</option>
-                    <option value="painting">Painter</option>
-                    <option value="cleaning">Cleaner</option>
-                    <option value="gardening">Gardener</option>
-                    <option value="driving">Driver</option>
-                    <option value="delivery">Delivery Personnel</option>
-                    <option value="mechanic">Mechanic</option>
-                    <option value="cooking">Cook/Chef</option>
-                    <option value="tailoring">Tailor</option>
-                    <option value="welding">Welder</option>
-                    <option value="hair_beauty">Hair & Beauty</option>
-                    <option value="security">Security Guard</option>
-                    <option value="farming">Farm Worker</option>
-                    <option value="other">Other</option>
+                    {[
+                        "Construction Worker", "Plumber", "Electrician", "Carpenter", "Painter",
+                        "Cleaner", "Gardener", "Driver", "Delivery Personnel", "Mechanic",
+                        "Cook/Chef", "Tailor", "Welder", "Hair & Beauty", "Security Guard",
+                        "Farm Worker", "Other"
+                    ].map((title) => (
+                        <option key={title} value={title.toLowerCase().replace(/ /g, "_")}>{title}</option>
+                    ))}
                 </select>
 
                 <label className="block text-sm font-medium mb-1">Job Description:</label>
