@@ -5,12 +5,20 @@ import { useState } from "react";
 export default function PostJobForm() {
     const [loading, setLoading] = useState(false);
     interface ToastState {
-    show: boolean;
-    message: string;
-    type: string;
-}
+        show: boolean;
+        message: string;
+        type: string;
+    }
+
+    interface ModalState {
+        show: boolean;
+        title: string;
+        jobData?: any;
+    }
 
     const [toast, setToast] = useState<ToastState>({ show: false, message: "", type: "" });
+    const [modal, setModal] = useState<ModalState>({ show: false, title: "" });
+    const [jobPosted, setJobPosted] = useState<any>(null);
 
     // Function to show toast message
     const showToast = (message: string, type: string): void => {
@@ -18,6 +26,12 @@ export default function PostJobForm() {
         setTimeout(() => {
             setToast({ show: false, message: "", type: "" });
         }, 4000); // Hide after 4 seconds
+    };
+
+    // Function to show success modal
+    const showSuccessModal = (title: string, jobData: any): void => {
+        setJobPosted(jobData);
+        setModal({ show: true, title, jobData });
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +56,8 @@ export default function PostJobForm() {
             
             if (response.ok) {
                 showToast("Job posted successfully", "success");
+                // Show success modal instead of enhanced toast
+                showSuccessModal("Success!", result.job || data);
             } else {
                 showToast("Failed to post job", "error");
             }
@@ -53,21 +69,91 @@ export default function PostJobForm() {
         setLoading(false);
     };
 
+    const viewJobDetails = () => {
+        // Navigate to job details page or open a modal
+        // This would typically use router.push or state management
+        console.log("View job details for:", jobPosted);
+        // Example: router.push(`/jobs/${jobPosted.id}`);
+        alert("Viewing job details: " + JSON.stringify(jobPosted));
+        setModal({ show: false, title: "" }); // Close modal
+    };
+
+    const viewInterestedWorkers = () => {
+        // Navigate to login page or interested workers page
+        // This would typically use router.push
+        console.log("View interested workers");
+        // Example: router.push('/login?redirect=interested-workers');
+        alert("Redirecting to login page to view interested workers");
+        setModal({ show: false, title: "" }); // Close modal
+    };
+
+    const closeModal = () => {
+        setModal({ show: false, title: "" });
+    };
+
     return (
         <div className="container mx-auto max-w-xl px-4 py-8 relative">
-            {/* Toast notification */}
+            {/* Regular Toast notification */}
             {toast.show && (
                 <div 
-                    className={`fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-80 p-4 rounded-lg shadow-lg transition-all duration-300 z-50 flex items-center justify-between
+                    className={`fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-80 p-4 rounded-lg shadow-lg transition-all duration-300 z-40
                     ${toast.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}
                 >
-                    <span className="flex-1">{toast.message}</span>
-                    <button 
-                        onClick={() => setToast({ show: false, message: "", type: "" })}
-                        className="ml-2 text-white hover:text-gray-200"
-                    >
-                        ×
-                    </button>
+                    <div className="flex items-center justify-between">
+                        <span>{toast.message}</span>
+                        <button 
+                            onClick={() => setToast({ show: false, message: "", type: "" })}
+                            className="ml-2 text-white hover:text-gray-200"
+                        >
+                            ×
+                        </button>
+                    </div>
+                </div>
+            )}
+            
+            {/* Success Modal - Separate from toast */}
+            {modal.show && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-black bg-opacity-50" onClick={closeModal}></div>
+                    
+                    {/* Modal */}
+                    <div className="bg-white rounded-lg shadow-xl w-11/12 max-w-md p-6 z-10 relative">
+                        {/* Close button */}
+                        <button 
+                            onClick={closeModal}
+                            className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+                        >
+                            ×
+                        </button>
+                        
+                        {/* Modal content */}
+                        <div className="text-center mb-6">
+                            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                                <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Job Posted Successfully!</h3>
+                            <p className="text-sm text-gray-500">Your job has been posted successfully. What would you like to do next?</p>
+                        </div>
+                        
+                        {/* Action buttons */}
+                        <div className="flex flex-col space-y-3">
+                            <button 
+                                onClick={viewJobDetails}
+                                className="w-full py-2 px-4 bg-sky-900 hover:bg-sky-800 text-white rounded font-medium"
+                            >
+                                View Posted Job
+                            </button>
+                            <button 
+                                onClick={viewInterestedWorkers}
+                                className="w-full py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded font-medium"
+                            >
+                                Login to See Interested Workers
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
 
