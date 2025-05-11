@@ -369,21 +369,36 @@ function SearchAndFilters({
               </select>
             </div>
             
-            {/* Category Filter */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">Category</label>
-              <select
-                name="category"
-                value={filters.category}
-                onChange={handleFilterChange}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
-              >
-                <option value="">All Categories</option>
-                {Array.from(filterOptions.categories).map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
-            </div>
+         {/* Category Filter */}
+<div className="space-y-2">
+  <label className="block text-sm font-medium text-gray-700">Category</label>
+  <select
+    name="category"
+    value={filters.category}
+    onChange={handleFilterChange}
+    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+  >
+    <option value="">All Categories</option>
+    <option value="Construction Worker">Construction Worker</option>
+    <option value="Plumber">Plumber</option>
+    <option value="Electrician">Electrician</option>
+    <option value="Carpenter">Carpenter</option>
+    <option value="Painter">Painter</option>
+    <option value="Cleaner">Cleaner</option>
+    <option value="Gardener">Gardener</option>
+    <option value="Driver">Driver</option>
+    <option value="Delivery Personnel">Delivery Personnel</option>
+    <option value="Mechanic">Mechanic</option>
+    <option value="Cook/Chef">Cook/Chef</option>
+    <option value="Tailor">Tailor</option>
+    <option value="Welder">Welder</option>
+    <option value="Hair & Beauty">Hair & Beauty</option>
+    <option value="Security Guard">Security Guard</option>
+    <option value="Farm Worker">Farm Worker</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
             
             {/* Gender Filter */}
             <div className="space-y-2">
