@@ -183,7 +183,7 @@ export default function JobsPage() {
   // Apply filters when filters state changes
   useEffect(() => {
     applyFilters();
-  }, [filters, jobs]);
+  }, [filters, jobs, applyFilters]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -538,22 +538,32 @@ function JobsError({ error }: { error: string }) {
   );
 }
 
-// Add some global styles for animations
-const styleSheet = document.createElement("style");
-styleSheet.textContent = `
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+// Add client-side animation styles
+useEffect(() => {
+  // Only run in browser environment
+  if (typeof window !== 'undefined') {
+    // Check if the style already exists to avoid duplicates
+    const existingStyle = document.getElementById('jobsearch-animations');
+    if (!existingStyle) {
+      const styleSheet = document.createElement("style");
+      styleSheet.id = 'jobsearch-animations';
+      styleSheet.textContent = `
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-slideDown {
+          animation: slideDown 0.3s ease-out forwards;
+        }
+      `;
+      document.head.appendChild(styleSheet);
     }
   }
-  
-  .animate-slideDown {
-    animation: slideDown 0.3s ease-out forwards;
-  }
-`;
-document.head.appendChild(styleSheet);
+}, []);
