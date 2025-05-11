@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search, Filter, X, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,14 +16,47 @@ type Job = {
   gender?: string;
   duration: string;
   budget: number;
+  category?: string; // Added category field
+};
+
+// Define filter state type
+type FilterState = {
+  search: string;
+  minPrice: string;
+  maxPrice: string;
+  county: string;
+  category: string;
+  gender: string;
+  minWorkers: string;
+  maxWorkers: string;
 };
 
 export default function JobsPage() {
   const pathname = usePathname();
   const [singleJob, setSingleJob] = useState(false);
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Filter state
+  const [filters, setFilters] = useState<FilterState>({
+    search: '',
+    minPrice: '',
+    maxPrice: '',
+    county: '',
+    category: '',
+    gender: '',
+    minWorkers: '',
+    maxWorkers: '',
+  });
+  
+  // Filter options (will be populated from jobs data)
+  const [filterOptions, setFilterOptions] = useState({
+    counties: new Set<string>(),
+    categories: new Set<string>(),
+    genders: new Set<string>(),
+  });
 
   useEffect(() => {
     if (pathname.includes('/jobs/')) {
@@ -43,6 +76,25 @@ export default function JobsPage() {
       }
       const data = await response.json();
       setJobs(data);
+      setFilteredJobs(data);
+      
+      // Extract filter options from data
+      const counties = new Set<string>();
+      const categories = new Set<string>();
+      const genders = new Set<string>();
+      
+      data.forEach((job: Job) => {
+        if (job.county) counties.add(job.county);
+        if (job.category) categories.add(job.category);
+        if (job.gender) genders.add(job.gender);
+      });
+      
+      setFilterOptions({
+        counties,
+        categories,
+        genders,
+      });
+      
     } catch (err) {
       console.error('Error fetching jobs:', err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
@@ -51,19 +103,270 @@ export default function JobsPage() {
     }
   };
 
+  // Apply filters function
+  const applyFilters = () => {
+    let result = [...jobs];
+    
+    // Search filter (title, category, county, client_name)
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      result = result.filter(job => 
+        job.title.toLowerCase().includes(searchLower) ||
+        (job.category && job.category.toLowerCase().includes(searchLower)) ||
+        job.county.toLowerCase().includes(searchLower) ||
+        job.client_name.toLowerCase().includes(searchLower)
+      );
+    }
+    
+    // Price range filter
+    if (filters.minPrice) {
+      result = result.filter(job => job.budget >= Number(filters.minPrice));
+    }
+    if (filters.maxPrice) {
+      result = result.filter(job => job.budget <= Number(filters.maxPrice));
+    }
+    
+    // County filter
+    if (filters.county) {
+      result = result.filter(job => job.county === filters.county);
+    }
+    
+    // Category filter
+    if (filters.category) {
+      result = result.filter(job => job.category === filters.category);
+    }
+    
+    // Gender filter
+    if (filters.gender) {
+      result = result.filter(job => 
+        job.gender === filters.gender || 
+        job.gender === 'Any' || 
+        !job.gender
+      );
+    }
+    
+    // Workers needed filter
+    if (filters.minWorkers) {
+      result = result.filter(job => job.number_of_workers >= Number(filters.minWorkers));
+    }
+    if (filters.maxWorkers) {
+      result = result.filter(job => job.number_of_workers <= Number(filters.maxWorkers));
+    }
+    
+    setFilteredJobs(result);
+  };
+  
+  // Reset filters
+  const resetFilters = () => {
+    setFilters({
+      search: '',
+      minPrice: '',
+      maxPrice: '',
+      county: '',
+      category: '',
+      gender: '',
+      minWorkers: '',
+      maxWorkers: '',
+    });
+    setFilteredJobs(jobs);
+  };
+  
+  // Handle filter changes
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFilters(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  
+  // Apply filters when filters state changes
+  useEffect(() => {
+    applyFilters();
+  }, [filters, jobs]);
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <JobsHead singleJob={singleJob} />
 
       {!singleJob && (
         <div className="container mx-auto px-4 lg:px-8 py-8">
+          <SearchAndFilters 
+            filters={filters} 
+            filterOptions={filterOptions}
+            handleFilterChange={handleFilterChange}
+            resetFilters={resetFilters}
+          />
+          
           {loading ? (
             <JobsLoading />
           ) : error ? (
             <JobsError error={error} />
           ) : (
-            <JobsList jobs={jobs} />
+            <JobsList jobs={filteredJobs} />
           )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// SearchAndFilters component
+function SearchAndFilters({ 
+  filters, 
+  filterOptions, 
+  handleFilterChange, 
+  resetFilters 
+}: { 
+  filters: FilterState;
+  filterOptions: {
+    counties: Set<string>;
+    categories: Set<string>;
+    genders: Set<string>;
+  };
+  handleFilterChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  resetFilters: () => void;
+}) {
+  const [showFilters, setShowFilters] = useState(false);
+  
+  return (
+    <div className="mb-8">
+      {/* Search Bar */}
+      <div className="flex flex-col md:flex-row gap-3 mb-4">
+        <div className="relative flex-grow">
+          <input
+            type="text"
+            name="search"
+            value={filters.search}
+            onChange={handleFilterChange}
+            placeholder="Search by job title, category, county or client name"
+            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        </div>
+        
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="flex items-center justify-center md:justify-start space-x-2 bg-sky-700 hover:bg-sky-800 text-white px-4 py-3 rounded-lg transition-colors md:w-auto w-full"
+        >
+          <Filter className="w-5 h-5" />
+          <span>Filters</span>
+          {showFilters ? 
+            <ChevronUp className="w-5 h-5" /> : 
+            <ChevronDown className="w-5 h-5" />
+          }
+        </button>
+      </div>
+      
+      {/* Filters Panel */}
+      {showFilters && (
+        <div className="bg-white p-4 rounded-lg shadow-md mb-6 animate-slideDown">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-sky-900">Refine Your Search</h3>
+            <button 
+              onClick={resetFilters}
+              className="text-sm text-sky-600 hover:text-sky-800 flex items-center"
+            >
+              <X className="w-4 h-4 mr-1" />
+              Reset Filters
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Price Range */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Budget Range (KSh)</label>
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  name="minPrice"
+                  value={filters.minPrice}
+                  onChange={handleFilterChange}
+                  placeholder="Min"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                />
+                <input
+                  type="number"
+                  name="maxPrice"
+                  value={filters.maxPrice}
+                  onChange={handleFilterChange}
+                  placeholder="Max"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                />
+              </div>
+            </div>
+            
+            {/* County Filter */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">County</label>
+              <select
+                name="county"
+                value={filters.county}
+                onChange={handleFilterChange}
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+              >
+                <option value="">All Counties</option>
+                {Array.from(filterOptions.counties).map(county => (
+                  <option key={county} value={county}>{county}</option>
+                ))}
+              </select>
+            </div>
+            
+            {/* Category Filter */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Category</label>
+              <select
+                name="category"
+                value={filters.category}
+                onChange={handleFilterChange}
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+              >
+                <option value="">All Categories</option>
+                {Array.from(filterOptions.categories).map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+            
+            {/* Gender Filter */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Gender Preference</label>
+              <select
+                name="gender"
+                value={filters.gender}
+                onChange={handleFilterChange}
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+              >
+                <option value="">Any Gender</option>
+                {Array.from(filterOptions.genders).map(gender => (
+                  <option key={gender} value={gender}>{gender}</option>
+                ))}
+              </select>
+            </div>
+            
+            {/* Workers Needed Range */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Workers Needed</label>
+              <div className="flex space-x-2">
+                <input
+                  type="number"
+                  name="minWorkers"
+                  value={filters.minWorkers}
+                  onChange={handleFilterChange}
+                  placeholder="Min"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                />
+                <input
+                  type="number"
+                  name="maxWorkers"
+                  value={filters.maxWorkers}
+                  onChange={handleFilterChange}
+                  placeholder="Max"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-sky-500"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -130,7 +433,6 @@ function JobsList({ jobs }: { jobs: Job[] }) {
 
 function JobCard({ job }: { job: Job }) {
   const {
-    
     client_name,
     title,
     description,
@@ -139,6 +441,7 @@ function JobCard({ job }: { job: Job }) {
     gender,
     duration,
     budget,
+    category,
   } = job;
 
   const formattedBudget = new Intl.NumberFormat('en-KE').format(budget);
@@ -150,6 +453,12 @@ function JobCard({ job }: { job: Job }) {
           <h3 className="text-xl font-bold text-sky-900 line-clamp-2">{title}</h3>
           <span className="bg-sky-100 text-sky-800 text-xs font-semibold px-2.5 py-1 rounded-full ml-2 shrink-0">{county}</span>
         </div>
+
+        {category && (
+          <div className="mb-2">
+            <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-1 rounded-full">{category}</span>
+          </div>
+        )}
 
         <p className="text-gray-600 mb-4 line-clamp-3">{description}</p>
 
@@ -228,3 +537,23 @@ function JobsError({ error }: { error: string }) {
     </div>
   );
 }
+
+// Add some global styles for animations
+const styleSheet = document.createElement("style");
+styleSheet.textContent = `
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-slideDown {
+    animation: slideDown 0.3s ease-out forwards;
+  }
+`;
+document.head.appendChild(styleSheet);
