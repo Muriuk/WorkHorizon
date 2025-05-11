@@ -130,7 +130,7 @@ function JobsList({ jobs }: { jobs: Job[] }) {
 
 function JobCard({ job }: { job: Job }) {
   const {
-    id,
+     id: _id,
     client_name,
     title,
     description,
