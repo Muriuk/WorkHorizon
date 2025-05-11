@@ -103,8 +103,33 @@ export default function JobsPage() {
     }
   };
 
-  // Apply filters function
-  const applyFilters = () => {
+  // resetFilters function - use memoizedApplyFilters to apply changes
+  const resetFilters = useCallback(() => {
+    setFilters({
+      search: '',
+      minPrice: '',
+      maxPrice: '',
+      county: '',
+      category: '',
+      gender: '',
+      minWorkers: '',
+      maxWorkers: '',
+    });
+  }, []);
+  
+
+  
+  // Handle filter changes
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFilters(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  
+  // Apply filters when filters state changes - wrap applyFilters in useCallback to avoid recreation on every render
+  const memoizedApplyFilters = useCallback(() => {
     let result = [...jobs];
     
     // Search filter (title, category, county, client_name)
@@ -154,36 +179,12 @@ export default function JobsPage() {
     }
     
     setFilteredJobs(result);
-  };
+  }, [filters, jobs]);
   
-  // Reset filters
-  const resetFilters = () => {
-    setFilters({
-      search: '',
-      minPrice: '',
-      maxPrice: '',
-      county: '',
-      category: '',
-      gender: '',
-      minWorkers: '',
-      maxWorkers: '',
-    });
-    setFilteredJobs(jobs);
-  };
-  
-  // Handle filter changes
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFilters(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-  
-  // Apply filters when filters state changes
+  // Apply filters when component mounts and when dependencies change
   useEffect(() => {
-    applyFilters();
-  }, [filters, jobs, applyFilters]);
+    memoizedApplyFilters();
+  }, [memoizedApplyFilters]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -228,6 +229,36 @@ function SearchAndFilters({
   resetFilters: () => void;
 }) {
   const [showFilters, setShowFilters] = useState(false);
+  
+  // Add client-side animation styles
+  useEffect(() => {
+    // Only run in browser environment
+    if (typeof window !== 'undefined') {
+      // Check if the style already exists to avoid duplicates
+      const existingStyle = document.getElementById('jobsearch-animations');
+      if (!existingStyle) {
+        const styleSheet = document.createElement("style");
+        styleSheet.id = 'jobsearch-animations';
+        styleSheet.textContent = `
+          @keyframes slideDown {
+            from {
+              opacity: 0;
+              transform: translateY(-10px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          .animate-slideDown {
+            animation: slideDown 0.3s ease-out forwards;
+          }
+        `;
+        document.head.appendChild(styleSheet);
+      }
+    }
+  }, []);
   
   return (
     <div className="mb-8">
@@ -538,32 +569,4 @@ function JobsError({ error }: { error: string }) {
   );
 }
 
-// Add client-side animation styles
-useEffect(() => {
-  // Only run in browser environment
-  if (typeof window !== 'undefined') {
-    // Check if the style already exists to avoid duplicates
-    const existingStyle = document.getElementById('jobsearch-animations');
-    if (!existingStyle) {
-      const styleSheet = document.createElement("style");
-      styleSheet.id = 'jobsearch-animations';
-      styleSheet.textContent = `
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out forwards;
-        }
-      `;
-      document.head.appendChild(styleSheet);
-    }
-  }
-}, []);
+// The animations will be added via CSS classes in Tailwind
