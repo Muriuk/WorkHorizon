@@ -23,8 +23,8 @@ jobs:
       - name: Install project dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Install Shepherd.js
-        run: npm install shepherd.js
+     - name: Install Shepherd.js
+  run: npm install shepherd.js --force
 
       - name: Build project
         run: npm run build
