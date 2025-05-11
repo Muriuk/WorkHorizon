@@ -1,0 +1,6 @@
+- name: Update lockfile
+  run: |
+    pnpm install --no-frozen-lockfile
+    git add pnpm-lock.yaml
+    git commit -m "Update lockfile"
+    git push origin main
