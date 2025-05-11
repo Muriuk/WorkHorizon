@@ -24,12 +24,13 @@ export async function POST(req: NextRequest) {
     const connection = await getConnection();
 
     // Check if user exists
-    const [user] = await connection.execute(
+    const [rows] = await connection.execute(
       'SELECT * FROM users WHERE email = ?',
       [email]
     );
 
-    if (user.length === 0 || user[0].password !== password) {
+    // Ensure that rows is an array and not empty
+    if (rows.length === 0 || rows[0].password !== password) {
       await connection.end();
       return NextResponse.json({ success: false, message: "Invalid email or password." }, { status: 401 });
     }
