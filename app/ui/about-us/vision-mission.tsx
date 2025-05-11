@@ -11,7 +11,7 @@ export default function Vision_Mission(){
         },{
             image: '/assets/about-mission.jpg',
             title: 'Our Mission',
-            description: 'Kazibase&apos;s mission is to provide accessible, reliable, and high-quality manual labor solutions to businesses and individuals across Kenya. We are committed to connecting employers with the right hustlers for a wide range of tasks, from home repairs and cleaning to more specialized manual jobs. We focus on empowering hustlers by giving them opportunities to find work, build their skills, and earn a living while ensuring businesses can access reliable and affordable services.',
+            description: 'Kazibase mission is to provide accessible, reliable, and high-quality manual labor solutions to businesses and individuals across Kenya. We are committed to connecting employers with the right hustlers for a wide range of tasks, from home repairs and cleaning to more specialized manual jobs. We focus on empowering hustlers by giving them opportunities to find work, build their skills, and earn a living while ensuring businesses can access reliable and affordable services.',
         }
     ]
 
