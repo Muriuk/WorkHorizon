@@ -10,15 +10,30 @@ export default function PostJobForm() {
         type: string;
     }
 
+    interface JobData {
+        client_name?: string;
+        title?: string;
+        description?: string;
+        county?: string;
+        number_of_workers?: number | string;
+        gender?: string;
+        duration?: string;
+        budget?: number | string;
+        phone?: string;
+        whatsapp?: string;
+        id?: string;
+        [key: string]: string | number | undefined; // Allow for additional properties
+    }
+
     interface ModalState {
         show: boolean;
         title: string;
-        jobData?: any;
+        jobData?: JobData;
     }
 
     const [toast, setToast] = useState<ToastState>({ show: false, message: "", type: "" });
     const [modal, setModal] = useState<ModalState>({ show: false, title: "" });
-    const [jobPosted, setJobPosted] = useState<any>(null);
+    const [jobPosted, setJobPosted] = useState<JobData | null>(null);
 
     // Function to show toast message
     const showToast = (message: string, type: string): void => {
@@ -29,7 +44,7 @@ export default function PostJobForm() {
     };
 
     // Function to show success modal
-    const showSuccessModal = (title: string, jobData: any): void => {
+    const showSuccessModal = (title: string, jobData: JobData): void => {
         setJobPosted(jobData);
         setModal({ show: true, title, jobData });
     };
