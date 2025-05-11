@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import Link from "next/link"
 
@@ -8,11 +7,11 @@ export default function Vision_Mission(){
         {
             image:'/assets/about-vision.jpg',
             title: 'Our Vision',
-            description: 'To be a globally recognized leader in call center solutions, setting new industry standards and driving business success through continuous innovation, exceptional service, and operational excellence. We strive to empower organizations worldwide by providing cutting-edge communication solutions that enhance customer engagement, streamline operations, and maximize efficiency.',
+            description: 'To be a leading platform in Kenya, connecting hustlers with manual jobs to empower individuals and enhance livelihoods. Kazibase envisions becoming the go-to hub for skilled and reliable hustlers, providing accessible opportunities to businesses and individuals alike. By bridging the gap between job seekers and employers, we aim to create sustainable employment, foster economic growth, and contribute to a thriving local economy.',
         },{
             image: '/assets/about-mission.jpg',
             title: 'Our Mission',
-            description: 'To empower businesses of all sizes by delivering seamless, reliable, and high-performing call center services in sales, administration, HR, and accounting. Our mission is to enhance operational efficiency, drive sustainable growth, and ensure superior customer satisfaction through technology-driven solutions, expert workforce management, and a commitment to excellence.',
+            description: 'Kazibase&apos;s mission is to provide accessible, reliable, and high-quality manual labor solutions to businesses and individuals across Kenya. We are committed to connecting employers with the right hustlers for a wide range of tasks, from home repairs and cleaning to more specialized manual jobs. We focus on empowering hustlers by giving them opportunities to find work, build their skills, and earn a living while ensuring businesses can access reliable and affordable services.',
         }
     ]
 
