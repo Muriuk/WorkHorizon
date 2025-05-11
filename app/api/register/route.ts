@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Insert new user into the database
-    const [result] = await connection.execute(
+    await connection.execute(
       `INSERT INTO users (full_name, email, phone_number, password, work_category, county) 
       VALUES (?, ?, ?, ?, ?, ?)`,
       [full_name, email, phone_number, password, work_category, county]
