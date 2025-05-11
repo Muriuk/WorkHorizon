@@ -43,10 +43,10 @@ export default function LoginForm() {
       if (tab === 'login') router.push('/portal/dashboard')
       else setTab('login')
     }
-  } catch (err) {
-    alert('Network error.')
+ } catch {
+    alert('Network error.'); // No need to define 'err' here anymore
   } finally {
-    setLoading(false)
+    setLoading(false);
   }
 }
 
