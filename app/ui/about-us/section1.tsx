@@ -31,7 +31,7 @@ export default function PageIntro(){
                     <h3 className="text-md 2xl:text-lg leading-1 uppercase tracking-wider font-bold text-orange-500">Who we are?</h3>
                     <h2 className="text-3xl 2xl:text-4xl capitalize text-sky-900 font-bold mb-3">Empowering Hustlers and Driving Local Business Success</h2>
                     <p className="text-md lg:text-lg 2xl:text-xl font-normal tracking-wide mb-5">
-                        <span className="text-orange-500 font-semibold uppercase">Kazibase</span> is a platform designed to connect manual workers, or "hustlers", with people in need of their services across Kenya. From household help to construction and delivery, Kazibase enables locals to find the workforce they need with ease.
+                        <span className="text-orange-500 font-semibold uppercase">Kazibase</span> is a platform designed to connect manual workers, or hustlers, with people in need of their services across Kenya. From household help to construction and delivery, Kazibase enables locals to find the workforce they need with ease.
                     </p>
                     <p className="text-md lg:text-lg 2xl:text-xl font-normal tracking-wide mb-2 lg:mb-5">
                         At Kazibase, we believe in empowering hardworking Kenyans by providing them with direct access to job opportunities, allowing them to earn by offering their skills and services. Whether you&apos;re a skilled worker or just starting out, Kazibase connects you with those looking for help.
