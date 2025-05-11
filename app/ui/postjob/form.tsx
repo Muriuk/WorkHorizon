@@ -34,7 +34,6 @@ export default function PostJobForm() {
 
     const [toast, setToast] = useState<ToastState>({ show: false, message: "", type: "" });
     const [modal, setModal] = useState<ModalState>({ show: false, title: "" });
-    const [jobPosted, setJobPosted] = useState<JobData | null>(null); // ✅ Correct position
 
     const showToast = (message: string, type: string): void => {
         setToast({ show: true, message, type });
@@ -44,7 +43,6 @@ export default function PostJobForm() {
     };
 
     const showSuccessModal = (title: string, jobData: JobData): void => {
-        setJobPosted(jobData);
         setModal({ show: true, title, jobData });
     };
 
@@ -133,7 +131,9 @@ export default function PostJobForm() {
                                 </svg>
                             </div>
                             <h3 className="text-lg font-semibold text-gray-900 mb-2">Job Posted Successfully!</h3>
-                            <p className="text-sm text-gray-500">Your job has been posted successfully. What would you like to do next?</p>
+                            <p className="text-sm text-gray-500">
+                                Job title: <strong>{modal.jobData?.title?.toString().replace(/_/g, " ")}</strong>
+                            </p>
                         </div>
 
                         <div className="flex flex-col space-y-3">
@@ -156,127 +156,120 @@ export default function PostJobForm() {
 
             <h2 className="text-2xl font-semibold text-sky-900 mb-6 text-center border-b pb-2 border-orange-500">Post a Job</h2>
 
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
-                <label className="block text-sm font-medium mb-1">Your Name:</label>
-                <input
-                    name="client_name"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                    placeholder="Your full name"
-                />
+            <form onSubmit={handleSubmit}>
+                <div className="space-y-6">
+                    <div>
+                        <label htmlFor="title" className="block text-sm font-medium text-gray-700">Job Title</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">Job Category / Title:</label>
-                <select
-                    name="title"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                >
-                    <option value="">-- Select job category --</option>
-                    {[
-                        "Construction Worker", "Plumber", "Electrician", "Carpenter", "Painter",
-                        "Cleaner", "Gardener", "Driver", "Delivery Personnel", "Mechanic",
-                        "Cook/Chef", "Tailor", "Welder", "Hair & Beauty", "Security Guard",
-                        "Farm Worker", "Other"
-                    ].map((title) => (
-                        <option key={title} value={title.toLowerCase().replace(/ /g, "_")}>{title}</option>
-                    ))}
-                </select>
+                    <div>
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            rows={4}
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">Job Description:</label>
-                <textarea
-                    name="description"
-                    required
-                    rows={4}
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                    placeholder="Describe the job clearly..."
-                ></textarea>
+                    <div>
+                        <label htmlFor="county" className="block text-sm font-medium text-gray-700">County</label>
+                        <input
+                            type="text"
+                            id="county"
+                            name="county"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">Preferred County:</label>
-                <select
-                    name="county"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                >
-                    <option value="">-- Select county --</option>
-                    {[
-                        "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet", "Embu", "Garissa", "Homa Bay",
-                        "Isiolo", "Kajiado", "Kakamega", "Kericho", "Kiambu", "Kilifi", "Kirinyaga", "Kisii",
-                        "Kisumu", "Kitui", "Kwale", "Laikipia", "Lamu", "Machakos", "Makueni", "Mandera",
-                        "Marsabit", "Meru", "Migori", "Mombasa", "Murang'a", "Nairobi", "Nakuru", "Nandi",
-                        "Narok", "Nyamira", "Nyandarua", "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River",
-                        "Tharaka-Nithi", "Trans Nzoia", "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
-                    ].map((county) => (
-                        <option key={county} value={county.toLowerCase()}>{county}</option>
-                    ))}
-                </select>
+                    <div>
+                        <label htmlFor="number_of_workers" className="block text-sm font-medium text-gray-700">Number of Workers</label>
+                        <input
+                            type="number"
+                            id="number_of_workers"
+                            name="number_of_workers"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">How Many People Do You Need?</label>
-                <select
-                    name="number_of_workers"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                >
-                    <option value="">-- Select number --</option>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                        <option key={num} value={num}>{num}</option>
-                    ))}
-                </select>
+                    <div>
+                        <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Preferred Gender</label>
+                        <select
+                            id="gender"
+                            name="gender"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        >
+                            <option value="any">Any</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">Preferred Gender:</label>
-                <select
-                    name="gender"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                >
-                    <option value="">-- Select gender preference --</option>
-                    <option value="any">Any</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+                    <div>
+                        <label htmlFor="duration" className="block text-sm font-medium text-gray-700">Duration (e.g. 1 week, 2 days)</label>
+                        <input
+                            type="text"
+                            id="duration"
+                            name="duration"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">How Long Will the Job Take?</label>
-                <input
-                    name="duration"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                    placeholder="e.g. 3 days, 2 weeks"
-                />
+                    <div>
+                        <label htmlFor="budget" className="block text-sm font-medium text-gray-700">Budget</label>
+                        <input
+                            type="number"
+                            id="budget"
+                            name="budget"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">Proposed Budget (Ksh):</label>
-                <input
-                    type="number"
-                    name="budget"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                    placeholder="e.g. 5000"
-                />
+                    <div>
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">Your Phone Number:</label>
-                <input
-                    type="tel"
-                    name="phone"
-                    pattern="[0-9]{10}"
-                    required
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                    placeholder="07XXXXXXXX"
-                />
+                    <div>
+                        <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
+                        <input
+                            type="tel"
+                            id="whatsapp"
+                            name="whatsapp"
+                            required
+                            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
 
-                <label className="block text-sm font-medium mb-1">WhatsApp Number (optional):</label>
-                <input
-                    type="tel"
-                    name="whatsapp"
-                    pattern="[0-9]{10}"
-                    className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-                    placeholder="07XXXXXXXX"
-                />
-
-                <button
-                    type="submit"
-                    className={`w-full py-2 px-4 rounded-lg text-white font-semibold ${loading ? 'bg-gray-400' : 'bg-sky-900 hover:bg-sky-800'}`}
-                    disabled={loading}
-                >
-                    {loading ? "Posting..." : "Post Job"}
-                </button>
+                    <div className="text-center">
+                        <button
+                            type="submit"
+                            className={`mt-4 w-full py-2 px-4 ${loading ? "bg-gray-300" : "bg-sky-900"} text-white rounded font-medium`}
+                            disabled={loading}
+                        >
+                            {loading ? "Posting..." : "Post Job"}
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     );
