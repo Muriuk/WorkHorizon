@@ -36,7 +36,7 @@ export default function WhyChooseUs(){
                     )
                 }
             </div>  
-            <Link data-aos='xl:fade-up' className="text-sky-900 hover:text-gray-100 hover:bg-sky-900 text-md xl:text-lg font-semibold tracking-wide rounded-xl border-2 border-sky-900 px-5 py-2 mt-8" href={'/about-us'}>Explore Us</Link>
+            <Link data-aos='xl:fade-up' className="text-sky-900 hover:text-gray-100 hover:bg-sky-900 text-md xl:text-lg font-semibold tracking-wide rounded-xl border-2 border-sky-900 px-5 py-2 mt-8" href={'/jobspage'}>Explore Jobs</Link>
         </div>
     )
 }
