@@ -82,7 +82,7 @@ export default function LoginForm() {
         />
 
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center">
-          Welcome to Kazibase Portal
+         <h2>Welcome to Kazibase&apos;s Portal</h2>
         </h2>
 
         <div className="mt-4 flex gap-2 justify-center">
