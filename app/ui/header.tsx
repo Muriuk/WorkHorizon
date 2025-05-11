@@ -15,8 +15,8 @@ export default function MainHeader() {
     const [hideHeader, setHideHeader] = useState<boolean>(false)
     const [menuItems, setMenuItems] = useState([
         { link: '/', name: 'Home', active: false },
-        { link: '/about-us', name: 'About Us', active: false },
-        { link: '/careers', name: 'Jobs', active: false, dropdown: [{ link: '/careers', name: 'Understand KaziBase' }, { link: '/jobspage', name: 'Available Jobs' }] },
+         { link: '/jobspage', name: 'Jobs Available', active: false },
+        { link: '/', name: 'Understand KaziBase', active: false, dropdown:[{name:'About Us', link: '/about-us'}, {name: 'Available Jobs', link: '/jobspage'}] },
         { link: '/contact-us', name: 'Contact Us', active: false },
     ]);
 
