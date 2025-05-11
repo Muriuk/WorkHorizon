@@ -16,7 +16,8 @@ type Job = {
   gender?: string;
   duration: string;
   budget: number;
-  category?: string; // Added category field
+  category?: string;
+  created_at: string; // Add created_at field
 };
 
 // Define filter state type
@@ -30,6 +31,33 @@ type FilterState = {
   minWorkers: string;
   maxWorkers: string;
 };
+
+// Format relative time function
+function formatRelativeTime(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  
+  if (isNaN(date.getTime())) {
+    return "Recently posted";
+  }
+  
+  if (diffInSeconds < 60) {
+    return "Just now";
+  } else if (diffInSeconds < 3600) {
+    const minutes = Math.floor(diffInSeconds / 60);
+    return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+  } else if (diffInSeconds < 86400) {
+    const hours = Math.floor(diffInSeconds / 3600);
+    return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+  } else if (diffInSeconds < 604800) {
+    const days = Math.floor(diffInSeconds / 86400);
+    return `${days} ${days === 1 ? 'day' : 'days'} ago`;
+  } else {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  }
+}
 
 export default function JobsPage() {
   const pathname = usePathname();
@@ -116,8 +144,6 @@ export default function JobsPage() {
       maxWorkers: '',
     });
   }, []);
-  
-
   
   // Handle filter changes
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -473,53 +499,116 @@ function JobCard({ job }: { job: Job }) {
     duration,
     budget,
     category,
+    created_at,
   } = job;
 
   const formattedBudget = new Intl.NumberFormat('en-KE').format(budget);
+  const timeAgo = formatRelativeTime(created_at);
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-3">
-          <h3 className="text-xl font-bold text-sky-900 line-clamp-2">{title}</h3>
-          <span className="bg-sky-100 text-sky-800 text-xs font-semibold px-2.5 py-1 rounded-full ml-2 shrink-0">{county}</span>
+    <div className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-sky-100 flex flex-col transform hover:-translate-y-1">
+      {/* Header with gradient accent */}
+      <div className="h-2 bg-gradient-to-r from-sky-600 to-orange-500"></div>
+      
+      <div className="p-6 flex flex-col flex-grow">
+        {/* Title and location section */}
+        <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
+          <h3 className="text-xl font-bold text-sky-900 group-hover:text-sky-700 transition-colors duration-300 line-clamp-2 mb-2 sm:mb-0 sm:mr-2">{title}</h3>
+          <span className="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            {county}
+          </span>
         </div>
 
-        {category && (
-          <div className="mb-2">
-            <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-1 rounded-full">{category}</span>
-          </div>
-        )}
+        {/* Category and time posted */}
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          {category && (
+            <span className="bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1.5 rounded-full inline-flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+              {category}
+            </span>
+          )}
+          
+          {/* Time posted indicator */}
+          <span className="bg-green-50 text-green-700 text-xs font-medium px-3 py-1.5 rounded-full inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {timeAgo}
+          </span>
+        </div>
 
-        <p className="text-gray-600 mb-4 line-clamp-3">{description}</p>
+        {/* Description */}
+        <p className="text-gray-600 mb-5 line-clamp-3 text-sm sm:text-base">{description}</p>
 
-        <div className="space-y-2 mb-5">
-          <div className="flex justify-between">
-            <span className="text-gray-500 text-sm">Client:</span>
-            <span className="text-gray-700 font-medium text-sm">{client_name}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500 text-sm">Workers needed:</span>
-            <span className="text-gray-700 font-medium text-sm">{number_of_workers}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500 text-sm">Gender preference:</span>
-            <span className="text-gray-700 font-medium text-sm">{gender || 'Any'}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500 text-sm">Duration:</span>
-            <span className="text-gray-700 font-medium text-sm">{duration}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500 text-sm">Budget:</span>
-            <span className="text-sky-700 font-bold text-sm">KSh {formattedBudget}</span>
+        {/* Details table */}
+        <div className="bg-gray-50 rounded-lg p-4 mb-5 flex-grow">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="col-span-2 sm:col-span-1">
+              <div className="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-sky-700 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <div>
+                  <span className="text-gray-500 text-xs">Client</span>
+                  <p className="text-gray-800 font-medium text-sm">{client_name}</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <div className="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-sky-700 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <div>
+                  <span className="text-gray-500 text-xs">Workers needed</span>
+                  <p className="text-gray-800 font-medium text-sm">{number_of_workers}</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <div className="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-sky-700 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <div>
+                  <span className="text-gray-500 text-xs">Gender preference</span>
+                  <p className="text-gray-800 font-medium text-sm">{gender || 'Any'}</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <div className="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-sky-700 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <span className="text-gray-500 text-xs">Duration</span>
+                  <p className="text-gray-800 font-medium text-sm">{duration}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <Link href={`/login`}>
-          <button className="w-full bg-[#F7801E] hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center">
+        {/* Budget */}
+        <div className="mb-5">
+          <div className="flex justify-between items-center bg-sky-50 rounded-lg p-3">
+            <span className="text-sky-700 font-medium text-sm">Budget</span>
+            <span className="text-sky-900 font-bold text-lg">KSh {formattedBudget}</span>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <Link href={`/login`} className="mt-auto">
+          <button className="w-full bg-gradient-to-r from-[#F7801E] to-orange-500 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-5 rounded-lg transition-all duration-300 flex items-center justify-center shadow-sm hover:shadow-md group-hover:shadow-orange-200">
             Contact Client
-            <ArrowRight className="ml-2 w-4 h-4" />
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </button>
         </Link>
       </div>
