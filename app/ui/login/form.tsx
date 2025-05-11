@@ -1,42 +1,56 @@
-"use client"
-import { authentication } from "@/app/lib/authenticate";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+// app/components/LoginForm.tsx
+'use client'
+
+import Image from "next/image"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export default function LoginForm() {
-    const router = useRouter();
-    const [errors, setErrors] = useState<boolean>(false);
-    const [checking, setChecking] = useState<boolean>(false);
-    const [showLogin, setShowLogin] = useState<boolean>(true);
-    
-    const formAction = async (e:React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setChecking(true);
-        const formData = new FormData(e.currentTarget)
-        const result = await authentication(formData);
-        console.log("Result from Authentication => ", result);
-        if (result?.success) {
-            router.push("/portal/dashboard");
-            setChecking(false);
-        } else {
-            setErrors(true);
-            setChecking(false);
-        }
-    };
+  const router = useRouter()
+  const [tab, setTab] = useState<'login' | 'register'>('login')
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    category: '',
+    county: '',
+  })
 
-    const handleGoogleLogin = () => {
-        // Implement Google OAuth login here
-        console.log("Google login clicked");
-        // You'll need to integrate with a Google OAuth provider
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
-    // We no longer using this function since we have direct button onClick handlers
-    // but keeping it commented in case needed for future reference
-    // const toggleForm = () => {
-    //     setShowLogin(!showLogin);
-    //     setErrors(false);
-    // };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    const endpoint = tab === 'login' ? '/api/auth/login' : '/api/auth/register'
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await res.json()
+
+      if (!res.ok) {
+        toast.error(result.message || 'Something went wrong.')
+      } else {
+        toast.success(result.message || (tab === 'login' ? 'Login successful!' : 'Account created!'))
+        if (tab === 'login') router.push('/portal/dashboard')
+        else setTab('login')
+      }
+    } catch (err) {
+      toast.error('Network error.')
+    } finally {
+      setLoading(false)
+    }
+  }
     
     return (
         <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
