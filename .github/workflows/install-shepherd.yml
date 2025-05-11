@@ -18,11 +18,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
 
-      - name: Install dependencies
-        run: |
-          npm install
-          npm install shepherd.js
+      - name: Install project dependencies (using legacy-peer-deps to avoid React 19 conflict)
+        run: npm install --legacy-peer-deps
 
-      - name: Build project (if needed)
+      - name: Install Shepherd.js (if not already in package.json)
+        run: npm install shepherd.js
+
+      - name: Build project
         run: npm run build
