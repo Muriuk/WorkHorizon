@@ -22,34 +22,34 @@ export default function LoginForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setLoading(true)
 
-    const endpoint = tab === 'login' ? '/api/auth/login' : '/api/auth/register'
+  const endpoint = tab === 'login' ? '/api/auth/login' : '/api/auth/register'
 
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      })
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    })
 
+    if (!res.ok) {
       const result = await res.json()
-
-      if (!res.ok) {
-        alert(result.message || 'Something went wrong.')
-      } else {
-        alert(result.message || (tab === 'login' ? 'Login successful!' : 'Account created!'))
-        if (tab === 'login') router.push('/portal/dashboard')
-        else setTab('login')
-      }
-    } catch (err) {
-      alert('Network error.')
-    } finally {
-      setLoading(false)
+      alert(result.message || 'Something went wrong.')
+    } else {
+      alert(res.status === 200 ? (tab === 'login' ? 'Login successful!' : 'Account created!') : 'Something went wrong')
+      if (tab === 'login') router.push('/portal/dashboard')
+      else setTab('login')
     }
+  } catch (err) {
+    alert('Network error.')
+  } finally {
+    setLoading(false)
   }
+}
+
     
   return (
     <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
