@@ -8,8 +8,8 @@ export default function MobileMenu() {
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const menu = [
         { link: '/', name: 'Home', active: false },
-        { link: '/about-us', name: 'About Us', active: false },
-        { link: '/careers', name: 'Jobs', active: false, dropdown:[{name:'Understand KaziBase', link: '/careers'}, {name: 'Available Jobs', link: '/jobspage'}] },
+         { link: '/jobspage', name: 'Jobs Available', active: false },
+        { link: '/', name: 'Understand KaziBase', active: false, dropdown:[{name:'About Us', link: '/about-us'}, {name: 'Available Jobs', link: '/jobspage'}] },
         { link: '/contact-us', name: 'Contact Us', active: false },
     ]
     useEffect(() => {
