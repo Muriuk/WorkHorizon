@@ -218,7 +218,7 @@ export default function LoginForm() {
     <option value="Meru">Meru</option>
     <option value="Migori">Migori</option>
     <option value="Mombasa">Mombasa</option>
-    <option value="Murang'a">Murang'a</option>
+    <option value="Muranga">Muranga</option>
     <option value="Nairobi">Nairobi</option>
     <option value="Nakuru">Nakuru</option>
     <option value="Nandi">Nandi</option>
