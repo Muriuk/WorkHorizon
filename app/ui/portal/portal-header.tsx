@@ -80,7 +80,7 @@ export default function PortalHeader() {
                 `}
             >
                 {pathname === '/portal' ? (
-                    <h3 className="text-xl text-sky-900 font-medium italic border-b border-orange-500 pb-2">Let's get Login !!!</h3>
+                    <h3 className="text-xl text-sky-900 font-medium italic border-b border-orange-500 pb-2">Lets get Login !!!</h3>
                 ) : (
                     <>
                         {Menu.map((item, index) =>
