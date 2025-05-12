@@ -42,8 +42,12 @@ export default function Dashboard({ email }: { email: string }) {
 
         const result = await res.json();
         setData(result);
-      } catch (err: any) {
-        setError(err.message || "An error occurred while fetching data");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message || "An error occurred while fetching data");
+        } else {
+          setError("An unknown error occurred");
+        }
       } finally {
         setLoading(false);
       }
