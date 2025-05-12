@@ -1,6 +1,6 @@
 // /app/api/dashboard/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import mysql from "mysql2/promise";
+import mysql, { RowDataPacket } from "mysql2/promise";
 
 async function getConnection() {
   return await mysql.createConnection({
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const connection = await getConnection();
 
     // Get user info
-    const [users] = await connection.execute(
+    const [users] = await connection.execute<RowDataPacket[]>(
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
@@ -26,13 +26,13 @@ export async function POST(req: NextRequest) {
     const user = users[0];
 
     // Get jobs in their county
-    const [availableJobs] = await connection.execute(
+    const [availableJobs] = await connection.execute<RowDataPacket[]>(
       "SELECT * FROM jobs WHERE county = ? ORDER BY created_at DESC",
       [user.county]
     );
 
     // Get jobs the user has applied to
-    const [appliedJobs] = await connection.execute(
+    const [appliedJobs] = await connection.execute<RowDataPacket[]>(
       `SELECT j.* FROM jobs j
        JOIN applications a ON j.id = a.job_id
        WHERE a.user_id = ?
