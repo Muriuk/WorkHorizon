@@ -13,6 +13,7 @@ async function getConnection() {
 
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
+  console.log("Received email:", email);  // Log the received email
 
   try {
     const connection = await getConnection();
@@ -22,6 +23,8 @@ export async function POST(req: NextRequest) {
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
+    console.log("Users found:", users);  // Log the user data
+
     if (users.length === 0) return NextResponse.json({ error: "User not found" }, { status: 404 });
     const user = users[0];
 
@@ -30,6 +33,7 @@ export async function POST(req: NextRequest) {
       "SELECT * FROM jobs WHERE county = ? ORDER BY created_at DESC",
       [user.county]
     );
+    console.log("Available jobs:", availableJobs);  // Log the available jobs
 
     // Get jobs the user has applied to
     const [appliedJobs] = await connection.execute<RowDataPacket[]>(
@@ -39,6 +43,7 @@ export async function POST(req: NextRequest) {
        ORDER BY a.applied_at DESC`,
       [user.id]
     );
+    console.log("Applied jobs:", appliedJobs);  // Log the applied jobs
 
     await connection.end();
 
