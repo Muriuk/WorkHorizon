@@ -28,28 +28,19 @@ export async function POST(req: NextRequest) {
       [email]
     );
 
-    await connection.end();
-
     if (rows.length === 0 || rows[0].password !== password) {
+      await connection.end();
       return NextResponse.json(
         { success: false, message: "Invalid email or password." },
         { status: 401 }
       );
     }
 
-    // ✅ Set email in cookie
-    const res = NextResponse.json(
+    await connection.end();
+    return NextResponse.json(
       { success: true, message: "Login successful." },
       { status: 200 }
     );
-
-    res.cookies.set("userEmail", email, {
-      httpOnly: false, // you can set true to hide from JavaScript if needed
-      path: "/",
-      maxAge: 60 * 60 * 24, // 1 day
-    });
-
-    return res;
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
