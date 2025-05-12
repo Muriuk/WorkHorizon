@@ -1,8 +1,12 @@
-// workerportal/page.tsx
-import WorkerportalForm from "../ui/workerportal/form"; // path to client component
+import { cookies } from "next/headers";
+import WorkerportalForm from "../ui/workerportal/form";
 
 export default function WorkerportalPage() {
-  const mockEmail = "testuser@example.com"; // Placeholder for now
+  const email = cookies().get("userEmail")?.value;
 
-  return <WorkerportalForm email={mockEmail} />;
+  if (!email) {
+    return <div className="text-red-500 p-4">Please log in to view your dashboard.</div>;
+  }
+
+  return <WorkerportalForm email={email} />;
 }
