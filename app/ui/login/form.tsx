@@ -124,7 +124,7 @@ export default function LoginForm() {
                 if (tab === 'login') {
                     // Delay navigation slightly to show the toast
                     setTimeout(() => {
-                        router.push('/workerportal')
+                        router.push('/portal/dashboard')
                     }, 1000)
                 } else {
                     setTab('login')
