@@ -36,9 +36,11 @@ export default function Dashboard({ email }: { email: string }) {
           body: JSON.stringify({ email }),
         });
 
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
+       if (!res.ok) {
+  const errorData = await res.json(); // <== add this
+  throw new Error(errorData.error || "Failed to fetch data");
+}
+
 
         const result = await res.json();
         setData(result);
