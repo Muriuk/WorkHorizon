@@ -18,22 +18,43 @@ type DashboardData = {
 
 export default function Dashboard({ email }: { email: string }) {
   const [data, setData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!email) {
+      setError("Email is required");
+      setLoading(false);
+      return;
+    }
+
     async function fetchData() {
-      const res = await fetch("/api/workerdash", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const result = await res.json();
-      setData(result);
+      try {
+        const res = await fetch("/api/workerdash", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const result = await res.json();
+        setData(result);
+      } catch (err: any) {
+        setError(err.message || "An error occurred while fetching data");
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchData();
   }, [email]);
 
-  if (!data) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="text-red-500">{error}</div>;
+  if (!data) return <div>No data available</div>;
 
   return (
     <div className="p-4">
