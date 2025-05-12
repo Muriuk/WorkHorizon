@@ -13,6 +13,7 @@ export default function LoginForm() {
         name: '',
         email: '',
         password: '',
+        confirmPassword: '', // added
         phone: '',
         category: '',
         county: '',
@@ -26,13 +27,30 @@ export default function LoginForm() {
         e.preventDefault()
         setLoading(true)
 
+        if (tab === 'register' && formData.password !== formData.confirmPassword) {
+            alert('Passwords do not match.')
+            setLoading(false)
+            return
+        }
+
         const endpoint = tab === 'login' ? '/api/login' : '/api/register'
+
+        const payload = tab === 'login'
+            ? { email: formData.email, password: formData.password }
+            : {
+                full_name: formData.name,
+                email: formData.email,
+                phone_number: formData.phone,
+                password: formData.password,
+                work_category: formData.category,
+                county: formData.county,
+            }
 
         try {
             const res = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(payload),
             })
 
             if (!res.ok) {
@@ -46,10 +64,10 @@ export default function LoginForm() {
         } catch {
             alert('Network error.')
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
     }
-
+    
     return (
         <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
             <div className="w-full max-w-md">
