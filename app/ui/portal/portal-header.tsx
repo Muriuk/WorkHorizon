@@ -8,6 +8,7 @@ import { Menu as MenuIcon, X } from "lucide-react"
 
 export default function PortalHeader() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     const Menu = [
         {
@@ -20,14 +21,8 @@ export default function PortalHeader() {
             link: '/portal/dashboard/jobs-list',
             active: false,
             dropdown: [
-                {
-                    name: 'All Jobs',
-                    link: '/portal/dashboard/jobs-list',
-                },
-                {
-                    name: 'Add New Job',
-                    link: '/portal/dashboard/new-job-addition',
-                }
+                { name: 'All Jobs', link: '/portal/dashboard/jobs-list' },
+                { name: 'Add New Job', link: '/portal/dashboard/new-job-addition' }
             ]
         },
         {
@@ -42,39 +37,29 @@ export default function PortalHeader() {
         }
     ];
 
-    const pathname = usePathname();
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     return (
         <>
-            {/* Top Header Bar */}
-            <div className="w-full flex justify-between items-center px-4 py-3 bg-white shadow-md z-50 relative lg:static">
+            {/* Top Header (visible always) */}
+            <div className="w-full flex justify-between items-center px-4 py-3 bg-white shadow-md z-50 relative">
                 <div className="text-sky-900 font-bold text-xl">Kazibase</div>
 
-                {/* Mobile Menu Button */}
-                <div className="lg:hidden">
-                    <button 
-                        onClick={toggleMenu} 
-                        className="p-2 text-sky-900 focus:outline-none"
-                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                    >
-                        {isMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
-                    </button>
-                </div>
+                {/* Menu toggle button - only on mobile */}
+                <button 
+                    onClick={toggleMenu} 
+                    className="lg:hidden p-2 text-sky-900 focus:outline-none"
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                >
+                    {isMenuOpen ? <X size={24} /> : <MenuIcon size={24} />}
+                </button>
             </div>
 
-            {/* Mobile Menu Overlay */}
-            {isMenuOpen && (
-                <div 
-                    className="fixed inset-0 z-40 bg-black bg-opacity-30 lg:hidden"
-                    onClick={toggleMenu}
-                />
-            )}
-
-            {/* Mobile Menu Panel */}
+            {/* Mobile-only menu panel */}
             <div 
                 className={`
-                    fixed top-[64px] left-0 z-50 w-3/4 sm:w-1/2 h-[calc(100vh-64px)] bg-white shadow-md transform transition-transform duration-300 ease-in-out
+                    fixed top-[64px] left-0 w-3/4 sm:w-1/2 h-[calc(100vh-64px)] bg-white z-40 shadow-md
+                    transform transition-transform duration-300 ease-in-out
                     ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}
                     lg:hidden flex flex-col gap-4 p-5
                 `}
@@ -111,39 +96,6 @@ export default function PortalHeader() {
                                 setIsMenuOpen(false);
                                 signOut({ callbackUrl: '/portal' });
                             }}
-                            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-                        >
-                            Sign Out
-                        </button>
-                    </>
-                )}
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center justify-end gap-7 px-4 py-3 bg-white shadow-md">
-                {pathname !== '/portal' && (
-                    <>
-                        {Menu.map((item, index) =>
-                            item.dropdown ? (
-                                <DropDown key={index} mainMenu={item} />
-                            ) : (
-                                <Link 
-                                    href={item.link}
-                                    key={index}
-                                    className="text-sky-900 text-lg font-semibold hover:text-sky-800"
-                                >
-                                    {item.name}
-                                </Link>
-                            )
-                        )}
-                        <Link 
-                            href={'/portal/dashboard/agents'} 
-                            className="text-sky-900 text-lg font-semibold hover:text-sky-800"
-                        >
-                            Agents
-                        </Link>
-                        <button
-                            onClick={() => signOut({ callbackUrl: '/portal' })}
                             className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
                         >
                             Sign Out
