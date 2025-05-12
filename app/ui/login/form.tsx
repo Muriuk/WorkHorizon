@@ -26,7 +26,7 @@ export default function LoginForm() {
         e.preventDefault()
         setLoading(true)
 
-        const endpoint = tab === 'login' ? '/api/auth/login' : '/api/auth/register'
+        const endpoint = tab === 'login' ? '/api/login' : '/api/register'
 
         try {
             const res = await fetch(endpoint, {
