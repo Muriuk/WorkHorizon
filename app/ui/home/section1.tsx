@@ -91,13 +91,13 @@ export default function HomeHead() {
                         Manual Jobs Made Easy in Kenya
                     </h3>
                     <p className="text-md lg:text-xl font-normal tracking-wide">
-  <span className="text-black font-semibold">Kazibase</span> ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka <span className="text-orange-500 font-medium">kazi</span>, hustler anaiona, anakuchat <span className="text-orange-500 font-medium">WhatsApp</span> – kazi inaanza!
+  <span className="text-black font-semibold">Kazibase</span> ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka <span className="text-orange-500 font-medium">kazi</span>, hustler anaiona, anakupigia ama anakuchat <span className="text-orange-500 font-medium">WhatsApp</span> – kazi inaanza!
 </p>
 
                 </div>
                 <div className="lg:pl-12 pt-5">
                    <p className="text-md lg:text-xl font-normal tracking-wide">
-  Wafanyakazi wote<span className="text-orange-500 font-medium"> wanathibitisha</span> ujuzi wao. Hii inamaanisha unaweza kuwa na <span className="text-orange-500 font-medium">imani</span> na kazi yao. <span className="text-black font-semibold">Kazibase</span> inalenga <span className="text-orange-500 font-medium">kila mtaa</span>, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret,Nakuru, Meru, Kiambu, Mombasa,Garissa na kila mahali katika taifa letu la Kenya.
+  Wafanyakazi wote<span className="text-orange-500 font-medium"> wanathibitisha (they verify)</span> ujuzi wao. Hii inamaanisha unaweza kuwa na <span className="text-orange-500 font-medium">imani</span> na kazi yao. <span className="text-black font-semibold">Kazibase</span> inalenga <span className="text-orange-500 font-medium">kila mtaa</span>, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret,Nakuru, Meru, Kiambu, Mombasa,Garissa na kila mahali katika taifa letu la Kenya.
 </p>
 
                 </div>
