@@ -2,22 +2,83 @@
 'use client'
 
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+
+// Toast notification component
+interface ToastProps {
+    message: string
+    type: 'success' | 'error'
+    onClose: () => void
+}
+
+function Toast({ message, type, onClose }: ToastProps) {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            onClose()
+        }, 5000) // Auto-close after 5 seconds
+
+        return () => clearTimeout(timer)
+    }, [onClose])
+
+    return (
+        <div
+            className={`fixed top-4 right-4 z-50 max-w-sm w-full sm:max-w-xs animate-slide-in-right
+                ${type === 'success' 
+                    ? 'bg-green-500 border-green-600' 
+                    : 'bg-red-500 border-red-600'
+                } 
+                text-white p-4 rounded-lg shadow-lg border-l-4 transition-all duration-300 ease-in-out`}
+        >
+            <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                    {type === 'success' ? (
+                        <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                    ) : (
+                        <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                    )}
+                    <span className="text-sm font-medium">{message}</span>
+                </div>
+                <button
+                    onClick={onClose}
+                    className="ml-2 text-white hover:text-gray-200 transition-colors duration-200"
+                    aria-label="Close notification"
+                >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    )
+}
 
 export default function LoginForm() {
     const router = useRouter()
     const [tab, setTab] = useState<'login' | 'register'>('login')
     const [loading, setLoading] = useState(false)
+    const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
-        confirmPassword: '', // added
+        confirmPassword: '',
         phone: '',
         category: '',
         county: '',
     })
+
+    const showToast = (message: string, type: 'success' | 'error') => {
+        setToast({ message, type })
+    }
+
+    const closeToast = () => {
+        setToast(null)
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -28,7 +89,7 @@ export default function LoginForm() {
         setLoading(true)
 
         if (tab === 'register' && formData.password !== formData.confirmPassword) {
-            alert('Passwords do not match.')
+            showToast('Passwords do not match.', 'error')
             setLoading(false)
             return
         }
@@ -55,20 +116,48 @@ export default function LoginForm() {
 
             if (!res.ok) {
                 const result = await res.json()
-                alert(result.message || 'Something went wrong.')
+                showToast(result.message || 'Something went wrong.', 'error')
             } else {
-                alert(res.status === 200 ? (tab === 'login' ? 'Login successful!' : 'Account created!') : 'Something went wrong')
-                if (tab === 'login') router.push('/portal/dashboard')
-                else setTab('login')
+                const successMessage = tab === 'login' ? 'Login successful!' : 'Account created successfully!'
+                showToast(successMessage, 'success')
+                
+                if (tab === 'login') {
+                    // Delay navigation slightly to show the toast
+                    setTimeout(() => {
+                        router.push('/portal/dashboard')
+                    }, 1000)
+                } else {
+                    setTab('login')
+                    // Clear form data after successful registration
+                    setFormData({
+                        name: '',
+                        email: '',
+                        password: '',
+                        confirmPassword: '',
+                        phone: '',
+                        category: '',
+                        county: '',
+                    })
+                }
             }
         } catch {
-            alert('Network error.')
+            showToast('Network error. Please check your connection.', 'error')
         } finally {
             setLoading(false)
         }
     }
     
     return (
+        
+        {/* Toast notifications */}
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={closeToast}
+                />
+            )}
+    
         <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
             <div className="w-full max-w-md">
                 <Image
