@@ -1,14 +1,8 @@
-import { cookies } from "next/headers";
-import WorkerportalForm from "../ui/workerportal/form";
+// workerportal/page.tsx
+import WorkerportalForm from "../ui/workerportal/form"; // path to client component
 
-export default async function WorkerportalPage() {
-  // Await the cookies
-  const userEmailCookie = await cookies();
-  const email = userEmailCookie.get("userEmail")?.value;
+export default function WorkerportalPage() {
+  const mockEmail = "muriukikelvin27@gmail.com"; // Placeholder for now
 
-  if (!email) {
-    return <div className="text-red-500 p-4">Please log in to view your dashboard.</div>;
-  }
-
-  return <WorkerportalForm email={email} />;
+  return <WorkerportalForm email={mockEmail} />;
 }
