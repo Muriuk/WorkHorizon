@@ -148,7 +148,7 @@ export default function LoginForm() {
     }
     
     return (
-        
+         <>
         {/* Toast notifications */}
             {toast && (
                 <Toast
@@ -377,5 +377,7 @@ export default function LoginForm() {
                 )}
             </div>
         </div>
+
+   </>
     )
 }
