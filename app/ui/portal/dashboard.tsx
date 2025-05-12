@@ -5,8 +5,8 @@ import MessagesList from "./dashboardElements/messagesList";
 export default function DashboardBody() {
     return (
         <div className='container w-[88%] lg:w-full min-h-[90vh] pt-10 pb-20 flex flex-col justify-center'>
-            <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1 ">Hello, Admin</h1>
-            <h1 className="text-3xl font-semibold mb-7 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">{`Welcome to Kazibase Portal`}</h1>
+            <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1 ">Hello, Worker</h1>
+            <h1 className="text-2xl font-semibold mb-6 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">{`Welcome to your Portal`}</h1>
             <div className='grid grid-cols-2 gap-10 w-full h-[450px] max-h-[450px] 2xl:h-[520px] 2xl:max-h-[530px]'>
                 <ActiveJobs />
                 <ApplicantsView />
