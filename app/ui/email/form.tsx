@@ -36,10 +36,11 @@ export default function EmailVerificationForm() {
         setStatus('error');
         setMessage(data.message || 'Verification failed.');
       }
-    } catch (err) {
-      setStatus('error');
-      setMessage('An error occurred during verification.');
-    }
+   } catch (err) {
+  console.error('Email verification error:', err); // <— add this
+  setStatus('error');
+  setMessage('An error occurred during verification.');
+}
   }, [startCountdown]);
 
   useEffect(() => {
