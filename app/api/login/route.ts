@@ -7,6 +7,7 @@ type User = {
   name: string;
   email: string;
   password: string;
+  is_verified: boolean; // Add this field to track verification status
 };
 
 async function getConnection() {
@@ -34,6 +35,16 @@ export async function POST(req: NextRequest) {
         { success: false, message: "Invalid email or password." },
         { status: 401 }
       );
+    }
+
+    // Check if user is verified
+    if (!rows[0].is_verified) {
+      await connection.end();
+      return NextResponse.json({
+        success: false,
+        message: "Please verify your email before logging in. Check your inbox for the verification link.",
+        needsVerification: true,
+      }, { status: 401 });
     }
 
     await connection.end();
