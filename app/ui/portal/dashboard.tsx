@@ -1,6 +1,6 @@
 'use client'
 
-import JobsPage from './jobspage';
+import JobsPage from '/jobspage';
 
 export default function DashboardBody() {
     return (
