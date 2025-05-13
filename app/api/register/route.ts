@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 import { RowDataPacket } from 'mysql2';
 import crypto from 'crypto';
-import { sendVerificationEmail } from '/lib/email';
+import { sendVerificationEmail } from '../../lib/email';
 
 async function getConnection() {
   return await mysql.createConnection({
