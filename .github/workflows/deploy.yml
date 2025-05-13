@@ -16,15 +16,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Match your local Node.js version
+          node-version: 19  # Use Node.js version 19
 
-      - name: Install dependencies
+      - name: Install required packages
         run: |
-          # Install dependencies with legacy peer deps
-          npm install --legacy-peer-deps
-
-          # Install nodemailer and types for nodemailer
-          npm install nodemailer @types/nodemailer
+          npm install nodemailer crypto @types/nodemailer
 
       - name: Build project
         run: npm run build
