@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     await connection.end();
 
     // Redirect to login page with success message
-    const loginUrl = new URL('/login', req.url);
+    const loginUrl = new URL('/email', req.url);
     loginUrl.searchParams.set('verified', 'true');
     
     return NextResponse.redirect(loginUrl.toString());
