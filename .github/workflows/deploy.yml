@@ -20,7 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Install dependencies with legacy peer deps
           npm install --legacy-peer-deps
+
+          # Install nodemailer and types for nodemailer
           npm install nodemailer @types/nodemailer
 
       - name: Build project
