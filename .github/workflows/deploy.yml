@@ -3,7 +3,7 @@ name: Deploy Kazibase
 on:
   push:
     branches:
-      - main  # or your deploy branch
+      - main  # Or your deployment branch
 
 jobs:
   build:
@@ -16,15 +16,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # or your project's version
+          node-version: 18  # Match your local Node.js version
 
       - name: Install dependencies
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm install nodemailer @types/nodemailer
 
       - name: Build project
         run: npm run build
-
-      - name: Deploy (example step)
-        run: npm run deploy  # Or let Vercel auto-deploy if connected
