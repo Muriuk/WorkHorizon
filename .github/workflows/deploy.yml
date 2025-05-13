@@ -20,7 +20,7 @@ jobs:
 
       - name: Install required packages
         run: |
-          npm install nodemailer crypto @types/nodemailer
+          npm install nodemailer crypto @types/nodemailer --legacy-peer-deps
 
       - name: Build project
         run: npm run build
