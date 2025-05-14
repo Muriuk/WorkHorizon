@@ -1,6 +1,7 @@
 'use client'
 
-import JobsPage from '/jobspage';
+import JobsPage from './jobspage';
+import { signOut } from "next-auth/react"
 
 export default function DashboardBody() {
     return (
