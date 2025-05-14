@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     if (rows.length === 0 || rows[0].password !== password) {
       await connection.end();
       return NextResponse.json(
-        { success: false, message: "Invalid email or password." },
+        { success: false, message: "Invalid email or password. Please check your credentials and try again." },
         { status: 401 }
       );
     }
