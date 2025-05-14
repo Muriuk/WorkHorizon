@@ -38,7 +38,7 @@ export default function DashboardBody() {
   ]
 
   const IconComponent = ({ type, className = 'w-5 h-5' }: IconProps) => {
-    const icons: Record<IconType, JSX.Element> = {
+    const icons: Record<IconType, React.ReactNode> = {
       home: (
         <path
           strokeLinecap="round"
