@@ -387,7 +387,7 @@ export default function LoginForm() {
                     )}
                 </button>
             </div>
-            {errors.password && <div className="text-red-500 text-sm">{errors.password}</div>}
+           
 
             <label className="text-md sm:text-lg font-medium mb-1 mt-4">Confirm Password:</label>
             <div className="relative">
@@ -417,7 +417,7 @@ export default function LoginForm() {
                     )}
                 </button>
             </div>
-            {errors.confirmPassword && <div className="text-red-500 text-sm">{errors.confirmPassword}</div>}
+            
 
           
                         <button
