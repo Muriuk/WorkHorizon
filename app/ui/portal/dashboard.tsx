@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { signOut } from 'next-auth/react'
-
+import JobsPage from '@/app/ui/jobspage/form'
 // Define IconType properly
 type IconType =
   | 'home'
