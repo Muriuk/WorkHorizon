@@ -10,7 +10,7 @@ export default function HomeHead() {
                     <h3 className="text-sm font-normal leading-1 border border-green-500 rounded-md inline-block px-2 py-1 shadow-[0_0_8px_2px_rgba(34,197,94,0.6)] animate-pulse">
                         <span className="font-bold uppercase">
                             <span className="bg-gradient-to-r from-sky-900 to-sky-900 bg-clip-text text-transparent">Kazi</span>
-                            <span className="bg-gradient-to-r from-orange-900 to-orange-900 bg-clip-text text-transparent">base</span>
+                            <span className="bg-gradient-to-r from-orange-400 to-orange-400 bg-clip-text text-transparent">base</span>
                         </span>{" "}
                         - Work • Get Paid • Happy Life
                     </h3>
@@ -19,7 +19,7 @@ export default function HomeHead() {
                         Manual Jobs Made Easy in Kenya
                     </h3>
                     <p className="text-md lg:text-xl 2xl:text-2xl 3xl:text-3xl font-normal tracking-wide 2xl:tracking-wider">
-                        <span className="font-bold bg-gradient-to-r from-sky-900 to-sky-600 bg-clip-text text-transparent">Kazibase</span> ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka{" "}
+                        <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka{" "}
                         kazi, hustler anaiona, anakupigia ama anakuchat{" "}
                         <span className="relative inline-block">
                             <span className="absolute inset-0 bg-green-500/20 rounded-lg blur-sm"></span>
@@ -35,16 +35,9 @@ export default function HomeHead() {
                             <span className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm"></span>
                             <span className="relative text-orange-400 font-semibold px-3 py-1 bg-orange-500/10 rounded-lg border border-orange-500/20">wanathibitisha</span>
                         </span>{" "}
-                        ujuzi wao. Hii inamaanisha unaweza kuwa na{" "}
-                        <span className="relative inline-block">
-                            <span className="relative text-green-400 font-semibold px-3 py-1 bg-green-500/10 rounded-lg border border-green-500/20">imani</span>
-                        </span>{" "}
-                        na kazi yao.{" "}
-                        <span className="font-bold bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">Kazibase</span> inalenga{" "}
-                        <span className="relative inline-block">
-                            <span className="relative text-purple-400 font-semibold px-3 py-1 bg-purple-500/10 rounded-lg border border-purple-500/20">kila mtaa</span>
-                        </span>
-                        , kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
+                        ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao.{" "}
+                        <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> inalenga{" "}
+                      kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
                     </p>
                 </div>
                 <div className="flex flex-row justify-center lg:justify-start gap-4 2xl:gap-6 3xl:gap-8 mt-8 lg:col-span-2">
