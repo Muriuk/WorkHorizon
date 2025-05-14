@@ -35,7 +35,7 @@ export default function HomeHead() {
                                             </span> ujuzi wao. Hii inamaanisha unaweza kuwa na <span className="relative">
                                                 <span className="absolute inset-0 bg-green-500/20 rounded-lg blur"></span>
                                                 <span className="relative text-green-400 font-semibold px-3 py-1 bg-green-500/10 rounded-lg border border-green-500/20">imani</span>
-                                            </span> na kazi yao. <span className="font-bold bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">Kazibase</span> inalenga <span className="relative">
+                                            </span> na kazi yao. <span className="font-bold bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">Kazibase</span> inalenga 
                                                 <span className="absolute inset-0 bg-purple-500/20 rounded-lg blur"></span>
                                                 <span className="relative text-purple-400 font-semibold px-3 py-1 bg-purple-500/10 rounded-lg border border-purple-500/20">kila mtaa</span>
                                             </span>, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
