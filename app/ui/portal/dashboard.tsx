@@ -161,7 +161,7 @@ export default function DashboardBody() {
                 </div>
                 <div className="ml-3">
                   <h2 className="text-white font-semibold text-lg">WorkerHub</h2>
-                  <p className="text-blue-100 text-xs">Pro Dashboard</p>
+                  <p className="text-blue-100 text-xs">By Kazibase</p>
                 </div>
               </div>
               <button
@@ -209,7 +209,7 @@ export default function DashboardBody() {
           {/* Sign Out Button */}
           <div className="p-4 border-t border-slate-200">
             <button
-              onClick={() => signOut({ callbackUrl: '/portal' })}
+              onClick={() => signOut({ callbackUrl: '/login' })}
               className="w-full flex items-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium"
             >
               <IconComponent type="logout" className="w-5 h-5 mr-3" />
@@ -265,7 +265,7 @@ export default function DashboardBody() {
               {/* Welcome Section */}
               <div className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-8 text-white relative overflow-hidden">
                 <div className="relative z-10">
-                  <h2 className="text-3xl font-bold mb-2">Welcome back, John!</h2>
+                  <h2 className="text-3xl font-bold mb-2">Welcome back, Worker!</h2>
                   <p className="text-blue-100 mb-6">Ready to find your next opportunity?</p>
                   <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
                     Start Job Search
