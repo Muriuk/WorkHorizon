@@ -21,24 +21,24 @@ export default function HomeHead() {
                     <p className="text-md lg:text-xl font-normal tracking-wide">
                        <span className="font-bold bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">Kazibase</span> ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka <span className="absolute inset-0 bg-orange-500/20 rounded-lg blur"></span>
                                         <span className="relative text-orange-400 font-semibold px-3 py-1 bg-orange-500/10 rounded-lg border border-orange-500/20">kazi</span>
-                                    </span>, hustler anaiona, anakupigia ama anakuchat 
+                                    , hustler anaiona, anakupigia ama anakuchat 
                                         <span className="absolute inset-0 bg-green-500/20 rounded-lg blur"></span>
                                         <span className="relative text-green-400 font-semibold px-3 py-1 bg-green-500/10 rounded-lg border border-green-500/20">WhatsApp</span>
-                                    </span> – kazi inaanza!
+                                     – kazi inaanza!
                     </p>
                 </div>
                 <div className="lg:pl-12 pt-5">
                     <p className="text-md lg:text-xl font-normal tracking-wide">
-                        Wafanyakazi wote <span className="relative">
+                        Wafanyakazi wote 
                                                 <span className="absolute inset-0 bg-orange-500/20 rounded-lg blur"></span>
                                                 <span className="relative text-orange-400 font-semibold px-3 py-1 bg-orange-500/10 rounded-lg border border-orange-500/20">wanathibitisha</span>
-                                            </span> ujuzi wao. Hii inamaanisha unaweza kuwa na <span className="relative">
+                                         ujuzi wao. Hii inamaanisha unaweza kuwa na
                                                 <span className="absolute inset-0 bg-green-500/20 rounded-lg blur"></span>
                                                 <span className="relative text-green-400 font-semibold px-3 py-1 bg-green-500/10 rounded-lg border border-green-500/20">imani</span>
-                                            </span> na kazi yao. <span className="font-bold bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">Kazibase</span> inalenga 
+                                             na kazi yao. <span className="font-bold bg-gradient-to-r from-sky-400 to-sky-300 bg-clip-text text-transparent">Kazibase</span> inalenga 
                                                 <span className="absolute inset-0 bg-purple-500/20 rounded-lg blur"></span>
                                                 <span className="relative text-purple-400 font-semibold px-3 py-1 bg-purple-500/10 rounded-lg border border-purple-500/20">kila mtaa</span>
-                                            </span>, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
+                                            , kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
                     </p>
                 </div>
                 <div className="flex flex-row justify-center lg:justify-start gap-4 mt-6">
