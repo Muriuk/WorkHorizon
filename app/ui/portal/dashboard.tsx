@@ -179,7 +179,7 @@ export default function DashboardBody() {
                                 <span className="text-white font-semibold text-lg">JD</span>
                             </div>
                             <div className="ml-3">
-                                <p className="text-slate-900 font-medium">John Doe</p>
+                                <p className="text-slate-900 font-medium">Kelvin Muriuki</p>
                                 <p className="text-slate-500 text-sm">Software Engineer</p>
                             </div>
                         </div>
@@ -194,11 +194,7 @@ export default function DashboardBody() {
                                 className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group
                                     ${activeSection === item.key ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' : 'text-slate-600'}`}
                             >
-                                <IconComponent 
-                                    type={item.icon} 
-                                    className={`w-5 h-5 mr-3 transition-colors
-                                        ${activeSection === item.key ? 'text-blue-700' : 'text-slate-500 group-hover:text-slate-700'}`}
-                                />
+                               
                                 <span className={`font-medium ${activeSection === item.key ? 'font-semibold' : ''}`}>
                                     {item.label}
                                 </span>
