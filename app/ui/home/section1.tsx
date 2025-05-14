@@ -1,5 +1,5 @@
 'use client'
-import { TargetWindowCheck } from "@/app/hooks/windowSize";
+
 import Link from 'next/link';
 
 export default function HomeHead() {
@@ -23,7 +23,10 @@ export default function HomeHead() {
                 </div>
                 <div className="lg:pl-12 pt-5">
                     <p className="text-md lg:text-xl font-normal tracking-wide">
-                        Wafanyakazi wote<span className="text-orange-500 font-medium"> wanathibitisha (they verify)</span> ujuzi wao. Hii inamaanisha unaweza kuwa na <span className="text-orange-500 font-medium">imani</span> na kazi yao. <span className="text-black font-semibold">Kazibase</span> inalenga <span className="text-orange-500 font-medium">kila mtaa</span>, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
+                        Wafanyakazi wote<span className="text-orange-500 font-medium"> wanathibitisha (they verify)</span> ujuzi wao. Hii inamaanisha unaweza kuwa na <span className="relative">
+                                                <span className="absolute inset-0 bg-green-500/20 rounded-lg blur"></span>
+                                                <span className="relative text-green-400 font-semibold px-3 py-1 bg-green-500/10 rounded-lg border border-green-500/20">imani</span>
+                                            </span> na kazi yao. <span className="text-black font-semibold">Kazibase</span> inalenga <span className="text-orange-500 font-medium">kila mtaa</span>, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
                     </p>
                 </div>
                 <div className="flex flex-row justify-center lg:justify-start gap-4 mt-6">
