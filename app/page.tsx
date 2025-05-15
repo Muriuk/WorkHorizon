@@ -1,9 +1,6 @@
 
 import HomeHead from './ui/home/section1';
 // import { useEffect, useState } from 'react';
-
-
-import JoinGlobalTeam from './ui/home/joinglobalteam';
 import HiringProcess from './ui/home/hiringprocess';
 import LetsTalk from './ui/home/letstalk';
 export default function Home() {
@@ -12,10 +9,6 @@ export default function Home() {
     <>
       <HomeHead />
       <HiringProcess />
-    
-      
-      <JoinGlobalTeam />
-     
         <LetsTalk />
     </>
   );
