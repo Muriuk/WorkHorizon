@@ -124,14 +124,7 @@ const IconComponent = ({ type, className = 'w-5 h-5' }: IconProps) => {
 export default function DashboardBody() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('dashboard')
-  const [user, setUser] = useState<{ name: string; worker_category: string } | null>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+ 
   const sidebarItems: Array<{ key: string; label: string; icon: IconType }> = [
     { key: 'dashboard', label: 'Dashboard', icon: 'home' },
     { key: 'jobs', label: 'Find Jobs', icon: 'search' },
@@ -180,25 +173,17 @@ export default function DashboardBody() {
           </div>
 
          {/* User Profile Section */}
-<div className="p-6 border-b border-slate-200">
-  <div className="flex items-center">
-    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-      <span className="text-white font-semibold text-lg">
-        {user?.name
-          ? user.name
-              .split(" ")
-              .map((n) => n[0])
-              .join("")
-              .toUpperCase()
-          : ""}
-      </span>
-    </div>
-    <div className="ml-3">
-      <p className="text-slate-900 font-medium">{user?.name}</p>
-      <p className="text-slate-500 text-sm">{user?.worker_category}</p>
-    </div>
-  </div>
-</div>
+          <div className="p-6 border-b border-slate-200">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-semibold text-lg">JD</span>
+              </div>
+              <div className="ml-3">
+                <p className="text-slate-900 font-medium">User Name</p>
+                <p className="text-slate-500 text-sm">Category Name</p>
+              </div>
+            </div>
+          </div>
 
 
           {/* Navigation */}
