@@ -1,6 +1,7 @@
 import Image from "next/image"
 
 export default function HiringProcess() {
+    const [childBtns, setChildBtns] = useState<boolean>(false);
     const HP = [
         {
             image: '/assets/post-job.jpg',
@@ -133,6 +134,12 @@ export default function HiringProcess() {
                 </div>
             </div>
         </div>
-         
+       <div className="flex flex-col items-center jusitfy-center lg:grid gap-5 lg:grid-cols-[35%,65%] lg:items-start mt-6">
+                        <button onClick={() => setChildBtns(!childBtns)} className={` relative text-md lg:text-lg text-orange-500 hover:text-sky-900 font-semibold inline-flex items-center gap-4 w-fit border hover:border border-x-transparent border-t-transparent hover:border-sky-900 hover:rounded-xl border-b-sky-900 px-2 lg:pl-2 lg:pr-1 hover:hover:py-2 sticky transition-auto ease-in-out duration-200 hover:scale-[1.1]`}>Connect With Us (click) <ArrowRight className={`w-5 hidden lg:block`}/></button>
+                        <div className={` transition-all ease-in-out duration-500 relative ${childBtns? 'flex': 'hidden'} flex-col items-center lg:items-start lg:w-full`}>
+                            <Link href='/contact-us' className="relative text-md lg:text-lg text-sky-900 font-semibold inline-flex items-center gap-4 w-fit border border-sky-900 rounded-xl px-3 py-1 transition-auto ease-in-out duration-200 py-1 hover:scale-[1.05]">Get in Touch</Link>
+                            <Link href='/jobspage' className="relative text-md lg:text-lg text-gray-100 font-semibold inline-flex items-center gap-4 mt-4 w-fit border hover:border border-transparent hover:border-sky-900 rounded-xl bg-sky-900 px-3 py-1  transition-auto ease-in-out duration-200 hover:scale-[1.1]">Browse Jobs</Link>
+                        </div>
+                    </div>   
     )
 }
