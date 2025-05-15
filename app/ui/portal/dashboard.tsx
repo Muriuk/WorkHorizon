@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import { useEffect, useState } from "react";
 import { signOut } from 'next-auth/react'
 import JobsPage from '@/app/ui/jobspage/form'
 
@@ -22,6 +22,14 @@ interface IconProps {
   type: IconType // Ensure this accepts only valid IconTypes
   className?: string
 }
+const [user, setUser] = useState<{ name: string; worker_category: string } | null>(null);
+
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
 
 const IconComponent = ({ type, className = 'w-5 h-5' }: IconProps) => {
   const icons: Record<IconType, React.ReactNode> = {
