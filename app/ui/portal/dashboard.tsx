@@ -22,15 +22,6 @@ interface IconProps {
   type: IconType // Ensure this accepts only valid IconTypes
   className?: string
 }
-const [user, setUser] = useState<{ name: string; worker_category: string } | null>(null);
-
-useEffect(() => {
-  const storedUser = localStorage.getItem("user");
-  if (storedUser) {
-    setUser(JSON.parse(storedUser));
-  }
-}, []);
-
 const IconComponent = ({ type, className = 'w-5 h-5' }: IconProps) => {
   const icons: Record<IconType, React.ReactNode> = {
     home: (
@@ -133,7 +124,14 @@ const IconComponent = ({ type, className = 'w-5 h-5' }: IconProps) => {
 export default function DashboardBody() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('dashboard')
+  const [user, setUser] = useState<{ name: string; worker_category: string } | null>(null);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
   const sidebarItems: Array<{ key: string; label: string; icon: IconType }> = [
     { key: 'dashboard', label: 'Dashboard', icon: 'home' },
     { key: 'jobs', label: 'Find Jobs', icon: 'search' },
