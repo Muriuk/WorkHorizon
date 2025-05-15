@@ -173,18 +173,27 @@ export default function DashboardBody() {
             </div>
           </div>
 
-          {/* User Profile Section */}
-          <div className="p-6 border-b border-slate-200">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold text-lg">JD</span>
-              </div>
-              <div className="ml-3">
-                <p className="text-slate-900 font-medium">Kelvin Muriuki</p>
-                <p className="text-slate-500 text-sm">Software Engineer</p>
-              </div>
-            </div>
-          </div>
+         {/* User Profile Section */}
+<div className="p-6 border-b border-slate-200">
+  <div className="flex items-center">
+    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+      <span className="text-white font-semibold text-lg">
+        {user?.name
+          ? user.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+              .toUpperCase()
+          : ""}
+      </span>
+    </div>
+    <div className="ml-3">
+      <p className="text-slate-900 font-medium">{user?.name}</p>
+      <p className="text-slate-500 text-sm">{user?.worker_category}</p>
+    </div>
+  </div>
+</div>
+
 
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
