@@ -77,7 +77,7 @@ export default function Footer() {
                                 <span className="text-orange-400">BASE</span>
                             </h3>
                             <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                                Kenya's leading platform connecting skilled workers with clients who need reliable, quick, and successful manual work solutions.
+                                Kenya&apos;s leading platform connecting skilled workers with clients who need reliable, quick, and successful manual work solutions.
                             </p>
                             <div className="flex items-center space-x-4 text-gray-400 mb-4">
                                 <Shield className="w-5 h-5 text-green-400" />
