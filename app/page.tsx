@@ -7,13 +7,11 @@ import JoinGlobalTeam from './ui/home/joinglobalteam';
 import CareerOpportunities from './ui/home/career';
 import HiringProcess from './ui/home/hiringprocess';
 import LetsTalk from './ui/home/letstalk';
-import Jobspage from '@/app/ui/jobspage';
 export default function Home() {
 
   return (
     <>
       <HomeHead />
-     <Jobspage />
       <HiringProcess />
       <AboutSection />
       <WhyChooseUs />
