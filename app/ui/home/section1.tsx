@@ -28,7 +28,7 @@ export default function HomeHead() {
                         – kazi inaanza!
                     </p>
                 </div>
-                <div className="lg:pl-12 2xl:pl-16 3xl:pl-20 4xl:pl-24 5xl:pl-28 pt-5 2xl:pt-7 3xl:pt-9">
+                <div className="lg:pl-12 pt-5">
                     <p className="text-md lg:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl font-normal tracking-wide 2xl:tracking-wider 3xl:tracking-widest">
                         Wafanyakazi wote{" "}
                         <span className="relative inline-block">
