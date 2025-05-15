@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signOut } from 'next-auth/react'
 import JobsPage from '@/app/ui/jobspage/form'
 
