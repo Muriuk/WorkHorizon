@@ -28,15 +28,15 @@ export default function Footer() {
     ];
 
     const stats = [
-        { icon: Users, number: '10,000+', label: 'Active Workers' },
-        { icon: Star, number: '50,000+', label: 'Jobs Completed' },
-        { icon: Award, number: '98%', label: 'Success Rate' },
+        { icon: Users, number: '1,000+', label: 'Active Workers' },
+        { icon: Star, number: '5,000+', label: 'Jobs Completed' },
+        { icon: Award, number: '99%', label: 'Success Rate' },
         { icon: Clock, number: '24/7', label: 'Support' },
     ];
 
     const contactInfo = [
         { icon: MapPin, text: 'Nairobi, Kenya' },
-        { icon: Phone, text: '+254 700 123 456' },
+        { icon: Phone, text: '+254 768 258 491' },
         { icon: Mail, text: 'hello@kazibase.co.ke' },
     ];
 
@@ -139,19 +139,19 @@ export default function Footer() {
                             ))}
                         </div>
 
-                        {/* Newsletter Signup */}
-                        <div className="mt-8 p-6 bg-slate-800 rounded-lg border border-slate-700">
-                            <h4 className="text-lg font-semibold text-white mb-3">Stay Updated</h4>
-                            <p className="text-gray-400 text-sm mb-4">
+                       {/* Newsletter Signup */}
+                        <div className="mt-8 p-4 sm:p-6 bg-slate-800 rounded-lg border border-slate-700">
+                            <h4 className="text-lg lg:text-xl font-semibold text-white mb-3">Stay Updated</h4>
+                            <p className="text-gray-400 text-sm lg:text-base mb-4">
                                 Get the latest job opportunities and updates
                             </p>
-                            <div className="flex space-x-2">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
                                 <input
                                     type="email"
                                     placeholder="Enter your email"
-                                    className="flex-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded-md text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+                                    className="flex-1 px-3 py-2.5 lg:py-3 bg-slate-700 border border-slate-600 rounded-md text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 text-sm lg:text-base"
                                 />
-                                <button className="px-4 py-2 bg-gradient-to-r from-orange-500 to-sky-500 text-white rounded-md hover:from-orange-600 hover:to-sky-600 transition-all duration-300 hover:scale-105">
+                                <button className="px-4 py-2.5 lg:px-6 lg:py-3 bg-gradient-to-r from-orange-500 to-sky-500 text-white rounded-md hover:from-orange-600 hover:to-sky-600 transition-all duration-300 hover:scale-105 font-medium text-sm lg:text-base whitespace-nowrap">
                                     Subscribe
                                 </button>
                             </div>
@@ -187,9 +187,7 @@ export default function Footer() {
                                 </span>
                                 {" "}Kenya. All rights reserved.
                             </p>
-                            <p className="text-gray-500 text-xs mt-1">
-                                Made with ❤️ in Nairobi
-                            </p>
+
                         </div>
                     </div>
                 </div>
