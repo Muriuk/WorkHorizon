@@ -168,126 +168,160 @@ export default function PostJobForm() {
 <div className="border border-yellow-500 bg-yellow-50 text-red-700 p-3 rounded-md mb-4 text-sm sm:text-base text-center">
   Please fill in all your job details carefully. After submitting, take a moment to review our privacy notice and confirm that your job has been posted by checking the Jobs page.
 </div>
- <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
-        <label className="block text-sm font-medium mb-1">Your Name:</label>
-        <input
-          name="client_name"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-          placeholder="Your full name"
-        />
+ <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-2xl border border-gray-100 backdrop-blur-lg">
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">Your Name:</label>
+          <input
+            name="client_name"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
+            placeholder="Your full name"
+          />
+        </div>
 
-        <label className="block text-sm font-medium mb-1">Job Category / Title:</label>
-        <select
-          name="title"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-        >
-          <option value="">-- Select job category --</option>
-          {[
-            "Construction Worker", "Plumber", "Electrician", "Carpenter", "Painter",
-            "Cleaner", "Gardener", "Driver", "Delivery Personnel", "Mechanic",
-            "Cook/Chef", "Tailor", "Welder", "Hair & Beauty", "Security Guard",
-            "Farm Worker", "Other"
-          ].map((title) => (
-            <option key={title} value={title.toLowerCase().replace(/ /g, "_")}>{title}</option>
-          ))}
-        </select>
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">Job Category / Title:</label>
+          <select
+            name="title"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800 cursor-pointer"
+          >
+            <option value="">-- Select job category --</option>
+            {[
+              "Construction Worker", "Plumber", "Electrician", "Carpenter", "Painter",
+              "Cleaner", "Gardener", "Driver", "Delivery Personnel", "Mechanic",
+              "Cook/Chef", "Tailor", "Welder", "Hair & Beauty", "Security Guard",
+              "Farm Worker", "Other"
+            ].map((title) => (
+              <option key={title} value={title.toLowerCase().replace(/ /g, "_")}>{title}</option>
+            ))}
+          </select>
+        </div>
 
-        <label className="block text-sm font-medium mb-1">Job Description:</label>
-        <textarea
-          name="description"
-          required
-          rows={4}
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-          placeholder="Describe the job clearly..."
-        ></textarea>
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">Job Description:</label>
+          <textarea
+            name="description"
+            required
+            rows={4}
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800 resize-none"
+            placeholder="Describe the job clearly..."
+          ></textarea>
+        </div>
 
-        <label className="block text-sm font-medium mb-1">Preferred County:</label>
-        <select
-          name="county"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-        >
-          <option value="">-- Select county --</option>
-          {[
-            "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet", "Embu", "Garissa", "Homa Bay",
-            "Isiolo", "Kajiado", "Kakamega", "Kericho", "Kiambu", "Kilifi", "Kirinyaga", "Kisii",
-            "Kisumu", "Kitui", "Kwale", "Laikipia", "Lamu", "Machakos", "Makueni", "Mandera",
-            "Marsabit", "Meru", "Migori", "Mombasa", "Murang'a", "Nairobi", "Nakuru", "Nandi",
-            "Narok", "Nyamira", "Nyandarua", "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River",
-            "Tharaka-Nithi", "Trans Nzoia", "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
-          ].map((county) => (
-            <option key={county} value={county.toLowerCase()}>{county}</option>
-          ))}
-        </select>
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">Preferred County:</label>
+          <select
+            name="county"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800 cursor-pointer"
+          >
+            <option value="">-- Select county --</option>
+            {[
+              "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet", "Embu", "Garissa", "Homa Bay",
+              "Isiolo", "Kajiado", "Kakamega", "Kericho", "Kiambu", "Kilifi", "Kirinyaga", "Kisii",
+              "Kisumu", "Kitui", "Kwale", "Laikipia", "Lamu", "Machakos", "Makueni", "Mandera",
+              "Marsabit", "Meru", "Migori", "Mombasa", "Murang'a", "Nairobi", "Nakuru", "Nandi",
+              "Narok", "Nyamira", "Nyandarua", "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River",
+              "Tharaka-Nithi", "Trans Nzoia", "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
+            ].map((county) => (
+              <option key={county} value={county.toLowerCase()}>{county}</option>
+            ))}
+          </select>
+        </div>
 
-        <label className="block text-sm font-medium mb-1">How Many People Do You Need?</label>
-        <select
-          name="number_of_workers"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-        >
-          <option value="">-- Select number --</option>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-            <option key={num} value={num}>{num}</option>
-          ))}
-        </select>
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">How Many People Do You Need?</label>
+          <select
+            name="number_of_workers"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800 cursor-pointer"
+          >
+            <option value="">-- Select number --</option>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+          </select>
+        </div>
 
-        <label className="block text-sm font-medium mb-1">Preferred Gender:</label>
-        <select
-          name="gender"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-        >
-          <option value="">-- Select gender preference --</option>
-          <option value="any">Any</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">Preferred Gender:</label>
+          <select
+            name="gender"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800 cursor-pointer"
+          >
+            <option value="">-- Select gender preference --</option>
+            <option value="any">Any</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
 
-        <label className="block text-sm font-medium mb-1">How Long Will the Job Take?</label>
-        <input
-          name="duration"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-          placeholder="e.g. 3 days, 2 weeks"
-        />
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">How Long Will the Job Take?</label>
+          <input
+            name="duration"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
+            placeholder="e.g. 3 days, 2 weeks"
+          />
+        </div>
 
-        <label className="block text-sm font-medium mb-1">Proposed Budget (Ksh):</label>
-        <input
-          type="number"
-          name="budget"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-          placeholder="e.g. 5000"
-        />
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">Proposed Budget (Ksh):</label>
+          <input
+            type="number"
+            name="budget"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
+            placeholder="e.g. 5000"
+          />
+        </div>
 
-        <label className="block text-sm font-medium mb-1">Your Phone Number:</label>
-        <input
-          type="tel"
-          name="phone"
-          pattern="[0-9]{10}"
-          required
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-          placeholder="07XXXXXXXX"
-        />
+        <div className="form-group mb-6">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">Your Phone Number:</label>
+          <input
+            type="tel"
+            name="phone"
+            pattern="[0-9]{10}"
+            required
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
+            placeholder="07XXXXXXXX"
+          />
+        </div>
 
-        <label className="block text-sm font-medium mb-1">WhatsApp Number:</label>
-        <input
-          type="tel"
-          name="whatsapp"
-          pattern="[0-9]{10}"
-          className="w-full bg-gray-200 px-3 py-2 rounded-lg mb-4 shadow"
-          placeholder="07XXXXXXXX"
-        />
+        <div className="form-group mb-8">
+          <label className="block text-sm font-semibold mb-2 text-gray-700">WhatsApp Number:</label>
+          <input
+            type="tel"
+            name="whatsapp"
+            pattern="[0-9]{10}"
+            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
+            placeholder="07XXXXXXXX"
+          />
+        </div>
 
         <button
           type="submit"
-          className={`w-full py-2 px-4 rounded-lg text-white font-semibold ${loading ? 'bg-gray-400' : 'bg-sky-900 hover:bg-sky-800'}`}
+          className={`w-full py-4 px-6 rounded-xl text-white font-bold text-base shadow-lg transition-all duration-300 ${
+            loading 
+              ? 'bg-gray-400 cursor-not-allowed' 
+              : 'bg-gradient-to-r from-sky-800 to-sky-900 hover:from-sky-700 hover:to-sky-800 hover:shadow-xl active:scale-95'
+          }`}
           disabled={loading}
         >
-          {loading ? "Posting..." : "Post Job"}
+          {loading ? (
+            <span className="flex items-center justify-center">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Posting...
+            </span>
+          ) : (
+            "Post Job"
+          )}
         </button>
       </form>
     </div>
