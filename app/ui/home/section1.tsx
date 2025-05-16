@@ -19,25 +19,25 @@ export default function HomeHead() {
                         Manual Jobs Made Easy in Kenya
                     </h3>
                     <p className="text-md lg:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl font-normal tracking-wide 2xl:tracking-wider 3xl:tracking-widest">
-                        <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> ni njia rahisi kwa Wakenya kupata kazi ndogo kama mama fua, fundi, bodaboda, cleaner – au kuajiri mtu wa kusaidia haraka. Unaweka{" "}
-                        kazi, hustler anaiona, anakupigia ama anakuchat{" "}
+                        <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> is the easy way for Kenyans to find small jobs like house help, fundi, boda boda, cleaner - or hire someone to help you quickly. You post a{" "}
+                        job, workers see it, they call you or chat with you on{" "}
                         <span className="relative inline-block">
                             <span className="absolute inset-0 bg-green-500/20 rounded-lg blur-sm"></span>
                             <span className="relative text-green-400 font-semibold px-3 py-1 2xl:px-4 2xl:py-2 3xl:px-5 3xl:py-2 bg-green-500/10 rounded-lg border border-green-500/20">WhatsApp</span>
                         </span>{" "}
-                        – kazi inaanza!
+                        - the job starts!
                     </p>
                 </div>
                 <div className="lg:pl-12 2xl:pl-16 3xl:pl-20 4xl:pl-24 5xl:pl-28 pt-5 2xl:pt-7 3xl:pt-9">
                     <p className="text-md lg:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl font-normal tracking-wide 2xl:tracking-wider 3xl:tracking-widest">
-                        Wafanyakazi wote{" "}
+                        All workers{" "}
                         <span className="relative inline-block">
                             <span className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm"></span>
-                            <span className="relative text-orange-400 font-semibold px-3 py-1 2xl:px-4 2xl:py-2 3xl:px-5 3xl:py-2 bg-orange-500/10 rounded-lg border border-orange-500/20">wanathibitisha</span>
+                            <span className="relative text-orange-400 font-semibold px-3 py-1 2xl:px-4 2xl:py-2 3xl:px-5 3xl:py-2 bg-orange-500/10 rounded-lg border border-orange-500/20">verify</span>
                         </span>{" "}
-                        ujuzi wao. Hii inamaanisha unaweza kuwa na imani na kazi yao.{" "}
-                        <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> inalenga{" "}
-                      kila mtaa, kijiji na jiji – iwe Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa na kila mahali katika taifa letu la Kenya.
+                        their skills. This means you can trust their work.{" "}
+                        <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> serves{" "}
+                        every neighborhood, village and city - whether Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa and everywhere in our beautiful country Kenya.
                     </p>
                 </div>
                 <div className="flex flex-row justify-center lg:justify-start gap-4 2xl:gap-6 3xl:gap-8 4xl:gap-10 5xl:gap-12 mt-8 lg:col-span-2">
@@ -90,7 +90,7 @@ export default function HomeHead() {
                 <div className="text-center relative z-10">
                     <h2 className="text-2xl lg:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl font-bold text-sky-900 mb-4 2xl:mb-6 3xl:mb-8 animate-slideInFromLeft">
                         <span className="inline-block animate-shimmer bg-gradient-to-r from-sky-900 via-orange-500 to-sky-900 bg-clip-text text-transparent bg-size-200% bg-pos-0 animate-shimmer">
-                            Tafuta Kazi Sasa
+                            Find Work Now
                         </span>
                         <div className="inline-block ml-3 animate-bounce">
                             <svg className="w-8 h-8 2xl:w-10 2xl:h-10 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
@@ -99,8 +99,8 @@ export default function HomeHead() {
                         </div>
                     </h2>
                     <p className="text-lg lg:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl text-gray-700 mb-8 2xl:mb-10 3xl:mb-12 4xl:mb-14 5xl:mb-16 px-4 lg:px-8 2xl:px-12 animate-slideInFromRight animate-delay-300">
-                        Ona kazi zote zinazopatikana hapa Kenya. 
-                        <span className="font-bold text-sky-700 animate-pulse"> Chagua ile inayokufaa zaidi!</span>
+                        See all available jobs here in Kenya. 
+                        <span className="font-bold text-sky-700 animate-pulse"> Choose the one that suits you best!</span>
                     </p>
                     <Link href="/jobspage">
                         <button className="bg-gradient-to-r from-sky-900 to-orange-500 hover:from-sky-800 hover:to-orange-600 text-white font-bold py-3 px-8 2xl:py-4 2xl:px-10 3xl:py-5 3xl:px-12 4xl:py-6 4xl:px-14 5xl:py-7 5xl:px-16 rounded-full shadow-xl transition-all duration-500 hover:scale-110 hover:shadow-2xl text-lg 2xl:text-xl 3xl:text-2xl 4xl:text-3xl 5xl:text-4xl flex items-center gap-3 2xl:gap-4 3xl:gap-5 mx-auto glow-jobs hover:glow-jobs-intense animate-slideInFromBottom animate-delay-600 relative overflow-hidden group">
@@ -111,7 +111,7 @@ export default function HomeHead() {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                             <span className="relative">
-                                Angalia Kazi Zote
+                                View All Jobs
                             </span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 2xl:h-6 2xl:w-6 3xl:h-7 3xl:w-7 4xl:h-8 4xl:w-8 5xl:h-9 5xl:w-9 animate-pulseBounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
