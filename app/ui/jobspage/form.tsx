@@ -470,9 +470,19 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
         </Link>
         {!singleJob && (
           <>
-            <p className="text-md lg:text-lg 2xl:text-xl font-normal tracking-wide text-center lg:mx-[20%]">
-              We&apos;re eager to connect you with manual jobs in Kenya. Below, you&apos;ll find the current jobs at Kazibase, select any job and apply.
-            </p>
+            <div className="mb-6 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto">
+  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
+    Disclaimer
+  </p>
+  <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
+    The jobs posted here are directly from job owners who are seeking assistance. Kazibase has not physically verified these jobs. Please ensure you communicate clearly with the job owner to fully understand the job being offered.
+    <br /><br />
+    To visit a job owner, you must be a verified worker and carry your original ID card for client verification. Note that Kazibase does not provide any form of physical security and does not handle any payments.
+    <br /><br />
+    Kindly exercise caution when interacting with job owners, as Kazibase does not verify or guarantee the accuracy of any job or client information.
+  </p>
+</div>
+
           </>
         )}
       </div>
