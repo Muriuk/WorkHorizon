@@ -185,47 +185,39 @@ export default function DashboardBody() {
             </div>
           </div>
           
-<nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-  {sidebarItems.map((item) => (
-    <button
-      key={item.key}
-      onClick={() => setActiveSection(item.key)}
-      className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group ${
-        activeSection === item.key
-          ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm'
-          : 'text-slate-600'
-      }`}
-    >
-      <IconComponent
-        type={item.icon}
-        className={`w-5 h-5 mr-3 ${
-          activeSection === item.key ? 'text-blue-700' : 'text-slate-500'
-        }`}
-      />
-      <span
-        className={`font-medium ${
-          activeSection === item.key ? 'font-semibold' : ''
-        }`}
-      >
-        {item.label}
-      </span>
-      {item.key === 'messages' && (
-        <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">
-          3
-        </span>
-      )}
-    </button>
-  ))}
 
-  {/* Sign Out Button - placed below settings */}
-  <button
-    onClick={() => signOut({ callbackUrl: '/login' })}
-    className="w-full flex items-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium mt-4"
-  >
-    <IconComponent type="logout" className="w-5 h-5 mr-3" />
-    Sign Out
-  </button>
-</nav>
+          {/* Navigation */}
+          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+            {sidebarItems.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => setActiveSection(item.key)}
+                className={w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group
+                    ${activeSection === item.key ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' : 'text-slate-600'}}
+              >
+                <IconComponent type={item.icon} className={w-5 h-5 mr-3 ${activeSection === item.key ? 'text-blue-700' : 'text-slate-500'}} />
+                <span className={font-medium ${activeSection === item.key ? 'font-semibold' : ''}}>
+                  {item.label}
+                </span>
+                {item.key === 'messages' && (
+                  <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">3</span>
+                )}
+              </button>
+            ))}
+          </nav>
+
+        {/* Sign Out Button */}
+          <div className="p-4 border-t border-slate-200">
+            <button
+              onClick={() => signOut({ callbackUrl: '/login' })}
+              className="w-full flex items-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium"
+            >
+              <IconComponent type="logout" className="w-5 h-5 mr-3" />
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
