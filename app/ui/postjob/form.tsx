@@ -166,7 +166,7 @@ export default function PostJobForm() {
 )}
       <h2 className="text-2xl font-semibold text-sky-900 mb-6 text-center border-b pb-2 border-orange-500">Post your Job</h2>
 <div className="border border-yellow-500 bg-yellow-50 text-red-700 p-3 rounded-md mb-4 text-sm sm:text-base text-center">
-  Please fill in all your details carefully. After submitting, take a moment to review our privacy notice and confirm that your job has been posted by checking the <span className="font-semibold text-sky-900">Jobs View</span> page.
+  Please fill in all your job details carefully. After submitting, take a moment to review our privacy notice and confirm that your job has been posted by checking the Jobs page.
 </div>
  <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
         <label className="block text-sm font-medium mb-1">Your Name:</label>
