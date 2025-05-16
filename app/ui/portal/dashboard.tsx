@@ -159,7 +159,7 @@ function DashboardBody({ user }: { user: User | null }) {
         Hello {user?.name}
       </h1>
       <h1 className="text-3xl font-semibold mb-7 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
-        Welcome to Work Horizon's Portal
+        Welcome to Work Horizon&apos;s Portal
       </h1>
       <div className="grid grid-cols-2 gap-10 w-full h-[450px] max-h-[450px] 2xl:h-[520px] 2xl:max-h-[530px]">
         <ActiveJobs />
