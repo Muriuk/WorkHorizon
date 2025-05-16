@@ -5,7 +5,6 @@ import { Message } from "@/app/lib/elements";
 import { MailIcon, MapPin, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 export default function LetsTalk() {
     const [submit, setSubmit] = useState<boolean>(false);
