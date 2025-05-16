@@ -184,7 +184,7 @@ export default function LoginForm() {
                 />
 
                 <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
-                    {`Welcome to Kazibase Portal`}
+                    {`Welcome to Workers Portal`}
                 </h2>
 
                 <div className="mt-4 flex gap-2 justify-center">
@@ -215,16 +215,23 @@ export default function LoginForm() {
                             onChange={handleChange}
                         />
 
-                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Password:</label>
-                        <input
-                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                            type="password"
-                            name="password"
-                            id="password"
-                            placeholder="Enter your password"
-                            required
-                            onChange={handleChange}
-                        />
+                       <label className="text-md sm:text-lg font-medium mb-1 mt-4 block">Password:</label>
+      <input
+        className="bg-gray-200 px-3 py-2 rounded-lg shadow-md w-full pr-10"
+        type={showPassword ? "text" : "password"}
+        name="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+        onChange={handleChange}
+      />
+      <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute top-10 right-3 text-sm text-blue-700 focus:outline-none"
+      >
+        {showPassword ? "Hide" : "Show"}
+      </button>
 
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-4">
                             <button
