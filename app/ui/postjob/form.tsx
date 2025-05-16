@@ -264,7 +264,7 @@ export default function PostJobForm() {
             name="duration"
             required
             className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
-            placeholder="e.g. 3 days, 2 weeks"
+            placeholder="e.g.1hr 3 days, 2 weeks"
           />
         </div>
 
@@ -275,32 +275,35 @@ export default function PostJobForm() {
             name="budget"
             required
             className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
-            placeholder="e.g. 5000"
+            placeholder="e.g. 300, 500, 5000"
           />
         </div>
 
-        <div className="form-group mb-6">
-          <label className="block text-sm font-semibold mb-2 text-gray-700">Your Phone Number:</label>
-          <input
-            type="tel"
-            name="phone"
-            pattern="[0-9]{10}"
-            required
-            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
-            placeholder="07XXXXXXXX"
-          />
-        </div>
+       <div className="form-group mb-6">
+  <label className="block text-sm font-semibold mb-1 text-gray-700">Your Phone Number:</label>
+  <p className="text-xs text-gray-500 mb-2">Use the number that is active — this will help us get your job done.</p>
+  <input
+    type="tel"
+    name="phone"
+    pattern="[0-9]{10}"
+    required
+    className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
+    placeholder="07XXXXXXXX"
+  />
+</div>
 
-        <div className="form-group mb-8">
-          <label className="block text-sm font-semibold mb-2 text-gray-700">WhatsApp Number:</label>
-          <input
-            type="tel"
-            name="whatsapp"
-            pattern="[0-9]{10}"
-            className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
-            placeholder="07XXXXXXXX"
-          />
-        </div>
+<div className="form-group mb-8">
+  <label className="block text-sm font-semibold mb-1 text-gray-700">WhatsApp Number:</label>
+  <p className="text-xs text-gray-500 mb-2">Use the number that is active — this will help us get your job done.</p>
+  <input
+    type="tel"
+    name="whatsapp"
+    pattern="[0-9]{10}"
+    className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800"
+    placeholder="07XXXXXXXX"
+  />
+</div>
+
 
         <button
           type="submit"
