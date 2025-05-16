@@ -323,7 +323,7 @@ export default function KazibaseDashboard() {
           </div>
         </div>
       </div>
-
+</div>
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
@@ -1180,7 +1180,7 @@ export default function KazibaseDashboard() {
             </div>
           )}
         </main>
-        </div>
+        
       </div>
     </div>
   );
