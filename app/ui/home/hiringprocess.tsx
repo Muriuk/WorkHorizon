@@ -48,7 +48,7 @@ export default function HiringProcess() {
 
       <p className="text-md lg:text-xl font-normal tracking-wide text-center" data-aos="fade-up">
         We believe in a transparent and efficient environment for both worker and the employer to bring the best work solving mechanism.
-        Here's how <span className="text-sky-900 font-semibold">Kazi</span><span className="text-orange-500 font-semibold">base</span> works:
+        Here is how <span className="text-sky-900 font-semibold">Kazi</span><span className="text-orange-500 font-semibold">base</span> works:
       </p>
 
       {/* Steps 1–3 */}
