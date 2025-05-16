@@ -216,6 +216,7 @@ export default function LoginForm() {
                         />
 
                        <label className="text-md sm:text-lg font-medium mb-1 mt-4 block">Password:</label>
+                        <div className="relative">
                 <input
                     className="bg-gray-200 px-3 py-2 rounded-lg shadow-md w-full"
                     type={showPassword ? 'text' : 'password'}
@@ -241,7 +242,8 @@ export default function LoginForm() {
                         </svg>
                     )}
                 </button>
-            
+            </div>
+                        
 
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-4">
                             <button
