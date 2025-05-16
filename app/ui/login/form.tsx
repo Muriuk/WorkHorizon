@@ -216,22 +216,33 @@ export default function LoginForm() {
                         />
 
                        <label className="text-md sm:text-lg font-medium mb-1 mt-4 block">Password:</label>
-      <input
-        className="bg-gray-200 px-3 py-2 rounded-lg shadow-md w-full pr-10"
-        type={showPassword ? "text" : "password"}
-        name="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-        onChange={handleChange}
-      />
-      <button
-        type="button"
-        onClick={() => setShowPassword(!showPassword)}
-        className="absolute top-10 right-3 text-sm text-blue-700 focus:outline-none"
-      >
-        {showPassword ? "Hide" : "Show"}
-      </button>
+      <div className="relative">
+                <input
+                    className="bg-gray-200 px-3 py-2 rounded-lg shadow-md w-full"
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    value={formData.password}
+                    required
+                    onChange={handleChange}
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                >
+                    {showPassword ? (
+                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
+                        </svg>
+                    ) : (
+                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
+                        </svg>
+                    )}
+                </button>
+            </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-4">
                             <button
