@@ -238,7 +238,7 @@ export default function PostJobForm() {
             className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800 cursor-pointer"
           >
             <option value="">-- Select number --</option>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10+].map((num) => (
               <option key={num} value={num}>{num}</option>
             ))}
           </select>
@@ -251,7 +251,7 @@ export default function PostJobForm() {
             required
             className="w-full bg-white border-2 border-gray-200 focus:border-sky-500 px-4 py-3 rounded-xl mb-1 shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-lg outline-none text-gray-800 cursor-pointer"
           >
-            <option value="">-- Select gender preference --</option>
+            <option value="">-- Select gender --</option>
             <option value="any">Any</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
