@@ -58,6 +58,14 @@ export default function HomeHead() {
                         </button>
                     </Link>
                 </div>
+                {/* New Centered Button */}
+<div className="flex justify-center mt-6">
+    <Link href="/login">
+        <button className="bg-sky-900 hover:bg-sky-800 text-white font-medium py-2 px-6 2xl:py-3 2xl:px-8 3xl:py-4 3xl:px-10 4xl:py-5 4xl:px-12 5xl:py-6 5xl:px-14 rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl text-sm sm:text-base 2xl:text-lg 3xl:text-xl 4xl:text-2xl 5xl:text-3xl glow-sky hover:glow-sky-intense">
+            Login as a worker
+        </button>
+    </Link>
+</div>
             </div>
             
             {/* New Jobs Section */}
