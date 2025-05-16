@@ -21,17 +21,12 @@ export default function HomeHead() {
                     <p className="text-md lg:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl font-normal tracking-wide 2xl:tracking-wider 3xl:tracking-widest">
                         <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> is the easy way for Kenyans to find small jobs like house help, fundi, boda boda, cleaner - or hire someone to help you quickly. You post a{" "}
                         job, workers see it, they call you or chat with you on
-                         <span className="relative text-green-400 font-semibold px-3 py-1 2xl:px-4 2xl:py-2 3xl:px-5 3xl:py-2 bg-green-500/10 rounded-lg border border-green-500/20">WhatsApp</span> - the job starts!
+                        <span className="text-green-400 font-semibold">WhatsApp</span> - the job starts!
                     </p>
                 </div>
                 <div className="lg:pl-12 2xl:pl-16 3xl:pl-20 4xl:pl-24 5xl:pl-28 pt-5 2xl:pt-7 3xl:pt-9">
                     <p className="text-md lg:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl font-normal tracking-wide 2xl:tracking-wider 3xl:tracking-widest">
-                        All workers{" "}
-                        <span className="relative inline-block">
-                            <span className="absolute inset-0 bg-orange-500/20 rounded-lg blur-sm"></span>
-                            <span className="relative text-orange-400 font-semibold px-3 py-1 2xl:px-4 2xl:py-2 3xl:px-5 3xl:py-2 bg-orange-500/10 rounded-lg border border-orange-500/20">verify</span>
-                        </span>{" "}
-                        their skills. This means you can trust their work.{" "}
+                        All workers <span className="text-orange-400 font-semibold">verify</span> their skills. This means you can trust their work.{" "}
                         <span className="font-bold bg-gradient-to-r from-sky-900 to-orange-400 bg-clip-text text-transparent">Kazibase</span> serves{" "}
                         every neighborhood, village and city - whether Nairobi, Kisumu, Eldoret, Nakuru, Meru, Kiambu, Mombasa, Garissa and everywhere in our beautiful country Kenya.
                     </p>
