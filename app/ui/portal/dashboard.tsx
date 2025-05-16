@@ -190,15 +190,29 @@ export default function DashboardBody() {
     <button
       key={item.key}
       onClick={() => setActiveSection(item.key)}
-      className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group
-        ${activeSection === item.key ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' : 'text-slate-600'}`}
+      className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group ${
+        activeSection === item.key
+          ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm'
+          : 'text-slate-600'
+      }`}
     >
-      <IconComponent type={item.icon} className={`w-5 h-5 mr-3 ${activeSection === item.key ? 'text-blue-700' : 'text-slate-500'}`} />
-      <span className={`font-medium ${activeSection === item.key ? 'font-semibold' : ''}`}>
+      <IconComponent
+        type={item.icon}
+        className={`w-5 h-5 mr-3 ${
+          activeSection === item.key ? 'text-blue-700' : 'text-slate-500'
+        }`}
+      />
+      <span
+        className={`font-medium ${
+          activeSection === item.key ? 'font-semibold' : ''
+        }`}
+      >
         {item.label}
       </span>
       {item.key === 'messages' && (
-        <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">3</span>
+        <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">
+          3
+        </span>
       )}
     </button>
   ))}
@@ -212,9 +226,6 @@ export default function DashboardBody() {
     Sign Out
   </button>
 </nav>
-
-
-         
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
