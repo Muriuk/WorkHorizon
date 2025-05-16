@@ -146,8 +146,7 @@ export default function DashboardBody() {
       )}
 
       {/* Sidebar */}
-      <div className={`fixed lg:static lg:translate-x-0 transform h-full z-50 transition-transform duration-300 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className={`fixed lg:static lg:translate-x-0 transform h-full z-50 transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex flex-col h-full w-64 bg-white shadow-2xl overflow-hidden">
           {/* Sidebar Header */}
           <div className="p-6 bg-gradient-to-r from-blue-600 to-purple-700">
