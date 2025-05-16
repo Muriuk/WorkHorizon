@@ -62,6 +62,9 @@ export default function HomeHead() {
 <div className="flex justify-center mt-6">
     <Link href="/login">
         <button className="bg-sky-900 hover:bg-sky-800 text-white font-medium py-2 px-6 2xl:py-3 2xl:px-8 3xl:py-4 3xl:px-10 4xl:py-5 4xl:px-12 5xl:py-6 5xl:px-14 rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl text-sm sm:text-base 2xl:text-lg 3xl:text-xl 4xl:text-2xl 5xl:text-3xl glow-sky hover:glow-sky-intense">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 2xl:h-5 2xl:w-5 3xl:h-6 3xl:w-6 4xl:h-7 4xl:w-7 5xl:h-8 5xl:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
             Login as a worker
         </button>
     </Link>
