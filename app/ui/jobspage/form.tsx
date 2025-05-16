@@ -472,7 +472,7 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
           <>
             <div className="mb-6 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto">
   <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
-    Disclaimer
+    ⚠️ Disclaimer
   </p>
   <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
     The jobs posted here are directly from job owners who are seeking assistance. Kazibase has not physically verified these jobs. Please ensure you communicate clearly with the job owner to fully understand the job being offered.
