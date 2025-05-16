@@ -184,40 +184,37 @@ export default function DashboardBody() {
               </div>
             </div>
           </div>
+          
+<nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+  {sidebarItems.map((item) => (
+    <button
+      key={item.key}
+      onClick={() => setActiveSection(item.key)}
+      className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group
+        ${activeSection === item.key ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' : 'text-slate-600'}`}
+    >
+      <IconComponent type={item.icon} className={`w-5 h-5 mr-3 ${activeSection === item.key ? 'text-blue-700' : 'text-slate-500'}`} />
+      <span className={`font-medium ${activeSection === item.key ? 'font-semibold' : ''}`}>
+        {item.label}
+      </span>
+      {item.key === 'messages' && (
+        <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">3</span>
+      )}
+    </button>
+  ))}
+
+  {/* Sign Out Button - placed below settings */}
+  <button
+    onClick={() => signOut({ callbackUrl: '/login' })}
+    className="w-full flex items-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium mt-4"
+  >
+    <IconComponent type="logout" className="w-5 h-5 mr-3" />
+    Sign Out
+  </button>
+</nav>
 
 
-          {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-            {sidebarItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => setActiveSection(item.key)}
-                className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group
-                    ${activeSection === item.key ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' : 'text-slate-600'}`}
-              >
-                <IconComponent type={item.icon} className={`w-5 h-5 mr-3 ${activeSection === item.key ? 'text-blue-700' : 'text-slate-500'}`} />
-                <span className={`font-medium ${activeSection === item.key ? 'font-semibold' : ''}`}>
-                  {item.label}
-                </span>
-                {item.key === 'messages' && (
-                  <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">3</span>
-                )}
-              </button>
-            ))}
-          </nav>
-
-          {/* Sign Out Button */}
-          <div className="p-4 border-t border-slate-200">
-            <button
-              onClick={() => signOut({ callbackUrl: '/login' })}
-              className="w-full flex items-center px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium"
-            >
-              <IconComponent type="logout" className="w-5 h-5 mr-3" />
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </div>
+         
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -242,7 +239,7 @@ export default function DashboardBody() {
                 <IconComponent type="search" className="w-4 h-4 text-slate-500" />
                 <input
                   type="text"
-                  placeholder="Search jobs, companies..."
+                  placeholder="Search jobs, county..."
                   className="ml-2 bg-transparent text-sm text-slate-700 placeholder-slate-500 outline-none"
                 />
               </div>
@@ -268,7 +265,7 @@ export default function DashboardBody() {
                   <h2 className="text-3xl font-bold mb-2">Welcome back, Worker!</h2>
                   <p className="text-blue-100 mb-6">Ready to find your next opportunity?</p>
                   <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-                    Start Job Search
+                    See all Jobs
                   </button>
                 </div>
                 <div className="absolute right-0 top-0 w-64 h-64 transform translate-x-16 -translate-y-16 opacity-10">
@@ -295,7 +292,7 @@ export default function DashboardBody() {
                       <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd"/>
                       </svg>
-                      +2 this week
+                      +4 this week
                     </div>
                   </div>
                 </div>
@@ -306,8 +303,8 @@ export default function DashboardBody() {
                       <IconComponent type="calendar" className="w-6 h-6 text-green-600" />
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-slate-900">3</p>
-                      <p className="text-sm text-slate-600">Interviews</p>
+                      <p className="text-2xl font-bold text-slate-900">xx</p>
+                      <p className="text-sm text-slate-600">Schedude job</p>
                     </div>
                   </div>
                   <div className="mt-4">
@@ -326,14 +323,14 @@ export default function DashboardBody() {
                       <IconComponent type="chat" className="w-6 h-6 text-purple-600" />
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-slate-900">12</p>
-                      <p className="text-sm text-slate-600">Messages</p>
+                      <p className="text-2xl font-bold text-slate-900">xx</p>
+                      <p className="text-sm text-slate-600">messages</p>
                     </div>
                   </div>
                   <div className="mt-4">
                     <div className="flex items-center text-sm text-red-600">
                       <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                      3 unread
+                      coming soon
                     </div>
                   </div>
                 </div>
@@ -346,8 +343,8 @@ export default function DashboardBody() {
                       </svg>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-slate-900">8.5</p>
-                      <p className="text-sm text-slate-600">Profile Score</p>
+                      <p className="text-2xl font-bold text-slate-900">xx</p>
+                      <p className="text-sm text-slate-600">Week Usage</p>
                     </div>
                   </div>
                   <div className="mt-4">
@@ -367,10 +364,10 @@ export default function DashboardBody() {
                       <IconComponent type="document" className="w-5 h-5 text-blue-600" />
                     </div>
                     <div className="ml-4 flex-1">
-                      <p className="text-slate-900 font-medium">Applied to Software Engineer position</p>
-                      <p className="text-slate-600 text-sm">2 hours ago at Tech Corp</p>
+                      <p className="text-slate-900 font-medium">Coming soon</p>
+                      <p className="text-slate-600 text-sm">coming soon</p>
                     </div>
-                    <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Applied</span>
+                    <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">coming soon</span>
                   </div>
                   
                   <div className="flex items-center p-4 bg-green-50 rounded-lg border border-green-200">
@@ -378,10 +375,10 @@ export default function DashboardBody() {
                       <IconComponent type="calendar" className="w-5 h-5 text-green-600" />
                     </div>
                     <div className="ml-4 flex-1">
-                      <p className="text-slate-900 font-medium">Interview scheduled for Product Manager role</p>
-                      <p className="text-slate-600 text-sm">Tomorrow at 2:00 PM with StartupX</p>
+                      <p className="text-slate-900 font-medium">coming soon</p>
+                      <p className="text-slate-600 text-sm">coming soon</p>
                     </div>
-                    <span className="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Interview</span>
+                    <span className="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">coming soon</span>
                   </div>
                   
                   <div className="flex items-center p-4 bg-purple-50 rounded-lg border border-purple-200">
@@ -389,10 +386,10 @@ export default function DashboardBody() {
                       <IconComponent type="chat" className="w-5 h-5 text-purple-600" />
                     </div>
                     <div className="ml-4 flex-1">
-                      <p className="text-slate-900 font-medium">Message from HR at InnovateCorp</p>
-                      <p className="text-slate-600 text-sm">3 days ago - Thank you for your application</p>
+                      <p className="text-slate-900 font-medium">coming soon</p>
+                      <p className="text-slate-600 text-sm">coming soon</p>
                     </div>
-                    <span className="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">Message</span>
+                    <span className="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">coming soon</span>
                   </div>
                 </div>
               </div>
