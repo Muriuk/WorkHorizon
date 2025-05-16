@@ -112,46 +112,58 @@ export default function PostJobForm() {
         </div>
       )}
 
-      {modal.show && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={closeModal}></div>
+     {modal.show && (
+  <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="absolute inset-0 bg-black bg-opacity-50" onClick={closeModal}></div>
+    <div className="bg-white rounded-lg shadow-xl w-11/12 max-w-md p-6 z-10 relative">
+      <button
+        onClick={closeModal}
+        className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+      >
+        ×
+      </button>
+      
+      {/* Safety Disclaimer */}
+      <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+        <h4 className="text-sm font-semibold text-yellow-800 mb-2">⚠️ Important Safety Notice</h4>
+        <p className="text-xs text-yellow-700 leading-relaxed">
+  Thank you for posting your job with Kazibase. To ensure your safety and that of our workers, please make sure the worker you select presents their original national ID card upon arrival. This is to verify their identity by matching their face to the ID. If this step is skipped, Kazibase will not be responsible for any cases of fraud or theft.
 
-          <div className="bg-white rounded-lg shadow-xl w-11/12 max-w-md p-6 z-10 relative">
-            <button
-              onClick={closeModal}
-              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
-            >
-              ×
-            </button>
+  Please note that communication and supervision are entirely your responsibility. Kazibase does not moderate interactions between you and the worker.
 
-            <div className="text-center mb-6">
-              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
-                <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Job Posted Successfully!</h3>
-              <p className="text-sm text-gray-500">Your job has been posted successfully. What would you like to do next?</p>
-            </div>
+  All payments must be made directly to the worker—Kazibase does not handle or process any transactions.
 
-            <div className="flex flex-col space-y-3">
-              <button
-                onClick={viewJobDetails}
-                className="w-full py-2 px-4 bg-sky-900 hover:bg-sky-800 text-white rounded font-medium"
-              >
-                View Posted Job
-              </button>
-              <button
-                onClick={viewInterestedWorkers}
-                className="w-full py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded font-medium"
-              >
-                Login to See Interested Workers
-              </button>
-            </div>
-          </div>
+  Thank you for understanding and supporting our privacy and safety measures.
+</p>
+
+      </div>
+      
+      <div className="text-center mb-6">
+        <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+          <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
         </div>
-      )}
-
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Job Posted Successfully!</h3>
+        <p className="text-sm text-gray-500">Your job has been posted successfully. What would you like to do next?</p>
+      </div>
+      <div className="flex flex-col space-y-3">
+        <button
+          onClick={viewJobDetails}
+          className="w-full py-2 px-4 bg-sky-900 hover:bg-sky-800 text-white rounded font-medium"
+        >
+          View Posted Job
+        </button>
+        <button
+          onClick={viewInterestedWorkers}
+          className="w-full py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded font-medium"
+        >
+          Login to See Interested Workers
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       <h2 className="text-2xl font-semibold text-sky-900 mb-6 text-center border-b pb-2 border-orange-500">Post a Job</h2>
 
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
