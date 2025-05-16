@@ -107,14 +107,7 @@ export default function LetsTalk() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col mt-10">
-                        <h4 className="text-lg capitalize text-gray-100 tracking-wider">Social just you connected us!</h4>
-                        <div className="flex justify-start mt-3 gap-4">
-                            <Link className="text-sm text-gray-300 flex flex-col items-center gap-1" href={'/'}><FaFacebook className="w-6 h-auto" /> Facebook</Link>
-                            <Link className="text-sm text-gray-300 flex flex-col items-center gap-1" href={'/'}><FaLinkedin className="w-6 h-auto" /> LinkedIn</Link>
-                            <Link className="text-sm text-gray-300 flex flex-col items-center gap-1" href={'/'}><FaInstagram className="w-6 h-auto" /> Instagram</Link>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <div className='relative lg:-top-28 rounded-xl px-6 lg:px-10 py-8 lg:py-16 lg:ml-6 xl:ml-16 bg-gray-300'>
