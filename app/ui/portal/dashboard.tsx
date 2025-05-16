@@ -1180,6 +1180,7 @@ export default function KazibaseDashboard() {
             </div>
           )}
         </main>
+        </div>
       </div>
     </div>
   );
