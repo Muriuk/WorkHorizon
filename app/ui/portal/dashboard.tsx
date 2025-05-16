@@ -133,6 +133,7 @@ export default function DashboardBody() {
     { key: 'messages', label: 'Messages', icon: 'chat' },
     { key: 'profile', label: 'Profile', icon: 'user' },
     { key: 'settings', label: 'Settings', icon: 'cog' },
+    { key: 'logout', label: 'Sign Out', icon: 'logout' },
   ]
 
   return (
@@ -190,12 +191,19 @@ export default function DashboardBody() {
             {sidebarItems.map((item) => (
               <button
                 key={item.key}
-                onClick={() => setActiveSection(item.key)}
+                onClick={() => {
+                  if (item.key === 'logout') {
+                    signOut({ callbackUrl: '/login' });
+                  } else {
+                    setActiveSection(item.key);
+                  }
+                }}
                 className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-slate-100 group
-                    ${activeSection === item.key ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' : 'text-slate-600'}`}
+                    ${activeSection === item.key ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm' : 'text-slate-600'}
+                    ${item.key === 'logout' ? 'hover:bg-red-50 text-red-600' : ''}`}
               >
-                <IconComponent type={item.icon} className={`w-5 h-5 mr-3 ${activeSection === item.key ? 'text-blue-700' : 'text-slate-500'}`} />
-                <span className={`font-medium ${activeSection === item.key ? 'font-semibold' : ''}`}>
+                <IconComponent type={item.icon} className={`w-5 h-5 mr-3 ${activeSection === item.key ? 'text-blue-700' : 'text-slate-500'} ${item.key === 'logout' ? 'text-red-600' : ''}`} />
+                <span className={`font-medium ${activeSection === item.key ? 'font-semibold' : ''} ${item.key === 'logout' ? 'text-red-600' : ''}`}>
                   {item.label}
                 </span>
                 {item.key === 'messages' && (
