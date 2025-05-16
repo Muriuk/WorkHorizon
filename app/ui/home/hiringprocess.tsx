@@ -10,33 +10,33 @@ export default function HiringProcess() {
   const HP = [
     {
       image: '/assets/post-job.jpg',
-      head: 'Post a Job (Tuma Kazi Yako)',
-      text: 'Elezea kazi unayotaka ifanywe—cleaning, delivery, repair, etc. Fill a quick form in seconds.',
+      head: 'Post a Job',
+      text: 'Describe the work you need done—cleaning, delivery, repair, etc. Fill out a quick form in seconds.',
     },
     {
       image: '/assets/select-worker.jpg',
-      head: 'Pick a Worker (Chagua Hustler)',
-      text: 'Angalia walio karibu, read reviews, na chagua yule unaeamini anaweza kazi vizuri.',
+      head: 'Pick a Worker',
+      text: 'Browse nearby workers, read reviews, and choose the one you trust to do the job well.',
     },
     {
       image: '/assets/contact-whatsapp.jpg',
-      head: 'Wasiliana kwa WhatsApp',
-      text: 'Piga ama tuma ujumbe kwenye WhatsApp moja kwa moja to the worker you have selected — no delays, no third parties.',
+      head: 'Contact via WhatsApp',
+      text: 'Call or message directly on WhatsApp to the worker you have selected — no delays, no third parties.',
     },
     {
       image: '/assets/work-done.jpg',
-      head: 'Job Gets Done (Kazi Inafanyika)',
-      text: 'Hustler mwenye umechagua anakuja na anafanya kazi yako haraka na kwa uaminifu.',
+      head: 'Job Gets Done',
+      text: 'The worker you choose comes and completes your job quickly and reliably.',
     },
     {
       image: '/assets/feedback.jpg',
-      head: 'Toa Maoni (Rate & Review)',
-      text: 'Baada ya kazi, toa maoni na rating ili kusaidia wengine kupata huduma bora.',
+      head: 'Give Feedback (Rate & Review)',
+      text: 'After the job is done, leave feedback and a rating to help others get better service.',
     },
     {
       image: '/assets/disclaimer.jpg',
-      head: 'Disclaimer (Angalizo Muhimu)',
-      text: 'Kazibase haikusanyi wala kupokea malipo. Malipo yote hufanywa moja kwa moja kati ya mteja na hustler.',
+      head: 'Disclaimer (Important Notice)',
+      text: 'Kazibase does not collect or receive payments. All payments are made directly between the client and the worker.',
     },
   ];
 
@@ -48,7 +48,7 @@ export default function HiringProcess() {
 
       <p className="text-md lg:text-xl font-normal tracking-wide text-center" data-aos="fade-up">
         We believe in a transparent and efficient environment for both worker and the employer to bring the best work solving mechanism.
-        Here’s how <span className="text-sky-900 font-semibold">Kazi</span><span className="text-orange-500 font-semibold">base</span> works:
+        Here's how <span className="text-sky-900 font-semibold">Kazi</span><span className="text-orange-500 font-semibold">base</span> works:
       </p>
 
       {/* Steps 1–3 */}
