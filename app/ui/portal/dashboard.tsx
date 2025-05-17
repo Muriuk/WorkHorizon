@@ -1,87 +1,34 @@
-"use client";
+import ActiveJobs from "./dashboardElements/activeJobs";
+import ApplicantsView from "./dashboardElements/applicantsView";
+import MessagesList from "./dashboardElements/messagesList";
 
-import { useEffect, useState } from "react";
+export default function DashboardBody() {
+    return(
+        <div className='container w-[88%] lg:w-full min-h-[90vh] pt-10 pb-20 flex flex-col justify-center'>
+            <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1 ">
+                Hello Worker 👋
+            </h1>
+            <h1 className="text-3xl font-semibold mb-7 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
+                {WORKER DASHBOARD}
+            </h1>
 
-type Job = {
-  id: number;
-  title: string;
-  budget?: number;
-};
+            <div className="mb-6 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
+                ⚠️ Disclaimer
+              </p>
+              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
+                Thank you for creating your account. Apply for the jobs that you&apos;re capable of doing. To make Kazibase a good atmosphere for you to thrive, you need to act professionally on every job you take and in how you present yourself to clients. Also, remember if you&apos;re involved in any misconduct, theft, or any inappropriate behavior towards clients, you will bear all the responsibility. Please remember to check the notice board regularly to see new planned updates.
+              </p>
+              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify mt-4 font-semibold">
+                📌 It is mandatory to carry your original ID when visiting clients&apos; places.
+              </p>
+            </div>
 
-type DashboardData = {
-  name: string;
-  county: string;
-  greeting: string;
-  availableJobs: Job[];
-  appliedJobs: Job[];
-};
-
-export default function DashboardBody({ email }: { email: string }) {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!email) {
-      setError("Email is required");
-      setLoading(false);
-      return;
-    }
-
-    async function fetchData() {
-      try {
-        const res = await fetch("/api/workerdash", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        });
-
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.error || "Failed to fetch data");
-        }
-
-        const result = await res.json();
-        setData(result);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message || "An error occurred while fetching data");
-        } else {
-          setError("An unknown error occurred");
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, [email]);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
-  if (!data) return <div>No data available</div>;
-
-  return (
-    <div className="p-4">
-      <h1 className="text-2xl font-semibold">
-        {data.greeting}, {data.name} 👋
-      </h1>
-
-      <h2 className="mt-6 text-xl">Available Jobs in {data.county}</h2>
-      <ul className="list-disc ml-6">
-        {data.availableJobs.map((job) => (
-          <li key={job.id}>
-            {job.title} - {job.budget ?? "N/A"} KES
-          </li>
-        ))}
-      </ul>
-
-      <h2 className="mt-6 text-xl">Jobs You&apos;ve Applied For</h2>
-      <ul className="list-disc ml-6">
-        {data.appliedJobs.map((job) => (
-          <li key={job.id}>{job.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
+            <div className='grid grid-cols-2 gap-10 w-full h-[450px] max-h-[450px] 2xl:h-[520px] 2xl:max-h-[530px]'>
+                <ActiveJobs />
+                <ApplicantsView />
+            </div>
+            <MessagesList/>
+        </div>
+    )
 }
