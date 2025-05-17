@@ -1,4 +1,3 @@
-// app/LayoutShell.tsx
 'use client'
 
 import { usePathname } from 'next/navigation'
@@ -7,15 +6,17 @@ import Footer from '@/app/ui/footer'
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isPortal = pathname.startsWith('/portal');
+  
+  // Exclude layout for /portal and /workerjob paths
+  const hideLayout = pathname.startsWith('/portal') || pathname.startsWith('/workerjob');
 
   return (
     <>
-      {!isPortal && <MainHeader />}
+      {!hideLayout && <MainHeader />}
       <div className="bg-white">
         {children}
       </div>
-      {!isPortal && <Footer />}
+      {!hideLayout && <Footer />}
     </>
   );
 }
