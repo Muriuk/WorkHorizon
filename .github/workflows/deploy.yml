@@ -42,34 +42,34 @@ jobs:
 
       - name: Install Supabase CLI
         run: |
-          # Install Supabase CLI using their recommended method
-          curl -fsSL https://cli.supabase.com/install.sh | sh
-          # Add to PATH
-          export PATH=/root/.supabase/bin:$PATH
+          # Install Supabase CLI locally
+          npm install supabase --save-dev
+          # Make node_modules/.bin directory accessible in PATH
+          export PATH="$PATH:$(pwd)/node_modules/.bin"
           # Verify installation
-          supabase --version || echo "Supabase CLI installation verification failed but continuing..."
+          npx supabase --version || echo "Supabase CLI installation verification failed but continuing..."
 
       - name: Supabase Login
         run: |
-          # Add Supabase to PATH
-          export PATH=/root/.supabase/bin:$HOME/.supabase/bin:$PATH
-          supabase login $SUPABASE_ACCESS_TOKEN
+          # Use npx to run the locally installed Supabase CLI
+          export PATH="$PATH:$(pwd)/node_modules/.bin"
+          npx supabase login $SUPABASE_ACCESS_TOKEN
 
       - name: Link to Supabase project
         run: |
-          # Add Supabase to PATH
-          export PATH=/root/.supabase/bin:$HOME/.supabase/bin:$PATH
+          # Use npx to run the locally installed Supabase CLI
+          export PATH="$PATH:$(pwd)/node_modules/.bin"
           if [ -z "$(find . -name 'supabase' -type d)" ]; then
             # Initialize Supabase if not already initialized
-            supabase init
+            npx supabase init
           fi
-          supabase link --project-ref $PROJECT_ID --password $SUPABASE_DB_PASSWORD
+          npx supabase link --project-ref $PROJECT_ID --password $SUPABASE_DB_PASSWORD
 
       - name: Push Supabase migrations
         run: |
-          # Add Supabase to PATH
-          export PATH=/root/.supabase/bin:$HOME/.supabase/bin:$PATH
-          supabase db push
+          # Use npx to run the locally installed Supabase CLI
+          export PATH="$PATH:$(pwd)/node_modules/.bin"
+          npx supabase db push
 
       - name: Build application
         run: npm run build
