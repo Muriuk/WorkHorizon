@@ -3,13 +3,13 @@ import ApplicantsView from "./dashboardElements/applicantsView";
 import MessagesList from "./dashboardElements/messagesList";
 
 export default function DashboardBody() {
-    return(
+    return (
         <div className='container w-[88%] lg:w-full min-h-[90vh] pt-10 pb-20 flex flex-col justify-center'>
             <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1 ">
                 Hello Worker 👋
             </h1>
             <h1 className="text-3xl font-semibold mb-7 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
-                {WORKER DASHBOARD}
+                {"WORKER DASHBOARD"}
             </h1>
 
             <div className="mb-6 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto">
@@ -28,7 +28,7 @@ export default function DashboardBody() {
                 <ActiveJobs />
                 <ApplicantsView />
             </div>
-            <MessagesList/>
+            <MessagesList />
         </div>
-    )
+    );
 }
