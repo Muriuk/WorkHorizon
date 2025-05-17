@@ -584,61 +584,10 @@ export default function Dashboard(): JSX.Element {
                 </div>
               </div>
             </section>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">Two-Factor Authentication</p>
-                          <p className="text-sm text-gray-500">Add an extra layer of security</p>
-                        </div>
-                        <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
-                          <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="pt-4">
-                    <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition-colors">
-                      Save Settings
-                    </button>
-                    <button className="ml-4 text-gray-600 hover:text-gray-800 py-2 px-6 transition-colors">
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </main>
-
-        {/* Footer */}
-        <footer className="bg-white border-t border-gray-200 py-4">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row justify-between items-center">
-              <div className="mb-4 sm:mb-0">
-                <p className="text-sm text-gray-600">
-                  &copy; {new Date().getFullYear()} KaziBase. All rights reserved.
-                </p>
-                <p className="text-xs text-gray-500">
-                  Connecting Skilled Labor in Kenya
-                </p>
-              </div>
-              <div className="flex space-x-4">
-                <a href="#" className="text-sky-900 hover:text-sky-700 transition-colors">
-                  Terms of Service
-                </a>
-                <a href="#" className="text-sky-900 hover:text-sky-700 transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="#" className="text-sky-900 hover:text-sky-700 transition-colors">
-                  Contact Us
-                </a>
-              </div>
             </div>
-          </div>
-        </footer>
-       </div>   
+          </main>
+        </div>
+      </div>
+    
   );
 }
