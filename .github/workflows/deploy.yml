@@ -7,33 +7,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-lockfile:
+  sync-lockfile:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          persist-credentials: true
 
-      - name: Setup Node.js
+      - name: Setup Node.js and pnpm
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - run: corepack enable && corepack prepare pnpm@10.11.0 --activate
 
-      - name: Setup pnpm
-        run: corepack enable && corepack prepare pnpm@latest --activate
-
-      - name: Install dependencies and update lockfile
+      - name: Install dependencies (update lockfile)
         run: pnpm install --no-frozen-lockfile
 
-      - name: Check for pnpm-lock.yaml changes
-        id: check_lockfile
+      - name: Check if pnpm-lock.yaml changed
+        id: lockfile-check
         run: |
           git diff --quiet pnpm-lock.yaml || echo "changed=true" >> $GITHUB_OUTPUT
 
-      - name: Commit and push updated pnpm-lock.yaml
-        if: steps.check_lockfile.outputs.changed == 'true'
+      - name: Commit and push lockfile changes
+        if: steps.lockfile-check.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
