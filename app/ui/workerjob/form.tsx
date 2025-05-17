@@ -450,7 +450,7 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
     <div className='bg-neutral-100 w-full shadow-md shadow-gray-200'>
       <div className={`container w-[88%] lg:w-[77%] 2xl:w-[70%] flex pt-6 ${singleJob ? 'hidden' : ''}`}>
        
-        <Link href='/' className="text-gray-500 font-semibold text-sm underline">Home</Link>
+        <Link href='/portal/dashboard' className="text-gray-500 font-semibold text-sm underline">Back to Dashboard</Link>
         <ArrowRight className="hidden lg:block w-4 h-auto text-gray-500 mx-3" />
         <Link href='/jobspage' className="hidden lg:block text-orange-500 font-semibold text-sm underline">Available Jobs</Link>
       </div>
@@ -472,10 +472,10 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
           <>
             <div className="mb-6 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto">
   <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
-    ⚠️ Disclaimer
+    ⚠️ Disclaimer For You
   </p>
   <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
-    The jobs posted here are directly from job owners who are seeking assistance. Kazibase has not physically verified these jobs. Please ensure you communicate clearly with the job owner to fully understand the job being offered.
+    Dear jobs posted here are directly from job owners who are seeking assistance. Kazibase has not physically verified these jobs. Please ensure you communicate clearly with the job owner to fully understand the job being offered.
     <br /><br />
     To visit a job owner, you must be a verified worker and carry your original ID card for client verification. Note that Kazibase does not provide any form of physical security and does not handle any payments.
     <br /><br />
@@ -624,9 +624,9 @@ function JobCard({ job }: { job: Job }) {
           </div>
           
           {/* Action Button */}
-          <Link href={`/login`}>
-            <button className="w-full bg-gradient-to-r from-[#F7801E] to-orange-500 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all duration-300 flex items-center justify-center shadow-sm hover:shadow-md">
-              Contact Client
+          <Link href={`/portal/dashboard`}>
+            <button className="w-full bg-gradient-to-r from-[#F7801E] to-green-500 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all duration-300 flex items-center justify-center shadow-sm hover:shadow-md">
+              Apply Now
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </button>
           </Link>
