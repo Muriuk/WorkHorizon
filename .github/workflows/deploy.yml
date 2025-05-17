@@ -1,4 +1,4 @@
-name: Sync pnpm lockfile
+name: Install dependencies and supabase
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  sync-lockfile:
+  install:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +23,9 @@ jobs:
       - name: Install dependencies (update lockfile)
         run: pnpm install --no-frozen-lockfile
 
+      - name: Install Supabase client
+        run: pnpm add @supabase/supabase-js --no-frozen-lockfile
+
       - name: Check if pnpm-lock.yaml changed
         id: lockfile-check
         run: |
@@ -34,5 +37,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add pnpm-lock.yaml
-          git commit -m "chore: sync pnpm-lock.yaml with package.json"
+          git commit -m "chore: add supabase client and sync lockfile"
           git push
