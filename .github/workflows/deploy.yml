@@ -25,7 +25,7 @@ jobs:
         run: corepack enable && corepack prepare pnpm@latest --activate
 
       - name: Install dependencies and update lockfile
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Check for pnpm-lock.yaml changes
         id: check_lockfile
