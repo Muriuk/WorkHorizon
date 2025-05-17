@@ -571,8 +571,8 @@ export default function Dashboard(): JSX.Element {
                           <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                   
+                  
             
                   <div className="pt-4">
                     <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition-colors">
