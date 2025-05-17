@@ -24,13 +24,27 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
+          # No cache specified to avoid lock file issues
 
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+      # Determine package manager and install dependencies
+      - name: Determine package manager and install dependencies
+        run: |
+          if [ -f "pnpm-lock.yaml" ]; then
+            echo "Using pnpm for installation"
+            npm install -g pnpm
+            rm -f pnpm-lock.yaml
+            pnpm install --no-frozen-lockfile
+          else
+            echo "Using npm for installation"
+            rm -f package-lock.json
+            npm install --no-package-lock --legacy-peer-deps
+          fi
 
       - name: Install Supabase CLI
-        run: npm install -g supabase
+        run: |
+          npm install -g @supabase/cli
+          # Verify installation
+          supabase --version
 
       - name: Supabase Login
         run: supabase login $SUPABASE_ACCESS_TOKEN
