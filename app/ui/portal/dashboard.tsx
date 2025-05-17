@@ -5,20 +5,26 @@ import ActiveJobs from "./dashboardElements/activeJobs";
 import ApplicantsView from "./dashboardElements/applicantsView";
 import MessagesList from "./dashboardElements/messagesList";
 
-const menuItems = [
+interface MenuItem {
+  name: string;
+  id: string;
+  icon: string;
+}
+
+const menuItems: MenuItem[] = [
   { name: "Active Jobs", id: "active-jobs", icon: "briefcase" },
   { name: "Applicants", id: "applicants", icon: "users" },
   { name: "Messages", id: "messages", icon: "message-square" },
 ];
 
-export default function Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("active-jobs");
-  const [scrolled, setScrolled] = useState(false);
+export default function Dashboard(): JSX.Element {
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>("active-jobs");
+  const [scrolled, setScrolled] = useState<boolean>(false);
 
   // Handle scroll effect for header
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       setScrolled(window.scrollY > 10);
     };
     
@@ -53,7 +59,7 @@ export default function Dashboard() {
   }, []);
 
   // Close sidebar when clicking outside or when navigation is clicked
-  const closeSidebar = () => setSidebarOpen(false);
+  const closeSidebar = (): void => setSidebarOpen(false);
 
   // Handle smooth scrolling to sections
   const scrollToSection = (id: string): void => {
@@ -65,7 +71,7 @@ export default function Dashboard() {
   };
 
   // Render icon based on name
-  const renderIcon = (iconName) => {
+  const renderIcon = (iconName: string): JSX.Element | null => {
     switch (iconName) {
       case "briefcase":
         return (
@@ -97,7 +103,7 @@ export default function Dashboard() {
         {/* Logo area */}
         <div className="p-5 border-b border-gray-200">
           <Link href="/">
-            <a className="flex flex-col">
+            <div className="flex flex-col cursor-pointer">
               <h1 className="text-2xl font-bold tracking-wide">
                 <span className="text-sky-900">KAZI</span>
                 <span className="text-[#F7801E]">BASE</span>
@@ -105,7 +111,7 @@ export default function Dashboard() {
               <p className="text-xs text-sky-700 font-medium tracking-tight">
                 Connecting Skilled Labor in Kenya
               </p>
-            </a>
+            </div>
           </Link>
         </div>
 
@@ -179,7 +185,7 @@ export default function Dashboard() {
             {/* Logo */}
             <div className="px-4 mb-6">
               <Link href="/">
-                <a className="flex flex-col">
+                <div className="flex flex-col cursor-pointer">
                   <h1 className="text-2xl font-bold tracking-wide">
                     <span className="text-sky-900">KAZI</span>
                     <span className="text-[#F7801E]">BASE</span>
@@ -187,7 +193,7 @@ export default function Dashboard() {
                   <p className="text-xs text-sky-700 font-medium tracking-tight">
                     Connecting Skilled Labor in Kenya
                   </p>
-                </a>
+                </div>
               </Link>
             </div>
 
@@ -256,17 +262,15 @@ export default function Dashboard() {
                 </svg>
               </button>
               <Link href="/">
-                <a className="flex items-center">
-                  <div className="flex flex-col">
-                    <h1 className="text-2xl font-bold tracking-wide">
-                      <span className="text-sky-900">KAZI</span>
-                      <span className="text-[#F7801E]">BASE</span>
-                    </h1>
-                    <p className="text-xs text-sky-700 font-medium tracking-tight hidden sm:block">
-                      Connecting Skilled Labor in Kenya
-                    </p>
-                  </div>
-                </a>
+                <div className="flex flex-col cursor-pointer">
+                  <h1 className="text-2xl font-bold tracking-wide">
+                    <span className="text-sky-900">KAZI</span>
+                    <span className="text-[#F7801E]">BASE</span>
+                  </h1>
+                  <p className="text-xs text-sky-700 font-medium tracking-tight hidden sm:block">
+                    Connecting Skilled Labor in Kenya
+                  </p>
+                </div>
               </Link>
             </div>
 
