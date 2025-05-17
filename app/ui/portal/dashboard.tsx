@@ -637,7 +637,6 @@ export default function Dashboard(): JSX.Element {
             </div>
           </div>
         </footer>
-      </div>
-    </div>
+          
   );
 }
