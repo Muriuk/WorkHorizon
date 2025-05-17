@@ -56,7 +56,7 @@ export default function Dashboard() {
   const closeSidebar = () => setSidebarOpen(false);
 
   // Handle smooth scrolling to sections
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string): void => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
