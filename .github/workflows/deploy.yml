@@ -1,41 +1,35 @@
-name: Install dependencies and supabase
+name: Build with Supabase Install
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  pull_request:
 
 jobs:
-  install:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js and pnpm
+      - name: Setup Node.js and Corepack
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: corepack enable && corepack prepare pnpm@10.11.0 --activate
+          cache: 'pnpm'
 
-      - name: Install dependencies (update lockfile)
+      - name: Enable Corepack and prepare pnpm 10.11.0
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.11.0 --activate
+
+      - name: Add Supabase package
+        run: pnpm add @supabase/supabase-js
+
+      - name: Install dependencies (no frozen lockfile)
         run: pnpm install --no-frozen-lockfile
 
-      - name: Install Supabase client
-        run: pnpm add @supabase/supabase-js --no-frozen-lockfile
-
-      - name: Check if pnpm-lock.yaml changed
-        id: lockfile-check
-        run: |
-          git diff --quiet pnpm-lock.yaml || echo "changed=true" >> $GITHUB_OUTPUT
-
-      - name: Commit and push lockfile changes
-        if: steps.lockfile-check.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add pnpm-lock.yaml
-          git commit -m "chore: add supabase client and sync lockfile"
-          git push
+      - name: Build project
+        run: pnpm build
