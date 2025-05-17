@@ -250,7 +250,7 @@ export default function Dashboard(): JSX.Element {
                 <button
                   onClick={() => {
                     closeSidebar();
-                    signOut({ callbackUrl: "/portal" });
+                    signOut({ callbackUrl: "/" });
                   }}
                   className="w-full flex items-center justify-center bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-lg transition-colors"
                 >
@@ -333,7 +333,7 @@ export default function Dashboard(): JSX.Element {
             <div className="flex items-center">
               {/* Sign out button - only visible on desktop */}
               <button
-                onClick={() => signOut({ callbackUrl: "/portal" })}
+                onClick={() => signOut({ callbackUrl: "/" })}
                 className="hidden lg:flex items-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors text-sm"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
