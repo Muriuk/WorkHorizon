@@ -1,68 +1,89 @@
 'use client'
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { signOut } from "next-auth/react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
+import DropDown from "../dropdown"
 
-export default function DashboardNavbar() {
-    const pathname = usePathname();
-    const [menuItems, setMenuItems] = useState([
-        { link: '/dashboard', name: 'Dashboard' },
-        { link: '/dashboard/my-jobs', name: 'My Jobs' },
-        { link: '/dashboard/messages', name: 'Messages' },
-        { link: '/logout', name: 'Logout' },
-    ]);
+
+export default function PortalHeader(){
+    const [allowAgents, setAllowAgents]=useState<boolean>(false)
+    const Menu = [
+        {
+            name: 'Dashboard',
+            link: '/portal/dashboard',
+            active:false,
+        },{
+            name: 'Job Options',
+            link: '/portal/dashboard/jobs-list',
+            active:false,
+            dropdown : [
+                {
+                    name: 'All Jobs',
+                    link: '/portal/dashboard/jobs-list',
+                },{
+                    name: 'Add New Job',
+                    link: '/portal/dashboard/new-job-addition',
+                }
+            ]
+        },{
+            name: 'All Applicants',
+            link: '/portal/dashboard/applicants',
+            active:false,
+        },{
+            name: 'Messages',
+            link: '/portal/dashboard/contact-messages',
+            active:false,
+        }
+    ]
+    const [onLogin, setOnLogin] = useState<boolean>(false);
+    const pathname = usePathname()    
 
     useEffect(() => {
-        setMenuItems((prev) =>
-            prev.map(item => ({
-                ...item,
-                active: pathname === item.link,
-            }))
-        );
-    }, [pathname]);
+        const AgentsAllowed = async() => {
+            const User = await fetch('/api/getAdmin/activeUser').then(res => res.json());
+            if(User?.post === 'admin' || User?.post==='Pak HR'){
+                setAllowAgents(true);
+            }
+            else{
+                setAllowAgents(false)
+            }
+        }
+        if(pathname === '/portal'){
+            setOnLogin(true)
+        }else{
+            setOnLogin(false)
+            AgentsAllowed();
+        }
+    },[pathname])
 
-    return (
-        <div className="w-full bg-white py-3 shadow-md sticky top-0 z-50">
-            <div className="container flex items-center justify-between px-4 md:px-6">
-                {/* Brand */}
-                <Link href="/dashboard">
-                    <div className="flex items-center space-x-2 cursor-pointer">
-                        <h1 className="text-xl md:text-2xl font-bold tracking-wide">
-                            <span className="text-sky-900">KAZI</span>
-                            <span className="text-orange-500">BASE</span>
-                        </h1>
-                        <p className="hidden md:block text-xs text-sky-700 font-medium tracking-tight">
-                            Worker Dashboard
-                        </p>
-                    </div>
-                </Link>
 
-                {/* Menu - Desktop */}
-                <div className="hidden md:flex items-center gap-6">
-                    {menuItems.map((item, i) => (
-                        <Link
-                            key={i}
-                            href={item.link}
-                            className={`text-sm md:text-base font-semibold tracking-wide transition-colors ${
-                                item.active ? 'text-orange-500' : 'text-sky-900 hover:text-sky-700'
-                            }`}
+
+    return(
+        <div className='flex justify-end items-center gap-7'>
+            {
+                onLogin ? 
+                <h3 className="text-xl text-sky-900 font-[500] italic capitalize tracking-wide border-b border-orange-500 pb-1 px-1">{`Let's get Login !!!`}</h3>
+                :
+                <>
+
+                    {
+                        Menu.map((item, index) => 
+                            item.dropdown ? <DropDown mainMenu={item} key={index} /> : <Link href={item.link} key={index} className={`relative text-lg 2xl:text-xl font-semibold tracking-wide transitive-underline ${item.active ? 'text-[#F7801E]' : 'text-sky-900'} hover:text-sky-800`} >{item.name}</Link>
+                        )
+                    }
+                    {
+                        allowAgents ? <Link href={'/portal/dashboard/agents'} className={`relative text-lg 2xl:text-xl font-semibold tracking-wide transitive-underline text-sky-900 hover:text-sky-800`} >Agents</Link> : null
+                    }
+                
+                    <button 
+                        onClick={() => signOut({callbackUrl: '/portal'})} 
+                        className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition-colors"
                         >
-                            {item.name}
-                        </Link>
-                    ))}
-                </div>
-
-                {/* Mobile Menu Placeholder */}
-                <div className="md:hidden">
-                    <button className="text-sky-900">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
+                        Sign Out
                     </button>
-                </div>
-            </div>
+                </>
+            }
         </div>
-    );
+    )
 }
