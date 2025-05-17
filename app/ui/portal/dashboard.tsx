@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";  // <-- import signOut
+import { signOut } from "next-auth/react"; // <-- import signOut
 import ActiveJobs from "./dashboardElements/activeJobs";
 import ApplicantsView from "./dashboardElements/applicantsView";
 import MessagesList from "./dashboardElements/messagesList";
@@ -125,21 +125,17 @@ export default function Dashboard() {
 
             {/* Navigation links center for large screens */}
             <nav className="hidden lg:flex justify-center items-center gap-8 font-semibold text-sky-900">
-              {menuItems.map((item) =>
-                item.dropdown ? (
-                  <div key={item.name}>Dropdown Placeholder</div>
-                ) : (
-                  <Link
-                    key={item.name}
-                    href={item.link}
-                    className={`relative text-lg xl:text-xl tracking-wide transitive-underline ${
-                      item.active ? "text-[#F7801E]" : "hover:text-sky-800"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                )
-              )}
+              {menuItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.link}
+                  className={`relative text-lg xl:text-xl tracking-wide transitive-underline ${
+                    item.active ? "text-[#F7801E]" : "hover:text-sky-800"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
             </nav>
 
             {/* Right side: Sign Out button */}
@@ -169,15 +165,18 @@ export default function Dashboard() {
                 ⚠️ Disclaimer
               </p>
               <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
-                Thank you for creating your account. Apply for the jobs that you&apos;re capable
-                of doing. To make Kazibase a good atmosphere for you to thrive, you need to act
-                professionally on every job you take and in how you present yourself to clients.
-                Also, remember if you&apos;re involved in any misconduct, theft, or any
-                inappropriate behavior towards clients, you will bear all the responsibility.
-                Please remember to check the notice board regularly to see new planned updates.
+                Thank you for creating your account. Apply for the jobs that
+                you&apos;re capable of doing. To make Kazibase a good atmosphere
+                for you to thrive, you need to act professionally on every job
+                you take and in how you present yourself to clients. Also,
+                remember if you&apos;re involved in any misconduct, theft, or
+                any inappropriate behavior towards clients, you will bear all
+                the responsibility. Please remember to check the notice board
+                regularly to see new planned updates.
               </p>
               <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify mt-4 font-semibold">
-                📌 It is mandatory to carry your original ID when visiting clients&apos; places.
+                📌 It is mandatory to carry your original ID when visiting
+                clients&apos; places.
               </p>
             </div>
 
