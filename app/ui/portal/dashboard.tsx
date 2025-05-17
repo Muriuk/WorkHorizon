@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -637,6 +639,6 @@ export default function Dashboard(): JSX.Element {
             </div>
           </div>
         </footer>
-          
+       </div>   
   );
 }
