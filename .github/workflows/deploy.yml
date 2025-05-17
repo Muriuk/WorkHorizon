@@ -19,7 +19,7 @@ jobs:
           node-version: '19'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Install Supabase client
         run: npm install @supabase/supabase-js
