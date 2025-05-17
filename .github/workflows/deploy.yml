@@ -1,13 +1,11 @@
-name: Install Supabase package
+name: Install Supabase
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
-  install-supabase:
+  install:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,15 +17,13 @@ jobs:
           node-version: '18'
           cache: 'pnpm'
 
-      - name: Setup pnpm
-        run: corepack enable
-
-      - name: Install Supabase package
+      - name: Enable pnpm via Corepack
         run: |
-          pnpm add @supabase/supabase-js
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Check package.json (just to verify)
-        run: cat package.json | grep supabase
+      - name: Add Supabase client
+        run: pnpm add @supabase/supabase-js
