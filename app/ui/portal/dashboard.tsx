@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import ActiveJobs from "./dashboardElements/activeJobs";
-import ApplicantsView from "./dashboardElements/applicantsView";
 import MessagesList from "./dashboardElements/messagesList";
 
 interface MenuItem {
@@ -19,7 +18,7 @@ const menuItems: MenuItem[] = [
   { name: "Applicants", id: "applicants", icon: "users" },
   { name: "Messages", id: "messages", icon: "message-square" },
   { name: "Weekly Subscription", id: "weekly-subscription", icon: "credit-card" },
-  { name: "All Jobs", id: "all-jobs", icon: "grid", route: "/jobs" },
+  { name: "All Jobs", id: "all-jobs", icon: "grid", route: "/jobspage" },
   { name: "My Profile", id: "my-profile", icon: "user" },
   { name: "Settings", id: "settings", icon: "settings" },
 ];
@@ -142,7 +141,7 @@ export default function Dashboard(): JSX.Element {
       <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-gray-200 shadow-sm">
         {/* Logo area */}
         <div className="p-5 border-b border-gray-200">
-          <Link href="/">
+          <Link href="/portal/dashboard">
             <div className="flex flex-col cursor-pointer">
               <h1 className="text-2xl font-bold tracking-wide">
                 <span className="text-sky-900">KAZI</span>
@@ -210,7 +209,7 @@ export default function Dashboard(): JSX.Element {
           <div className="flex-1 flex flex-col overflow-y-auto pt-5 pb-4">
             {/* Header with Logo and Close Button */}
             <div className="px-4 mb-6 flex justify-between items-center">
-              <Link href="/">
+              <Link href="/portal/dashboard">
                 <div className="flex flex-col cursor-pointer">
                   <h1 className="text-2xl font-bold tracking-wide">
                     <span className="text-sky-900">KAZI</span>
@@ -297,7 +296,7 @@ export default function Dashboard(): JSX.Element {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
-              <Link href="/">
+              <Link href="/portal/dashboard">
                 <div className="flex flex-col cursor-pointer">
                   <h1 className="text-2xl font-bold tracking-wide">
                     <span className="text-sky-900">KAZI</span>
@@ -399,17 +398,7 @@ export default function Dashboard(): JSX.Element {
               </div>
             </section>
 
-            <section 
-              id="applicants" 
-              className="mb-12 scroll-mt-20"
-            >
-              <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
-                Applicants
-              </h3>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <ApplicantsView />
-              </div>
-            </section>
+           
 
             <section 
               id="messages" 
@@ -462,13 +451,13 @@ export default function Dashboard(): JSX.Element {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-xl font-medium text-gray-800">John Doe</h4>
+                    <h4 className="text-xl font-medium text-gray-800">Kelvin</h4>
                     <p className="text-gray-500 mb-4">Worker ID: W12345</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                       <div>
                         <p className="text-sm text-gray-500">Email</p>
-                        <p className="font-medium">johndoe@example.com</p>
+                        <p className="font-medium">kazibase@example.com</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Phone</p>
@@ -480,7 +469,7 @@ export default function Dashboard(): JSX.Element {
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Joined</p>
-                        <p className="font-medium">January 15, 2025</p>
+                        <p className="font-medium">April 15, 2025</p>
                       </div>
                     </div>
                     
@@ -532,7 +521,7 @@ export default function Dashboard(): JSX.Element {
                         <select className="bg-gray-50 border border-gray-300 text-gray-700 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500">
                           <option>English</option>
                           <option>Swahili</option>
-                          <option>French</option>
+                         
                         </select>
                       </div>
                       
@@ -572,7 +561,19 @@ export default function Dashboard(): JSX.Element {
                       </div>
                     </div>
                   </div>
-                  
+
+                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                        <div>
+                          <p className="font-medium">Two-Factor Authentication</p>
+                          <p className="text-sm text-gray-500">Add an extra layer of security</p>
+                        </div>
+                        <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
+                          <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
                   <div className="pt-4">
                     <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition-colors">
                       Save Settings
@@ -586,6 +587,32 @@ export default function Dashboard(): JSX.Element {
             </section>
             </div>
           </main>
+     {/* Footer */}
+        <footer className="bg-white border-t border-gray-200 py-4">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row justify-between items-center">
+              <div className="mb-4 sm:mb-0">
+                <p className="text-sm text-gray-600">
+                  &copy; {new Date().getFullYear()} KaziBase. All rights reserved.
+                </p>
+                <p className="text-xs text-gray-500">
+                  Connecting Skilled Labor in Kenya
+                </p>
+              </div>
+              <div className="flex space-x-4">
+                <a href="#" className="text-sky-900 hover:text-sky-700 transition-colors">
+                  Terms of Service
+                </a>
+                <a href="#" className="text-sky-900 hover:text-sky-700 transition-colors">
+                  Privacy Policy
+                </a>
+                <a href="#" className="text-sky-900 hover:text-sky-700 transition-colors">
+                  Contact Us
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
         </div>
       </div>
     
