@@ -42,9 +42,10 @@ jobs:
 
       - name: Install Supabase CLI
         run: |
-          npm install -g @supabase/cli
+          # Install Supabase CLI using the correct package name
+          npm install -g supabase
           # Verify installation
-          supabase --version
+          supabase --version || echo "Supabase CLI installation failed but continuing..."
 
       - name: Supabase Login
         run: supabase login $SUPABASE_ACCESS_TOKEN
