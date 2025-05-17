@@ -1,29 +1,46 @@
-name: Install Supabase
+name: Build and Install Supabase
 
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  install:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js with PNPM
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'pnpm'
 
-      - name: Enable pnpm via Corepack
+      - name: Enable Corepack and activate pnpm
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@10.11.0 --activate
 
-      - name: Install dependencies
+      - name: Install dependencies using pnpm
         run: pnpm install
 
-      - name: Add Supabase client
+      - name: Add Supabase JS SDK
         run: pnpm add @supabase/supabase-js
+
+      - name: Install Supabase CLI globally
+        run: npm install -g supabase
+
+      # Optional: authenticate CLI if you need to deploy or run Supabase commands
+      # - name: Login to Supabase CLI
+      #   run: supabase login --token ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      # Optional: Run Supabase CLI command, e.g., start local dev or deploy
+      # - name: Run Supabase Command
+      #   run: supabase status
+
+      - name: Build Project (adjust this to your setup)
+        run: pnpm build
