@@ -21,8 +21,10 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+      - name: Install dependencies including Supabase
+        run: |
+          pnpm add @supabase/supabase-js
+          pnpm install --no-frozen-lockfile
 
       - name: Build project
         run: pnpm build
