@@ -22,7 +22,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Install Supabase client
-        run: npm install @supabase/supabase-js
+        run: npm install @supabase/supabase-js --legacy-peer-deps
 
       - name: Build project
         run: npm run build
