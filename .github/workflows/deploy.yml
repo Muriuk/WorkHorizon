@@ -1,26 +1,28 @@
-name: Deploy Kazibase
+name: Build and Setup
 
 on:
   push:
     branches:
-      - main  # Or your deployment branch
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 19  # Use Node.js version 19
+          node-version: '19'
 
-      - name: Install required packages
-        run: |
-          npm install nodemailer crypto @types/nodemailer --legacy-peer-deps
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Supabase client
+        run: npm install @supabase/supabase-js
 
       - name: Build project
         run: npm run build
