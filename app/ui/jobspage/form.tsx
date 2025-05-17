@@ -476,10 +476,6 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
   </p>
   <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
     The jobs posted here are directly from job owners who are seeking assistance. Kazibase has not physically verified these jobs. Please ensure you communicate clearly with the job owner to fully understand the job being offered.
-    <br /><br />
-    To visit a job owner, you must be a verified worker and carry your original ID card for client verification. Note that Kazibase does not provide any form of physical security and does not handle any payments.
-    <br /><br />
-    Kindly exercise caution when interacting with job owners, as Kazibase does not verify or guarantee the accuracy of any job or client information.
   </p>
 </div>
 
