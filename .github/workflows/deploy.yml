@@ -1,4 +1,4 @@
-name: Build and Setup
+name: Deploy
 
 on:
   push:
@@ -6,24 +6,24 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: '19'
+          node-version: 18
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Install Supabase client
-        run: npm install @supabase/supabase-js --legacy-peer-deps
+        run: pnpm install
 
       - name: Build project
-        run: npm run build
-         
+        run: pnpm build
+
+      - name: Deploy
+        run: pnpm run deploy
