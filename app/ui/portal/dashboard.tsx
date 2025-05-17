@@ -17,7 +17,7 @@ const menuItems: MenuItem[] = [
   { name: "Active Jobs", id: "active-jobs", icon: "briefcase" },
   { name: "Messages", id: "messages", icon: "message-square" },
   { name: "Weekly Subscription", id: "weekly-subscription", icon: "credit-card" },
-  { name: "All Jobs", id: "all-jobs", icon: "grid", route: "/jobspage" },
+  { name: "All Jobs", id: "all-jobs", icon: "grid", route: "/workerjob" },
   { name: "My Profile", id: "my-profile", icon: "user" },
   { name: "Settings", id: "settings", icon: "settings" },
 ];
