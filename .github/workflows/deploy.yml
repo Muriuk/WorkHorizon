@@ -18,34 +18,18 @@ jobs:
       PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Determine package manager and install dependencies
-        run: |
-          if [ -f "pnpm-lock.yaml" ]; then
-            echo "Using pnpm for installation"
-            npm install -g pnpm
-            rm -f pnpm-lock.yaml
-            pnpm install --no-frozen-lockfile
-          else
-            echo "Using npm for installation"
-            rm -f package-lock.json
-            npm install --no-package-lock --legacy-peer-deps
-          fi
+      - uses: actions/checkout@v3
 
       - name: Install Supabase CLI
         run: |
           npm install supabase --save-dev
           export PATH="$PATH:$(pwd)/node_modules/.bin"
-          npx supabase --version || echo "Supabase CLI installation verification failed but continuing..."
+          npx supabase --version
 
-      # Supabase Login step removed
+      - name: Debug Project ID length
+        run: |
+          echo "Project ID length: ${#PROJECT_ID}"
+          echo "Project ID preview: ${PROJECT_ID:0:4}...${PROJECT_ID: -4}"
 
       - name: Link to Supabase project
         run: |
@@ -54,12 +38,4 @@ jobs:
             npx supabase init
           fi
           npx supabase link --project-ref $PROJECT_ID --password $SUPABASE_DB_PASSWORD
-
-      - name: Push Supabase migrations
-        run: |
-          export PATH="$PATH:$(pwd)/node_modules/.bin"
-          npx supabase db push
-
-      - name: Build application
-        run: npm run build
  
