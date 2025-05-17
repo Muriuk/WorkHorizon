@@ -42,16 +42,23 @@ jobs:
 
       - name: Install Supabase CLI
         run: |
-          # Install Supabase CLI using the correct package name
-          npm install -g supabase
+          # Install Supabase CLI using their recommended method
+          curl -fsSL https://cli.supabase.com/install.sh | sh
+          # Add to PATH
+          export PATH=/root/.supabase/bin:$PATH
           # Verify installation
-          supabase --version || echo "Supabase CLI installation failed but continuing..."
+          supabase --version || echo "Supabase CLI installation verification failed but continuing..."
 
       - name: Supabase Login
-        run: supabase login $SUPABASE_ACCESS_TOKEN
+        run: |
+          # Add Supabase to PATH
+          export PATH=/root/.supabase/bin:$HOME/.supabase/bin:$PATH
+          supabase login $SUPABASE_ACCESS_TOKEN
 
       - name: Link to Supabase project
         run: |
+          # Add Supabase to PATH
+          export PATH=/root/.supabase/bin:$HOME/.supabase/bin:$PATH
           if [ -z "$(find . -name 'supabase' -type d)" ]; then
             # Initialize Supabase if not already initialized
             supabase init
@@ -59,7 +66,10 @@ jobs:
           supabase link --project-ref $PROJECT_ID --password $SUPABASE_DB_PASSWORD
 
       - name: Push Supabase migrations
-        run: supabase db push
+        run: |
+          # Add Supabase to PATH
+          export PATH=/root/.supabase/bin:$HOME/.supabase/bin:$PATH
+          supabase db push
 
       - name: Build application
         run: npm run build
