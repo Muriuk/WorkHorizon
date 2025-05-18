@@ -5,26 +5,27 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import ActiveJobs from "./dashboardElements/activeJobs";
 import MessagesList from "./dashboardElements/messagesList";
+import WorkerJob from "./dashboardElements/workerJob"; // Import the WorkerJob component
 
 interface MenuItem {
   name: string;
   id: string;
   icon: string;
-  route?: string;
 }
 
 const menuItems: MenuItem[] = [
+  { name: "Dashboard", id: "dashboard", icon: "dashboard" }, // Added Dashboard as first menu item
   { name: "Active Jobs", id: "active-jobs", icon: "briefcase" },
   { name: "Messages", id: "messages", icon: "message-square" },
   { name: "Weekly Subscription", id: "weekly-subscription", icon: "credit-card" },
-  { name: "All Jobs", id: "all-jobs", icon: "grid", route: "/workerjob" },
+  { name: "All Jobs", id: "all-jobs", icon: "grid" }, // Removed route property
   { name: "My Profile", id: "my-profile", icon: "user" },
   { name: "Settings", id: "settings", icon: "settings" },
 ];
 
 export default function Dashboard(): JSX.Element {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<string>("active-jobs");
+  const [activeSection, setActiveSection] = useState<string>("dashboard"); // Set default to dashboard
   const [scrolled, setScrolled] = useState<boolean>(false);
 
   // Handle scroll effect for header
@@ -40,22 +41,21 @@ export default function Dashboard(): JSX.Element {
   // Close sidebar when clicking outside or when navigation is clicked
   const closeSidebar = (): void => setSidebarOpen(false);
 
-  // Handle navigation - either navigate to route or update active section
+  // Handle navigation - update active section
   const handleNavigation = (item: MenuItem): void => {
-    if (item.route) {
-      // Navigate to external route
-      window.location.href = item.route;
-      closeSidebar();
-    } else {
-      // Update active section without scrolling
-      setActiveSection(item.id);
-      closeSidebar();
-    }
+    setActiveSection(item.id);
+    closeSidebar();
   };
 
   // Render icon based on name
   const renderIcon = (iconName: string): JSX.Element | null => {
     switch (iconName) {
+      case "dashboard":
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        );
       case "briefcase":
         return (
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,9 +99,78 @@ export default function Dashboard(): JSX.Element {
     }
   };
 
-  // Render content based on active section
+   // Render content based on active section
   const renderContent = (): JSX.Element => {
     switch (activeSection) {
+      case "dashboard":
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <div className="text-center py-4">
+              <h4 className="text-xl font-medium text-sky-900 mb-4">Welcome to Your Dashboard</h4>
+              <p className="text-gray-600 mb-6">
+                Here's an overview of your recent activities and opportunities.
+              </p>
+              
+              {/* Dashboard Summary Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="bg-sky-50 p-6 rounded-lg border border-sky-100 text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-sky-100 rounded-full text-sky-600 mb-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h5 className="text-lg font-medium text-sky-900 mb-1">Jobs Applied</h5>
+                  <p className="text-3xl font-bold text-sky-600">12</p>
+                </div>
+                
+                <div className="bg-green-50 p-6 rounded-lg border border-green-100 text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full text-green-600 mb-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h5 className="text-lg font-medium text-green-900 mb-1">Jobs Completed</h5>
+                  <p className="text-3xl font-bold text-green-600">7</p>
+                </div>
+                
+                <div className="bg-orange-50 p-6 rounded-lg border border-orange-100 text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-100 rounded-full text-orange-600 mb-4">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h5 className="text-lg font-medium text-orange-900 mb-1">Pending Jobs</h5>
+                  <p className="text-3xl font-bold text-orange-600">3</p>
+                </div>
+              </div>
+              
+              {/* Quick Actions */}
+              <div className="mt-6">
+                <h5 className="text-lg font-medium text-sky-900 mb-4">Quick Actions</h5>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <button 
+                    onClick={() => setActiveSection("all-jobs")}
+                    className="px-5 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
+                  >
+                    Browse All Jobs
+                  </button>
+                  <button 
+                    onClick={() => setActiveSection("active-jobs")}
+                    className="px-5 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
+                  >
+                    View Active Jobs
+                  </button>
+                  <button 
+                    onClick={() => setActiveSection("messages")}
+                    className="px-5 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
+                  >
+                    Check Messages
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       case "active-jobs":
         return (
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
@@ -112,6 +181,12 @@ export default function Dashboard(): JSX.Element {
         return (
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
             <MessagesList />
+          </div>
+        );
+      case "all-jobs":
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <WorkerJob /> {/* Use the WorkerJob component here */}
           </div>
         );
       case "weekly-subscription":
