@@ -5,7 +5,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import ActiveJobs from "./dashboardElements/activeJobs";
 import MessagesList from "./dashboardElements/messagesList";
-import WorkerJob from "./workerJob"; // Import the WorkerJob component
+import WorkerJob from "./workerjob"; // Import the WorkerJob component
 
 interface MenuItem {
   name: string;
