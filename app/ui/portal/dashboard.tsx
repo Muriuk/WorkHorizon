@@ -104,6 +104,7 @@ export default function Dashboard(): JSX.Element {
     switch (activeSection) {
       case "dashboard":
         return (
+          <>
            {/* Welcome header */}
             <div className="text-center mb-8">
               <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
@@ -134,6 +135,7 @@ export default function Dashboard(): JSX.Element {
                 clients&apos; places.
               </p>
             </div>
+          </>
         );
       case "active-jobs":
         return (
