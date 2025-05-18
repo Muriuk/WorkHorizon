@@ -449,47 +449,28 @@ function JobsHead({ singleJob }: { singleJob: boolean }) {
   return (
     <div className='bg-neutral-100 w-full shadow-md shadow-gray-200'>
       <div className={`container w-[88%] lg:w-[77%] 2xl:w-[70%] flex pt-6 ${singleJob ? 'hidden' : ''}`}>
-       
-        <Link href='/portal/dashboard' className="text-gray-500 font-semibold text-sm underline">Back to Dashboard</Link>
-        <ArrowRight className="hidden lg:block w-4 h-auto text-gray-500 mx-3" />
-        <Link href='/jobspage' className="hidden lg:block text-orange-500 font-semibold text-sm underline">Available Jobs</Link>
+        {/* Removed "Back to Dashboard" link */}
       </div>
-      <div className='container w-[88%] flex flex-col bg-neutral-100 items-center justify-center lg:w-full py-8 lg:pt-8 lg:pb-12'>
-        <Link href='/jobspage'>
-          <div className="w-[13rem] lg:w-[15rem] h-auto flex items-center justify-center mb-3">
-            <div className="flex flex-col items-center">
-              <h1 className="text-2xl lg:text-3xl font-bold tracking-wide">
-                <span className="text-sky-900">KAZI</span>
-                <span className="text-[#F7801E]">BASE</span>
-              </h1>
-              <p className="text-xs lg:text-sm text-sky-700 font-medium tracking-tight text-center">
-                Connecting Skilled Labor in Kenya
-              </p>
-            </div>
-          </div>
-        </Link>
-        {!singleJob && (
-          <>
-            <div className="mb-6 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto">
-  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
-    ⚠️ Disclaimer For You
-  </p>
-  <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
-    Dear jobs posted here are directly from job owners who are seeking assistance. Kazibase has not physically verified these jobs. Please ensure you communicate clearly with the job owner to fully understand the job being offered.
-    <br /><br />
-    To visit a job owner, you must be a verified worker and carry your original ID card for client verification. Note that Kazibase does not provide any form of physical security and does not handle any payments.
-    <br /><br />
-    Kindly exercise caution when interacting with job owners, as Kazibase does not verify or guarantee the accuracy of any job or client information.
-  </p>
-</div>
 
-          </>
+      <div className='container w-[88%] flex flex-col bg-neutral-100 items-center justify-center lg:w-full py-8 lg:pt-8 lg:pb-12'>
+        {!singleJob && (
+          <div className="mb-6 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
+              ⚠️ Disclaimer For You
+            </p>
+            <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
+              Dear jobs posted here are directly from job owners who are seeking assistance. Kazibase has not physically verified these jobs. Please ensure you communicate clearly with the job owner to fully understand the job being offered.
+              <br /><br />
+              To visit a job owner, you must be a verified worker and carry your original ID card for client verification. Note that Kazibase does not provide any form of physical security and does not handle any payments.
+              <br /><br />
+              Kindly exercise caution when interacting with job owners, as Kazibase does not verify or guarantee the accuracy of any job or client information.
+            </p>
+          </div>
         )}
       </div>
     </div>
   );
 }
-
 // Updated JobsList component with two-column grid for mobile
 function JobsList({ jobs }: { jobs: Job[] }) {
   if (jobs.length === 0) {
