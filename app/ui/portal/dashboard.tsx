@@ -5,7 +5,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import ActiveJobs from "./dashboardElements/activeJobs";
 import MessagesList from "./dashboardElements/messagesList";
-
+import WorkerJob from '@/app/ui/workerjob/form'
 
 interface MenuItem {
   name: string;
@@ -184,13 +184,11 @@ export default function Dashboard(): JSX.Element {
           </div>
         );
      case "all-jobs":
-  return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-      <Link href="/workerjob" passHref>
-        <a className="text-blue-600 hover:underline">View All Jobs</a>
-      </Link>
-    </div>
-  );
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <WorkerJob /> {/* Use the WorkerJob component here */}
+          </div>
+        );
       case "weekly-subscription":
         return (
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
