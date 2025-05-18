@@ -104,72 +104,36 @@ export default function Dashboard(): JSX.Element {
     switch (activeSection) {
       case "dashboard":
         return (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <div className="text-center py-4">
-              <h4 className="text-xl font-medium text-sky-900 mb-4">Welcome to Your Dashboard</h4>
-              <p className="text-gray-600 mb-6">
-                Here&apos;s an overview of your recent activities and opportunities.
-              </p>
-              
-              {/* Dashboard Summary Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-sky-50 p-6 rounded-lg border border-sky-100 text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-sky-100 rounded-full text-sky-600 mb-4">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h5 className="text-lg font-medium text-sky-900 mb-1">Jobs Applied</h5>
-                  <p className="text-3xl font-bold text-sky-600">12</p>
-                </div>
-                
-                <div className="bg-green-50 p-6 rounded-lg border border-green-100 text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full text-green-600 mb-4">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h5 className="text-lg font-medium text-green-900 mb-1">Jobs Completed</h5>
-                  <p className="text-3xl font-bold text-green-600">7</p>
-                </div>
-                
-                <div className="bg-orange-50 p-6 rounded-lg border border-orange-100 text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-100 rounded-full text-orange-600 mb-4">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h5 className="text-lg font-medium text-orange-900 mb-1">Pending Jobs</h5>
-                  <p className="text-3xl font-bold text-orange-600">3</p>
-                </div>
-              </div>
-              
-              {/* Quick Actions */}
-              <div className="mt-6">
-                <h5 className="text-lg font-medium text-sky-900 mb-4">Quick Actions</h5>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <button 
-                    onClick={() => setActiveSection("all-jobs")}
-                    className="px-5 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
-                  >
-                    Browse All Jobs
-                  </button>
-                  <button 
-                    onClick={() => setActiveSection("active-jobs")}
-                    className="px-5 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
-                  >
-                    View Active Jobs
-                  </button>
-                  <button 
-                    onClick={() => setActiveSection("messages")}
-                    className="px-5 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
-                  >
-                    Check Messages
-                  </button>
-                </div>
-              </div>
+           {/* Welcome header */}
+            <div className="text-center mb-8">
+              <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
+                Hello worker 👋
+              </h1>
+              <h2 className="text-3xl font-semibold mb-7 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
+                WORKER DASHBOARD
+              </h2>
             </div>
-          </div>
+
+            {/* Disclaimer notice */}
+            <div className="mb-10 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto shadow-sm">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
+                ⚠️ Disclaimer
+              </p>
+              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
+                Thank you for creating your account. Apply for the jobs that
+                you&apos;re capable of doing. To make Kazibase a good atmosphere
+                for you to thrive, you need to act professionally on every job
+                you take and in how you present yourself to clients. Also,
+                remember if you&apos;re involved in any misconduct, theft, or
+                any inappropriate behavior towards clients, you will bear all
+                the responsibility. Please remember to check the notice board
+                regularly to see new planned updates.
+              </p>
+              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify mt-4 font-semibold">
+                📌 It is mandatory to carry your original ID when visiting
+                clients&apos; places.
+              </p>
+            </div>
         );
       case "active-jobs":
         return (
@@ -566,36 +530,7 @@ export default function Dashboard(): JSX.Element {
         {/* Page content */}
         <main className="flex-1 overflow-auto bg-gray-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 min-h-[90vh]">
-            {/* Welcome header */}
-            <div className="text-center mb-8">
-              <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
-                Hello Worker 👋
-              </h1>
-              <h2 className="text-3xl font-semibold mb-7 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
-                WORKER DASHBOARD
-              </h2>
-            </div>
-
-            {/* Disclaimer notice */}
-            <div className="mb-10 p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto shadow-sm">
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
-                ⚠️ Disclaimer
-              </p>
-              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
-                Thank you for creating your account. Apply for the jobs that
-                you&apos;re capable of doing. To make Kazibase a good atmosphere
-                for you to thrive, you need to act professionally on every job
-                you take and in how you present yourself to clients. Also,
-                remember if you&apos;re involved in any misconduct, theft, or
-                any inappropriate behavior towards clients, you will bear all
-                the responsibility. Please remember to check the notice board
-                regularly to see new planned updates.
-              </p>
-              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify mt-4 font-semibold">
-                📌 It is mandatory to carry your original ID when visiting
-                clients&apos; places.
-              </p>
-            </div>
+          
 
             {/* Section title */}
             <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
