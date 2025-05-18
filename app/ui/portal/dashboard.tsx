@@ -37,49 +37,19 @@ export default function Dashboard(): JSX.Element {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle intersection observer to detect active section
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    // Only observe elements that exist on the page (those without routes)
-    menuItems.filter(item => !item.route).forEach((item) => {
-      const element = document.getElementById(item.id);
-      if (element) observer.observe(element);
-    });
-
-    return () => {
-      menuItems.filter(item => !item.route).forEach((item) => {
-        const element = document.getElementById(item.id);
-        if (element) observer.unobserve(element);
-      });
-    };
-  }, []);
-
   // Close sidebar when clicking outside or when navigation is clicked
   const closeSidebar = (): void => setSidebarOpen(false);
 
-  // Handle navigation - either scroll to section or navigate to route
+  // Handle navigation - either navigate to route or update active section
   const handleNavigation = (item: MenuItem): void => {
     if (item.route) {
       // Navigate to external route
       window.location.href = item.route;
       closeSidebar();
     } else {
-      // Scroll to section
-      const element = document.getElementById(item.id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-        closeSidebar();
-      }
+      // Update active section without scrolling
+      setActiveSection(item.id);
+      closeSidebar();
     }
   };
 
@@ -126,6 +96,179 @@ export default function Dashboard(): JSX.Element {
         );
       default:
         return null;
+    }
+  };
+
+  // Render content based on active section
+  const renderContent = (): JSX.Element => {
+    switch (activeSection) {
+      case "active-jobs":
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <ActiveJobs />
+          </div>
+        );
+      case "messages":
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <MessagesList />
+          </div>
+        );
+      case "weekly-subscription":
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <div className="text-center py-8">
+              <h4 className="text-lg font-medium text-sky-900 mb-4">Manage Your Subscription</h4>
+              <p className="text-gray-600 mb-6">
+                Your weekly subscription gives you access to premium job listings and priority application status.
+              </p>
+              <div className="max-w-md mx-auto bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <p className="text-green-600 font-medium mb-2">Status: Active</p>
+                <p className="text-gray-600 mb-4">Next payment: May 24, 2025</p>
+                <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded-lg transition-colors">
+                  Manage Payment Methods
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      case "my-profile":
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+              <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center">
+                <svg className="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h4 className="text-xl font-medium text-gray-800">Kelvin</h4>
+                <p className="text-gray-500 mb-4">Worker ID: W12345</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-medium">kazibase@example.com</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Phone</p>
+                    <p className="font-medium">+254 123 456 789</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Location</p>
+                    <p className="font-medium">Nairobi, Kenya</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Joined</p>
+                    <p className="font-medium">April 15, 2025</p>
+                  </div>
+                </div>
+                
+                <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition-colors">
+                  Edit Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      case "settings":
+        return (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-lg font-medium text-gray-800 mb-3">Account Settings</h4>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div>
+                      <p className="font-medium">Email Notifications</p>
+                      <p className="text-sm text-gray-500">Receive emails about new job opportunities</p>
+                    </div>
+                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
+                      <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div>
+                      <p className="font-medium">SMS Alerts</p>
+                      <p className="text-sm text-gray-500">Get SMS notifications for job updates</p>
+                    </div>
+                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
+                      <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div>
+                      <p className="font-medium">Language Preference</p>
+                      <p className="text-sm text-gray-500">Choose your preferred language</p>
+                    </div>
+                    <select className="bg-gray-50 border border-gray-300 text-gray-700 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                      <option>English</option>
+                      <option>Swahili</option>
+                    </select>
+                  </div>
+                  
+                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div>
+                      <p className="font-medium">Password</p>
+                      <p className="text-sm text-gray-500">Last updated 3 months ago</p>
+                    </div>
+                    <button className="text-sky-600 hover:text-sky-800 font-medium">
+                      Change
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="text-lg font-medium text-gray-800 mb-3">Privacy Settings</h4>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div>
+                      <p className="font-medium">Profile Visibility</p>
+                      <p className="text-sm text-gray-500">Allow employers to view your profile</p>
+                    </div>
+                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
+                      <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                    <div>
+                      <p className="font-medium">Show Contact Info</p>
+                      <p className="text-sm text-gray-500">Display your contact information to employers</p>
+                    </div>
+                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
+                      <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between py-3 border-b border-gray-100">
+                <div>
+                  <p className="font-medium">Two-Factor Authentication</p>
+                  <p className="text-sm text-gray-500">Add an extra layer of security</p>
+                </div>
+                <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
+                  <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
+                </div>
+              </div>
+              
+              <div className="pt-4">
+                <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition-colors">
+                  Save Settings
+                </button>
+                <button className="ml-4 text-gray-600 hover:text-gray-800 py-2 px-6 transition-colors">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return <div>Select a section from the menu</div>;
     }
   };
 
@@ -379,227 +522,42 @@ export default function Dashboard(): JSX.Element {
               </p>
             </div>
 
-            {/* Dashboard sections */}
-            <section 
-              id="active-jobs" 
-              className="mb-12 scroll-mt-20"
-            >
-              <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
-                Active Jobs
-              </h3>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <ActiveJobs />
-              </div>
-            </section>
+            {/* Section title */}
+            <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
+             {menuItems.find(item => item.id === activeSection)?.name}
+            </h3>
 
-           
-
-            <section 
-              id="messages" 
-              className="mb-12 scroll-mt-20"
-            >
-              <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
-                Messages
-              </h3>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <MessagesList />
-              </div>
-            </section>
-            
-            <section 
-              id="weekly-subscription" 
-              className="mb-12 scroll-mt-20"
-            >
-              <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
-                Weekly Subscription Payment
-              </h3>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <div className="text-center py-8">
-                  <h4 className="text-lg font-medium text-sky-900 mb-4">Manage Your Subscription</h4>
-                  <p className="text-gray-600 mb-6">
-                    Your weekly subscription gives you access to premium job listings and priority application status.
-                  </p>
-                  <div className="max-w-md mx-auto bg-gray-50 rounded-lg p-6 border border-gray-200">
-                    <p className="text-green-600 font-medium mb-2">Status: Active</p>
-                    <p className="text-gray-600 mb-4">Next payment: May 24, 2025</p>
-                    <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded-lg transition-colors">
-                      Manage Payment Methods
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </section>
-            
-            <section 
-              id="my-profile" 
-              className="mb-12 scroll-mt-20"
-            >
-              <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
-                My Profile
-              </h3>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-                  <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center">
-                    <svg className="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-xl font-medium text-gray-800">Kelvin</h4>
-                    <p className="text-gray-500 mb-4">Worker ID: W12345</p>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                      <div>
-                        <p className="text-sm text-gray-500">Email</p>
-                        <p className="font-medium">kazibase@example.com</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">Phone</p>
-                        <p className="font-medium">+254 123 456 789</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">Location</p>
-                        <p className="font-medium">Nairobi, Kenya</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">Joined</p>
-                        <p className="font-medium">April 15, 2025</p>
-                      </div>
-                    </div>
-                    
-                    <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition-colors">
-                      Edit Profile
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </section>
-            
-            <section 
-              id="settings" 
-              className="mb-12 scroll-mt-20"
-            >
-              <h3 className="text-xl font-semibold mb-6 text-sky-900 border-l-4 border-orange-500 pl-3">
-                Settings
-              </h3>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-lg font-medium text-gray-800 mb-3">Account Settings</h4>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">Email Notifications</p>
-                          <p className="text-sm text-gray-500">Receive emails about new job opportunities</p>
-                        </div>
-                        <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
-                          <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">SMS Alerts</p>
-                          <p className="text-sm text-gray-500">Get SMS notifications for job updates</p>
-                        </div>
-                        <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
-                          <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">Language Preference</p>
-                          <p className="text-sm text-gray-500">Choose your preferred language</p>
-                        </div>
-                        <select className="bg-gray-50 border border-gray-300 text-gray-700 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500">
-                          <option>English</option>
-                          <option>Swahili</option>
-                         
-                        </select>
-                      </div>
-                      
-                      <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">Password</p>
-                          <p className="text-sm text-gray-500">Last updated 3 months ago</p>
-                        </div>
-                        <button className="text-sky-600 hover:text-sky-800 font-medium">
-                          Change
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-lg font-medium text-gray-800 mb-3">Privacy Settings</h4>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">Profile Visibility</p>
-                          <p className="text-sm text-gray-500">Allow employers to view your profile</p>
-                        </div>
-                        <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
-                          <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">Show Contact Info</p>
-                          <p className="text-sm text-gray-500">Display your contact information to employers</p>
-                        </div>
-                        <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
-                          <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                        <div>
-                          <p className="font-medium">Two-Factor Authentication</p>
-                          <p className="text-sm text-gray-500">Add an extra layer of security</p>
-                        </div>
-                        <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
-                          <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
-                        </div>
-                      </div>
-                   
-                  
-            
-                  <div className="pt-4">
-                    <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition-colors">
-                      Save Settings
-                    </button>
-                    <button className="ml-4 text-gray-600 hover:text-gray-800 py-2 px-6 transition-colors">
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </section>
+            {/* Main content rendering */}
+            <div className="mt-4">
+              {renderContent()}
             </div>
-          </main>
-        
-     {/* Footer */}
+          </div>
+        </main>
+
+        {/* Footer */}
         <footer className="bg-white border-t border-gray-200 py-4">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row justify-between items-center">
               <div className="mb-4 sm:mb-0">
                 <p className="text-sm text-gray-600">
-                  &copy; {new Date().getFullYear()} KaziBase. All rights reserved.
-                </p>
-                <p className="text-xs text-gray-500">
-                  Connecting Skilled Labor in Kenya
+                  &copy; {new Date().getFullYear()} Kazibase. All rights reserved.
                 </p>
               </div>
-              
+              <div className="flex space-x-4">
+                <a href="#" className="text-sm text-gray-600 hover:text-sky-700">
+                  Terms of Service
+                </a>
+                <a href="#" className="text-sm text-gray-600 hover:text-sky-700">
+                  Privacy Policy
+                </a>
+                <a href="#" className="text-sm text-gray-600 hover:text-sky-700">
+                  Help Center
+                </a>
+              </div>
             </div>
           </div>
         </footer>
-        </div>
       </div>
-    
+    </div>
   );
 }
