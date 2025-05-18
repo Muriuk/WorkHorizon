@@ -14,7 +14,7 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { name: "Dashboard", id: "dashboard", icon: "dashboard" }, // Added Dashboard as first menu item
+  { name: "Worker Dashboard", id: "dashboard", icon: "dashboard" }, // Added Dashboard as first menu item
   { name: "Active Jobs", id: "active-jobs", icon: "briefcase" },
   { name: "Messages", id: "messages", icon: "message-square" },
   { name: "Weekly Subscription", id: "weekly-subscription", icon: "credit-card" },
@@ -107,11 +107,8 @@ export default function Dashboard(): JSX.Element {
           <>
            {/* Welcome header */}
             <div className="text-center mb-8">
-              <h1 className="text-xl font-semibold mb-3 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
-                Hello worker 👋
-              </h1>
-              <h2 className="text-3xl font-semibold mb-7 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
-                WORKER DASHBOARD
+              <h2 className="text-2xl font-semibold mb-6 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
+                 Hello Worker 👋
               </h2>
             </div>
 
