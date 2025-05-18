@@ -552,17 +552,7 @@ export default function Dashboard(): JSX.Element {
                   &copy; {new Date().getFullYear()} Kazibase. All rights reserved.
                 </p>
               </div>
-              <div className="flex space-x-4">
-                <a href="#" className="text-sm text-gray-600 hover:text-sky-700">
-                  Terms of Service
-                </a>
-                <a href="#" className="text-sm text-gray-600 hover:text-sky-700">
-                  Privacy Policy
-                </a>
-                <a href="#" className="text-sm text-gray-600 hover:text-sky-700">
-                  Help Center
-                </a>
-              </div>
+    
             </div>
           </div>
         </footer>
