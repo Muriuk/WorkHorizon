@@ -108,7 +108,7 @@ export default function Dashboard(): JSX.Element {
             <div className="text-center py-4">
               <h4 className="text-xl font-medium text-sky-900 mb-4">Welcome to Your Dashboard</h4>
               <p className="text-gray-600 mb-6">
-                Here's an overview of your recent activities and opportunities.
+                Here&apos;s an overview of your recent activities and opportunities.
               </p>
               
               {/* Dashboard Summary Cards */}
@@ -186,7 +186,7 @@ export default function Dashboard(): JSX.Element {
       case "all-jobs":
         return (
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <workerjob /> {/* Use the WorkerJob component here */}
+            <Workerjob /> {/* Use the WorkerJob component here */}
           </div>
         );
       case "weekly-subscription":
