@@ -76,6 +76,7 @@ export async function POST(req: NextRequest) {
         county, 
         subcounty,
         location,
+        user_type,
         is_verified, 
         verification_token, 
         verification_token_expires
