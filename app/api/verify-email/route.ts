@@ -76,7 +76,7 @@ export async function GET(req: NextRequest) {
 
     const loginUrl = new URL('/email', req.url);
     loginUrl.searchParams.set('verified', 'true');
-    
+    loginUrl.searchParams.set('type', table); // 👈 This lets frontend know who it is
     return NextResponse.redirect(loginUrl.toString());
 
   } catch (error: unknown) {
