@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import mysql from 'mysql2/promise'
 
 // Pool instead of single connection for better reliability
