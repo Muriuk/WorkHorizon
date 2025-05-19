@@ -149,11 +149,11 @@ export default function ClientRegisterForm() {
                 const result = await res.json()
                 showToast(result.message || 'Something went wrong.', 'error')
             } else {
-                showToast('Account created successfully! You can now login.', 'success')
+                showToast('Account created successfully! You can now post your job.', 'success')
                 
                 // Redirect to login page after successful registration
                 setTimeout(() => {
-                    router.push('/login')
+                    router.push('/postjob')
                 }, 2000)
             }
         } catch {
@@ -406,7 +406,7 @@ export default function ClientRegisterForm() {
                         </button>
                         
                         <p className="text-center mt-4 text-sm text-gray-600">
-                            I am a Worker? <a href="/login" className="text-sky-700 hover:text-sky-900">Login here</a>
+                            Already have account? <a href="/login" className="text-sky-700 hover:text-sky-900">Login here</a>
                         </p>
                     </form>
                 </div>
