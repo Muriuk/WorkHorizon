@@ -11,8 +11,8 @@ export default function EmailVerificationForm() {
   const [message, setMessage] = useState('Verifying your email...');
   const [countdown, setCountdown] = useState(5);
   
-  // This will hold where to redirect: default to '/login'
-  const [redirectPath, setRedirectPath] = useState('/login');
+  // This will hold where to redirect
+  const [redirectPath, setRedirectPath] = useState('');
 
   const startCountdown = useCallback(() => {
     const interval = setInterval(() => {
@@ -36,10 +36,11 @@ export default function EmailVerificationForm() {
         setStatus('success');
         setMessage('Your email has been successfully verified!');
 
-        // If the API returns user type in the URL redirect, you might not get it here via JSON,
-        // so fallback to reading from searchParams after redirect.
-        // If your API returns user type in JSON, you could do:
-        // setRedirectPath(data.type === 'client_users' ? '/postjob' : '/login');
+        // Check if the API returns user type in the response
+        if (data.userType) {
+          setRedirectPath(data.userType === 'client_users' ? '/postjob' : '/login');
+        }
+        // Default redirection will happen based on URL params or default logic
 
         startCountdown();
       } else {
@@ -58,12 +59,25 @@ export default function EmailVerificationForm() {
     const verified = searchParams.get('verified');
     const type = searchParams.get('type'); // read the user type from URL
 
-    // Set redirect path based on type param
-    if (type === 'client_users') {
-      setRedirectPath('/postjob');
-    } else {
-      setRedirectPath('/login'); // default
-    }
+    // Determine redirect path based on available information
+    const determineRedirectPath = () => {
+      // First priority: Check URL parameter
+      if (type === 'client_users') {
+        return '/postjob';
+      }
+      
+      // Second priority: If type is explicitly set to something else
+      if (type && type !== 'client_users') {
+        return '/login';
+      }
+      
+      // Default fallback if no type is specified
+      return '/login';
+    };
+    
+    // Set the redirect path
+    const path = determineRedirectPath();
+    setRedirectPath(path);
 
     if (verified === 'true') {
       setStatus('success');
@@ -83,6 +97,10 @@ export default function EmailVerificationForm() {
 
   const handleRedirectNow = () => {
     router.push(redirectPath);
+  };
+
+  const getRedirectButtonText = () => {
+    return redirectPath === '/login' ? 'Login' : 'Post Job';
   };
 
   return (
@@ -120,7 +138,7 @@ export default function EmailVerificationForm() {
                   onClick={handleRedirectNow}
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
                 >
-                  Go to {redirectPath === '/login' ? 'Login' : 'Post Job'} Now
+                  Go to {getRedirectButtonText()} Now
                 </button>
               </div>
             </div>
