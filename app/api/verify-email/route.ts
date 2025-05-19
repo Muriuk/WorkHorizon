@@ -1,3 +1,4 @@
+export const runtime = 'nodejs'; // 👈 Forces use of Node runtime instead of Edge
 
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
@@ -12,6 +13,15 @@ async function getConnection() {
   });
 }
 
+// Define a shared user type
+type User = RowDataPacket & {
+  id: number;
+  is_verified: boolean;
+  verification_token: string | null;
+  verification_token_expires: string | null;
+  email?: string; // optional depending on your DB schema
+};
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -24,21 +34,21 @@ export async function GET(req: NextRequest) {
     const connection = await getConnection();
 
     // First check in `users` table
-    const [usersResult] = await connection.execute<RowDataPacket[]>(
+    const [usersResult] = await connection.execute<User[]>(
       'SELECT * FROM users WHERE verification_token = ? AND verification_token_expires > NOW()',
       [token]
     );
 
     // Then check in `client_users` if not found in `users`
     const [clientsResult] = usersResult.length === 0
-      ? await connection.execute<RowDataPacket[]>(
+      ? await connection.execute<User[]>(
           'SELECT * FROM client_users WHERE verification_token = ? AND verification_token_expires > NOW()',
           [token]
         )
-      : [[]];
+      : [[] as User[]];
 
     let table = '';
-    let user: any;
+    let user: User;
 
     if (usersResult.length > 0) {
       user = usersResult[0];
