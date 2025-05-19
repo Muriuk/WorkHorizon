@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
 
     // Insert new client user with is_verified = false and user_type = 'client'
     await connection.execute(
-      `INSERT INTO users (
+      `INSERT INTO client_users (
         full_name, 
         email, 
         phone_number, 
@@ -76,7 +76,6 @@ export async function POST(req: NextRequest) {
         county, 
         subcounty,
         location,
-        user_type,
         is_verified, 
         verification_token, 
         verification_token_expires
