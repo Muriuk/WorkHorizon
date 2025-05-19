@@ -177,7 +177,7 @@ export default function ClientRegisterForm() {
             <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
                 <div className="w-full max-w-md">
                     <Image
-                        src={'/assets/client-register.png'}
+                        src={'/assets/login-anime.png'}
                         className="w-full h-auto mb-6 sm:mb-8"
                         width={3000}
                         height={1000}
@@ -406,7 +406,7 @@ export default function ClientRegisterForm() {
                         </button>
                         
                         <p className="text-center mt-4 text-sm text-gray-600">
-                            Already have an account? <a href="/login" className="text-sky-700 hover:text-sky-900">Login here</a>
+                            I am a Worker? <a href="/login" className="text-sky-700 hover:text-sky-900">Login here</a>
                         </p>
                     </form>
                 </div>
