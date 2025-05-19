@@ -3,8 +3,7 @@ import { signIn } from "@/auth";
 
 export async function authentication(formData: FormData) {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const data: Record<string, any> = {};
+    const data: Record<string, FormDataEntryValue> = {};
     formData.forEach((value, key) => {
       data[key] = value;
     });
@@ -14,18 +13,21 @@ export async function authentication(formData: FormData) {
       ...data,
     });
 
-    if(result?.error) {
-        if (result?.error === 'Invalid password') {
-            return { error: 'From Auth Invalid password' };
-        } else if(result?.error === 'User not found') {
-            return { error: 'From Auth User not found' };  
-        }
-        return { error: "Authentication failed" };
+    if (result?.error) {
+      if (result.error === 'Invalid password') {
+        return { error: 'From Auth Invalid password' };
+      } else if (result.error === 'User not found') {
+        return { error: 'From Auth User not found' };
+      }
+      return { error: "Authentication failed" };
     }
 
     return { success: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Authentication error On Authentication.tsx');
-    return { error: error.message || 'Authentication failed' };
+    if (error instanceof Error) {
+      return { error: error.message || 'Authentication failed' };
+    }
+    return { error: 'Authentication failed' };
   }
 }
