@@ -1,3 +1,5 @@
+export const runtime = 'nodejs'; // 👈 Forces use of Node runtime instead of Edge
+
 // /app/api/dashboard/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import mysql, { RowDataPacket } from "mysql2/promise";
