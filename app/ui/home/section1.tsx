@@ -31,7 +31,7 @@ export default function HomeHead() {
                     </p>
                 </div>
                 <div className="flex flex-row justify-center lg:justify-start gap-4 2xl:gap-6 3xl:gap-8 4xl:gap-10 5xl:gap-12 mt-8 lg:col-span-2">
-                    <Link href="/postjob">
+                    <Link href="/clientregister">
                         <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-5 2xl:py-3 2xl:px-6 3xl:py-4 3xl:px-8 4xl:py-5 4xl:px-10 5xl:py-6 5xl:px-12 rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl text-sm sm:text-base 2xl:text-lg 3xl:text-xl 4xl:text-2xl 5xl:text-3xl flex items-center gap-2 2xl:gap-3 3xl:gap-4 glow-orange hover:glow-orange-intense">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 2xl:h-5 2xl:w-5 3xl:h-6 3xl:w-6 4xl:h-7 4xl:w-7 5xl:h-8 5xl:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
