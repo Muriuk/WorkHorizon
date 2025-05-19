@@ -1,4 +1,3 @@
-export const runtime = 'nodejs'; // 👈 Force Node.js runtime
 import { NextRequest, NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 import { RowDataPacket } from "mysql2";
@@ -29,7 +28,7 @@ export async function POST(req: NextRequest) {
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
-    
+
     if (rows.length === 0 || rows[0].password !== password) {
       await connection.end();
       return NextResponse.json(
@@ -41,7 +40,7 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
-    
+
     if (!rows[0].is_verified) {
       await connection.end();
       return NextResponse.json(
@@ -54,7 +53,7 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
-    
+
     await connection.end();
     return NextResponse.json(
       {
