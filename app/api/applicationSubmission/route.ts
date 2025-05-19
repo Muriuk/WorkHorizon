@@ -1,3 +1,5 @@
+export const runtime = "nodejs"; // 👈 force Node runtime
+
 import { executeQuery } from "@/app/lib/db";
 import { google } from "googleapis";
 import { NextRequest, NextResponse } from "next/server";
