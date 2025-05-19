@@ -1,4 +1,3 @@
-export const runtime = 'nodejs'; // 👈 Forces use of Node runtime instead of Edge
 
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
@@ -24,39 +23,47 @@ export async function GET(req: NextRequest) {
 
     const connection = await getConnection();
 
-    // Find user with matching token
-    const [result] = await connection.execute<RowDataPacket[]>(
+    // First check in `users` table
+    const [usersResult] = await connection.execute<RowDataPacket[]>(
       'SELECT * FROM users WHERE verification_token = ? AND verification_token_expires > NOW()',
       [token]
     );
 
-    if (result.length === 0) {
-      await connection.end();
-      return NextResponse.json({ 
-        success: false, 
-        message: "Invalid or expired verification token." 
-      }, { status: 400 });
-    }
+    // Then check in `client_users` if not found in `users`
+    const [clientsResult] = usersResult.length === 0
+      ? await connection.execute<RowDataPacket[]>(
+          'SELECT * FROM client_users WHERE verification_token = ? AND verification_token_expires > NOW()',
+          [token]
+        )
+      : [[]];
 
-    const user = result[0];
+    let table = '';
+    let user: any;
+
+    if (usersResult.length > 0) {
+      user = usersResult[0];
+      table = 'users';
+    } else if (clientsResult.length > 0) {
+      user = clientsResult[0];
+      table = 'client_users';
+    } else {
+      await connection.end();
+      return NextResponse.json({ success: false, message: "Invalid or expired verification token." }, { status: 400 });
+    }
 
     if (user.is_verified) {
       await connection.end();
-      return NextResponse.json({ 
-        success: false, 
-        message: "Email is already verified." 
-      }, { status: 400 });
+      return NextResponse.json({ success: false, message: "Email is already verified." }, { status: 400 });
     }
 
     // Update user as verified
     await connection.execute(
-      'UPDATE users SET is_verified = true, verification_token = NULL, verification_token_expires = NULL WHERE id = ?',
+      `UPDATE ${table} SET is_verified = true, verification_token = NULL, verification_token_expires = NULL WHERE id = ?`,
       [user.id]
     );
 
     await connection.end();
 
-    // Redirect to login page with success message
     const loginUrl = new URL('/email', req.url);
     loginUrl.searchParams.set('verified', 'true');
     
