@@ -1,11 +1,14 @@
-// db.ts
 import mysql from 'mysql2/promise';
 
+// Define a union type for MySQL parameter values
+type QueryParam = string | number | boolean | null | Date;
+type QueryParams = QueryParam[];
+
+// Pool instead of single connection for better reliability
 let pool: mysql.Pool | null = null;
 
 export async function createConnection() {
     if (!pool) {
-        // These variables should be set in your Vercel dashboard under Project Settings > Environment Variables
         const {
             DATABASE_HOST,
             DATABASE_USER,
@@ -14,7 +17,7 @@ export async function createConnection() {
         } = process.env;
 
         if (!DATABASE_HOST || !DATABASE_USER || !DATABASE_PASSWORD || !DATABASE_NAME) {
-            throw new Error('Missing one or more required environment variables for database connection');
+            throw new Error('Missing database environment variables');
         }
 
         pool = mysql.createPool({
@@ -27,13 +30,13 @@ export async function createConnection() {
             queueLimit: 0,
         });
 
-        console.log('MySQL pool created');
+        console.log('DB Pool created');
     }
+
     return pool;
 }
 
-// Use this function to run queries
-export async function executeQuery(query: string, params: any[] = []) {
+export async function executeQuery(query: string, params: QueryParams = []) {
     const db = await createConnection();
     try {
         const [results] = await db.query(query, params);
