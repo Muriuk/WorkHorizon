@@ -24,12 +24,11 @@ export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
     const connection = await getConnection();
-
     const [rows] = await connection.execute<RowDataPacket[] & User[]>(
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
-
+    
     if (rows.length === 0 || rows[0].password !== password) {
       await connection.end();
       return NextResponse.json(
@@ -41,7 +40,7 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
-
+    
     if (!rows[0].is_verified) {
       await connection.end();
       return NextResponse.json(
@@ -54,9 +53,8 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
-
+    
     await connection.end();
-
     return NextResponse.json(
       {
         success: true,
