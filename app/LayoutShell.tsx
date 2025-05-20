@@ -8,7 +8,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   
   // Exclude layout for /portal and /workerjob paths
-  const hideLayout = pathname.startsWith('/portal') || pathname.startsWith('/workerjob');
+  const hideLayout = pathname.startsWith('/portal') || pathname.startsWith('/workerjob') || pathname.startsWith('/clientdashboard');
 
   return (
     <>
