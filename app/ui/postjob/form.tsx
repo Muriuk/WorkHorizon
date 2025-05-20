@@ -85,7 +85,7 @@ export default function PostJobForm() {
   };
 
   const viewInterestedWorkers = () => {
-    window.location.href = "/login";
+    window.location.href = "/clientlogin";
     setModal({ show: false, title: "" });
   };
 
