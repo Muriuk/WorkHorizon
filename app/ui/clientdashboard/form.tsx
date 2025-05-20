@@ -292,7 +292,7 @@ export default function ClientDashboard(): JSX.Element {
   </div>
 </div>
 
-{/* Recent Activity - Premium Edition */}
+{/* Recent Activity - Premium Edition (Type-Safe Version) */}
 <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl">
   <div className="p-6 pb-4">
     <div className="flex items-center justify-between mb-5">
@@ -306,31 +306,40 @@ export default function ClientDashboard(): JSX.Element {
     
     <div className="space-y-4">
       {client?.jobPosts?.length ? (
-        client.jobPosts
-          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-          .slice(0, 5)
-          .map((job) => (
-            <div 
-              key={job.id} 
-              className="relative border-l-2 border-sky-400 pl-4 py-2 group transition-all duration-200 hover:border-sky-500 hover:pl-5"
-            >
-              <div className="absolute -left-1.5 top-3 w-3 h-3 bg-sky-400 rounded-full group-hover:bg-sky-500 transition-colors duration-200"></div>
-              <p className="font-medium text-sky-800 group-hover:text-sky-900 transition-colors duration-200">Job posted successfully</p>
-              <p className="text-sm text-gray-600 mt-1">{job.title} - {job.county}</p>
-              <p className="text-xs text-gray-400 mt-1 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {new Date(job.createdAt).toLocaleString('en-US', {
-                  weekday: 'short',
-                  month: 'short',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: '2-digit',
-                })}
-              </p>
+        <>
+          {client.jobPosts
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            .slice(0, 5)
+            .map((job) => (
+              <div 
+                key={job.id} 
+                className="relative border-l-2 border-sky-400 pl-4 py-2 group transition-all duration-200 hover:border-sky-500 hover:pl-5"
+              >
+                <div className="absolute -left-1.5 top-3 w-3 h-3 bg-sky-400 rounded-full group-hover:bg-sky-500 transition-colors duration-200"></div>
+                <p className="font-medium text-sky-800 group-hover:text-sky-900 transition-colors duration-200">Job posted successfully</p>
+                <p className="text-sm text-gray-600 mt-1">{job.title} - {job.county}</p>
+                <p className="text-xs text-gray-400 mt-1 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {new Date(job.createdAt).toLocaleString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                  })}
+                </p>
+              </div>
+            ))}
+          {(client.jobPosts?.length ?? 0) > 5 && (
+            <div className="px-6 py-3 bg-gray-50 border-t border-gray-100 text-right">
+              <button className="text-xs font-medium text-sky-600 hover:text-sky-700 transition-colors duration-200">
+                View all activity →
+              </button>
             </div>
-          ))
+          )}
+        </>
       ) : (
         <div className="flex flex-col items-center justify-center py-6 text-gray-400">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-2 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -341,14 +350,6 @@ export default function ClientDashboard(): JSX.Element {
       )}
     </div>
   </div>
-  
-  {client?.jobPosts?.length > 5 && (
-    <div className="px-6 py-3 bg-gray-50 border-t border-gray-100 text-right">
-      <button className="text-xs font-medium text-sky-600 hover:text-sky-700 transition-colors duration-200">
-        View all activity →
-      </button>
-    </div>
-  )}
 </div>
 
             {/* Important notice */}
