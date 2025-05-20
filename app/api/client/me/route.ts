@@ -1,6 +1,6 @@
 // /app/api/client/me/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import mysql from 'mysql2/promise';
+import mysql, { RowDataPacket } from 'mysql2/promise';
 import crypto from 'crypto';
 
 async function getConnection() {
@@ -10,6 +10,17 @@ async function getConnection() {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
   });
+}
+
+// Define expected row structure
+interface ClientUserRow extends RowDataPacket {
+  id: number;
+  full_name: string;
+  email: string;
+  phone_number: string;
+  county: string;
+  subcounty: string;
+  location: string;
 }
 
 export async function GET(req: NextRequest) {
@@ -37,13 +48,13 @@ export async function GET(req: NextRequest) {
     }
 
     const connection = await getConnection();
-    const [rows] = await connection.execute(
+    const [rows] = await connection.execute<ClientUserRow[]>(
       'SELECT id, full_name, email, phone_number, county, subcounty, location FROM client_users WHERE id = ?',
       [payload.id]
     );
     await connection.end();
 
-    if (!Array.isArray(rows) || rows.length === 0) {
+    if (rows.length === 0) {
       return NextResponse.json({ success: false, message: 'Client not found' }, { status: 404 });
     }
 
