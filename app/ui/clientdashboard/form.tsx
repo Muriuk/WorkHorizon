@@ -15,8 +15,24 @@ interface ClientInfo {
     area: string;
   };
   joinedDate: string;
+  jobPosts?: JobPost[]; // Add this line
 }
-
+interface JobPost {
+  id: number;
+  clientName: string;
+  title: string;
+  description: string;
+  county: string;
+  numberOfWorkers: number;
+  gender: string;
+  duration: string;
+  budget: string;
+  phone: string;
+  whatsapp: string;
+  createdAt: string;
+  status?: string; // We'll add this for UI purposes
+  applications?: number; // We'll add this for UI purposes
+}
 interface MenuItem {
   name: string;
   id: string;
@@ -48,42 +64,105 @@ export default function ClientDashboard(): JSX.Element {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch client data
-  useEffect(() => {
-    async function fetchClientProfile() {
-      try {
-        const res = await fetch('/api/client/me');
-        const data = await res.json();
-        if (data.success) {
-          setClient({
-            ...data.user,
-            joinedDate: "April 10, 2025" // Mock data, should come from API
-          });
-        } else {
-          console.error(data.message);
-        }
-      } catch (err) {
-        console.error('Error fetching client profile:', err);
-        // Set mock data for demo purposes
+ // Fetch client data including job posts
+useEffect(() => {
+  let isMounted = true; // Flag to prevent state updates after component unmounts
+
+  async function fetchClientProfile() {
+    try {
+      setLoading(true);
+      const res = await fetch('/api/client/me');
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      
+      if (!isMounted) return; // Don't update state if component unmounted
+
+      if (data.success) {
+        // Format the joined date from the API if available, or use current date as fallback
+        const joinedDate = data.user.createdAt 
+          ? new Date(data.user.createdAt).toLocaleDateString('en-US', {
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric'
+            })
+          : new Date().toLocaleDateString('en-US', {
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric'
+            });
+
         setClient({
-          id: 1,
-          name: "John Kamau",
-          email: "john@example.com",
-          phone: "+254 712 345 678",
-          location: {
-            county: "Nairobi",
-            subcounty: "Westlands",
-            area: "Parklands"
-          },
-          joinedDate: "April 10, 2025"
+          ...data.user,
+          joinedDate,
+          jobPosts: data.jobPosts?.map((post: any) => ({
+            ...post,
+            // Add derived fields for UI
+            status: determineJobStatus(post), // Custom function to determine status
+            applications: post.applications || 0 // Default to 0 if not provided
+          })) || [] // Fallback to empty array if no job posts
         });
-      } finally {
+      } else {
+        console.error('API Error:', data.message);
+        // You might want to show a user-friendly error message here
+      }
+    } catch (err) {
+      if (isMounted) {
+        console.error('Error fetching client profile:', err);
+        // Optionally set error state to show to user
+        // setError('Failed to load profile data');
+        
+        // Only use mock data for development
+        if (process.env.NODE_ENV === 'development') {
+          setClient({
+            id: 1,
+            name: "John Kamau",
+            email: "john@example.com",
+            phone: "+254 712 345 678",
+            location: {
+              county: "Nairobi",
+              subcounty: "Westlands",
+              area: "Parklands"
+            },
+            joinedDate: new Date().toLocaleDateString('en-US', {
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric'
+            }),
+            jobPosts: [] // Empty array for mock jobs
+          });
+        }
+      }
+    } finally {
+      if (isMounted) {
         setLoading(false);
       }
     }
-    fetchClientProfile();
-  }, []);
+  }
 
+  // Helper function to determine job status
+  function determineJobStatus(post: any): string {
+    // Implement your actual business logic here
+    // This is just a placeholder implementation
+    const now = new Date();
+    const createdAt = new Date(post.createdAt);
+    const daysOld = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24);
+    
+    if (daysOld > 30) return 'Completed';
+    if (daysOld > 7) return 'In Progress';
+    return 'Active';
+  }
+
+  fetchClientProfile();
+
+  // Cleanup function
+  return () => {
+    isMounted = false;
+  };
+}, []); // Empty dependency array means this runs once on mount
   // Close sidebar when clicking outside or when navigation is clicked
   const closeSidebar = (): void => setSidebarOpen(false);
 
@@ -92,7 +171,6 @@ export default function ClientDashboard(): JSX.Element {
     setActiveSection(item.id);
     closeSidebar();
   };
-
   // Render icon based on name
   const renderIcon = (iconName: string): JSX.Element | null => {
     switch (iconName) {
@@ -335,124 +413,103 @@ export default function ClientDashboard(): JSX.Element {
           </div>
         );
       case "my-jobs":
-        return (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h4 className="text-lg font-medium text-sky-900">My Jobs</h4>
-              <div className="flex space-x-2">
-                <select className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
-                  <option>All Jobs</option>
-                  <option>Active</option>
-                  <option>Pending</option>
-                  <option>Completed</option>
-                </select>
-                <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm">
-                  + New Job
-                </button>
-              </div>
-            </div>
-            
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-white">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Job Title
-                    </th>
-                    <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Category
-                    </th>
-                    <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Date Posted
-                    </th>
-                    <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="py-3 px-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Applications
-                    </th>
-                    <th className="py-3 px-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <div className="font-medium text-gray-900">House Painting</div>
-                      <div className="text-sm text-gray-500">Interior walls and ceiling</div>
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
-                      Painting
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
-                      May 19, 2025
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Active
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-center text-gray-500">
-                      5
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-sky-600 hover:text-sky-900 mr-3">View</a>
-                      <a href="#" className="text-red-600 hover:text-red-900">Cancel</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <div className="font-medium text-gray-900">Plumbing Repair</div>
-                      <div className="text-sm text-gray-500">Leaking kitchen sink</div>
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
-                      Plumbing
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
-                      May 15, 2025
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                        In Progress
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-center text-gray-500">
-                      3
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-sky-600 hover:text-sky-900 mr-3">View</a>
-                      <a href="#" className="text-sky-600 hover:text-sky-900">Complete</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <div className="font-medium text-gray-900">Electrical Installation</div>
-                      <div className="text-sm text-gray-500">New sockets in home office</div>
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
-                      Electrical
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
-                      May 10, 2025
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                        Completed
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm text-center text-gray-500">
-                      4
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-sky-600 hover:text-sky-900">View</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        );
+  return (
+    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h4 className="text-lg font-medium text-sky-900">My Jobs</h4>
+        <div className="flex space-x-2">
+          <select className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <option>All Jobs</option>
+            <option>Active</option>
+            <option>Pending</option>
+            <option>Completed</option>
+          </select>
+          <Link href="/client/post-job" className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm">
+            + New Job
+          </Link>
+        </div>
+      </div>
+      
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sky-500"></div>
+        </div>
+      ) : client?.jobPosts?.length ? (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Job Title
+                </th>
+                <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Location
+                </th>
+                <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Date Posted
+                </th>
+                <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="py-3 px-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Applications
+                </th>
+                <th className="py-3 px-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {client.jobPosts.map((job) => (
+                <tr key={job.id}>
+                  <td className="py-4 px-4 whitespace-nowrap">
+                    <div className="font-medium text-gray-900">{job.title}</div>
+                    <div className="text-sm text-gray-500">{job.description.substring(0, 50)}...</div>
+                  </td>
+                  <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
+                    {job.county}
+                  </td>
+                  <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
+                    {new Date(job.createdAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    })}
+                  </td>
+                  <td className="py-4 px-4 whitespace-nowrap">
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      job.status === 'Active' ? 'bg-green-100 text-green-800' :
+                      job.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
+                      job.status === 'Completed' ? 'bg-gray-100 text-gray-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {job.status}
+                    </span>
+                  </td>
+                  <td className="py-4 px-4 whitespace-nowrap text-sm text-center text-gray-500">
+                    {job.applications || 0}
+                  </td>
+                  <td className="py-4 px-4 whitespace-nowrap text-right text-sm font-medium">
+                    <Link href={`/client/jobs/${job.id}`} className="text-sky-600 hover:text-sky-900 mr-3">View</Link>
+                    {job.status === 'Active' && (
+                      <button className="text-red-600 hover:text-red-900">Cancel</button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="text-center py-12">
+          <div className="text-gray-500 mb-4">You haven't posted any jobs yet</div>
+          <Link href="/client/post-job" className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm inline-block">
+            Post Your First Job
+          </Link>
+        </div>
+      )}
+    </div>
+  );
       case "my-profile":
         return (
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
