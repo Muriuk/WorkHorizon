@@ -179,7 +179,7 @@ export default function ClientDashboard(): JSX.Element {
   }, [closeSidebar]);
 
   // Rest of your component...
-}
+
   // Render icon based on name
   const renderIcon = (iconName: string): JSX.Element | null => {
     switch (iconName) {
