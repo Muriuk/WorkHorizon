@@ -443,45 +443,58 @@ export default function ClientDashboard(): JSX.Element {
       )}
     </div>
   );
-      case "my-profile":
-        return (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-              <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center">
-                <svg className="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h4 className="text-xl font-medium text-gray-800">{client?.name || "Loading..."}</h4>
-                <p className="text-gray-500 mb-4">Client ID: C{client?.id || "00000"}</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Email</p>
-                    <p className="font-medium">{client?.email || "loading@example.com"}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Phone</p>
-                    <p className="font-medium">{client?.phone || "+254 000 000 000"}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Location</p>
-                    <p className="font-medium">{client?.location?.county || "Loading"}, {client?.location?.subcounty || ""}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Joined</p>
-                    <p className="font-medium">{client?.joinedDate || "Loading..."}</p>
-                  </div>
-                </div>
-                
-                <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded transition-colors">
-                  Edit Profile
-                </button>
-              </div>
+     case "my-profile":
+  return (
+    <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden p-8">
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+        {/* Profile Avatar - Now with a premium ring effect */}
+        <div className="relative w-36 h-36 bg-gradient-to-br from-gray-50 to-gray-100 rounded-full flex items-center justify-center ring-4 ring-white ring-offset-2 shadow-md">
+          <svg className="w-20 h-20 text-gray-400/80" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+          </svg>
+          {/* Optional: Badge for verified users */}
+          {client?.verified && (
+            <div className="absolute bottom-0 right-0 bg-sky-500 text-white p-1 rounded-full">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
             </div>
+          )}
+        </div>
+
+        {/* Profile Details - Enhanced typography and spacing */}
+        <div className="flex-1 space-y-6">
+          <div>
+            <h4 className="text-2xl font-semibold text-gray-900 tracking-tight">{client?.name || "Loading..."}</h4>
+            <p className="text-gray-500 font-mono text-sm">CLIENT ID: C{client?.id || "00000"}</p>
           </div>
-        );
+          
+          {/* Information Grid - Now with subtle dividers */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { label: "Email", value: client?.email || "loading@example.com" },
+              { label: "Phone", value: client?.phone || "+254 000 000 000" },
+              { label: "Location", value: `${client?.location?.county || "Loading"}${client?.location?.subcounty ? `, ${client?.location.subcounty}` : ""}` },
+              { label: "Member Since", value: client?.joinedDate || "Loading..." }
+            ].map((item, index) => (
+              <div key={index} className="pb-4 border-b border-gray-100 last:border-0 md:last:border-b md:even:border-l md:even:pl-6">
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">{item.label}</p>
+                <p className="font-medium text-gray-800 mt-1">{item.value}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Edit Button - More premium appearance */}
+          <button className="bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white py-3 px-6 rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2 w-fit">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Edit Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  );
       case "settings":
         return (
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
