@@ -131,9 +131,9 @@ export default function ClientDashboard(): JSX.Element {
         }
       } catch (err) {
         if (isMounted) {
-          const error = err as Error;
-          console.error('Error fetching client profile:', error);
-          setError(error.message);
+          const caughtError = err as Error;
+          console.error('Error fetching client profile:', caughtError);
+          setError(caughtError.message);
           
           if (process.env.NODE_ENV === 'development') {
             setClient({
