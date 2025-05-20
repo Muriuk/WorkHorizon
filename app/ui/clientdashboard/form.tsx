@@ -290,8 +290,8 @@ export default function ClientDashboard(): JSX.Element {
   <div className="space-y-4">
     {client?.jobPosts?.length ? (
       client.jobPosts
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Most recent first
-        .slice(0, 5) // Limit to recent 5 jobs
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // ✅ Fixed
+        .slice(0, 5)
         .map((job) => (
           <div key={job.id} className="border-l-4 border-sky-500 pl-4 py-2">
             <p className="font-medium">Job posted successfully</p>
@@ -312,6 +312,7 @@ export default function ClientDashboard(): JSX.Element {
     )}
   </div>
 </div>
+
 
             {/* Important notice */}
             <div className="p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto shadow-sm">
