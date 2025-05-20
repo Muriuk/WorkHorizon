@@ -1,15 +1,9 @@
+// app/api/client/login/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import mysql from "mysql2/promise";
-import { RowDataPacket } from "mysql2";
-
-type User = {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  worker_category: string;
-  is_verified: boolean;
-};
+import mysql from 'mysql2/promise';
+import { RowDataPacket } from 'mysql2';
+import { cookies } from 'next/headers';
+import crypto from 'crypto';
 
 async function getConnection() {
   return await mysql.createConnection({
@@ -20,60 +14,129 @@ async function getConnection() {
   });
 }
 
+// Simple function to create a session token without external libraries
+function createSessionToken(payload: Record<string, any>, secret: string): string {
+  // Create a base64 encoded version of the payload
+  const encodedPayload = Buffer.from(JSON.stringify(payload)).toString('base64');
+  
+  // Create a signature using HMAC
+  const signature = crypto
+    .createHmac('sha256', secret)
+    .update(encodedPayload)
+    .digest('base64');
+  
+  // Combine payload and signature
+  return `${encodedPayload}.${signature}`;
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
+    const data = await req.json();
+    const { email, password, remember } = data;
+
+    // Validate required fields
+    if (!email || !password) {
+      return NextResponse.json({ 
+        success: false, 
+        message: "Email and password are required." 
+      }, { status: 400 });
+    }
+
     const connection = await getConnection();
-    const [rows] = await connection.execute<RowDataPacket[] & User[]>(
-      "SELECT * FROM users WHERE email = ?",
+
+    // Fetch user by email
+    const [users] = await connection.execute<RowDataPacket[]>(
+      'SELECT * FROM client_users WHERE email = ? AND user_type = "client"',
       [email]
     );
 
-    if (rows.length === 0 || rows[0].password !== password) {
-      await connection.end();
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            "Invalid email or password. Please check your credentials and try again.",
-        },
-        { status: 401 }
-      );
-    }
-
-    if (!rows[0].is_verified) {
-      await connection.end();
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            "Please verify your email before logging in. Check your inbox for the verification link.",
-          needsVerification: true,
-        },
-        { status: 401 }
-      );
-    }
-
     await connection.end();
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Login successful.",
-        user: {
-          id: rows[0].id,
-          name: rows[0].name,
-          email: rows[0].email,
-          worker_category: rows[0].worker_category,
-          is_verified: rows[0].is_verified,
-        },
-      },
-      { status: 200 }
+
+    // Check if user exists
+    if (users.length === 0) {
+      return NextResponse.json({ 
+        success: false, 
+        message: "Invalid email or password." 
+      }, { status: 401 });
+    }
+
+    const user = users[0];
+
+    // Check password
+    if (user.password !== password) {
+      return NextResponse.json({ 
+        success: false, 
+        message: "Invalid email or password." 
+      }, { status: 401 });
+    }
+
+    // Check if user is verified
+    if (!user.is_verified) {
+      return NextResponse.json({ 
+        success: false, 
+        message: "Please verify your email address before logging in." 
+      }, { status: 403 });
+    }
+
+    // Create session token
+    const tokenData = {
+      id: user.id,
+      email: user.email,
+      name: user.full_name,
+      userType: 'client',
+      exp: Math.floor(Date.now() / 1000) + (remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60) // 30 days or 24 hours
+    };
+
+    const token = createSessionToken(
+      tokenData,
+      process.env.AUTH_SECRET || 'fallback_secret_not_for_production'
     );
-  } catch (error) {
-    console.error("Login error:", error);
-    return NextResponse.json(
-      { success: false, message: "Server error." },
-      { status: 500 }
+
+    // Set cookie for authentication
+    const cookieStore = cookies();
+    
+    cookieStore.set({
+      name: 'kazibase_session',
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
+      // Set longer expiration if "remember me" is checked
+      maxAge: remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60, // 30 days or 24 hours
+    });
+
+    // Update last login timestamp
+    const updateConnection = await getConnection();
+    await updateConnection.execute(
+      'UPDATE client_users SET last_login = NOW() WHERE id = ?',
+      [user.id]
     );
+    await updateConnection.end();
+
+    // Return user data (excluding sensitive information)
+    return NextResponse.json({ 
+      success: true, 
+      message: "Login successful",
+      user: {
+        id: user.id,
+        name: user.full_name,
+        email: user.email,
+        phone: user.phone_number,
+        location: {
+          county: user.county,
+          subcounty: user.subcounty,
+          area: user.location
+        }
+      }
+    }, { status: 200 });
+    
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error("POST /api/client/login error:", err.message);
+    return NextResponse.json({ 
+      success: false, 
+      message: "Server error." 
+    }, { status: 500 });
   }
 }
