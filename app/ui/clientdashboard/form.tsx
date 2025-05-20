@@ -63,7 +63,7 @@ export default function ClientDashboard(): JSX.Element {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [client, setClient] = useState<ClientInfo | null>(null);
   const [loading, setLoading] = useState(true);
-  const [setError] = useState<string | null>(null); 
+  const [error, setError] = useState<string | null>(null); 
 
   // Handle scroll effect for header
   useEffect(() => {
