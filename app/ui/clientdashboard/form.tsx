@@ -599,7 +599,7 @@ export default function ClientDashboard(): JSX.Element {
       <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-gray-200 shadow-sm">
         {/* Logo area */}
         <div className="p-5 border-b border-gray-200">
-          <Link href="/portal/dashboard">
+          <Link href="/clientdashboard">
             <div className="flex flex-col cursor-pointer">
               <h1 className="text-2xl font-bold tracking-wide">
                 <span className="text-sky-900">KAZI</span>
@@ -667,7 +667,7 @@ export default function ClientDashboard(): JSX.Element {
           <div className="flex-1 flex flex-col overflow-y-auto pt-5 pb-4">
             {/* Header with Logo and Close Button */}
             <div className="px-4 mb-6 flex justify-between items-center">
-              <Link href="/portal/dashboard">
+              <Link href="/clientdashboard">
                 <div className="flex flex-col cursor-pointer">
                   <h1 className="text-2xl font-bold tracking-wide">
                     <span className="text-sky-900">KAZI</span>
@@ -754,7 +754,7 @@ export default function ClientDashboard(): JSX.Element {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
-              <Link href="/portal/dashboard">
+              <Link href="/clientdashboard">
                 <div className="flex flex-col cursor-pointer">
                   <h1 className="text-2xl font-bold tracking-wide">
                     <span className="text-sky-900">KAZI</span>
