@@ -1,4 +1,3 @@
-// app/components/ClientRegisterForm.tsx
 'use client'
 
 import Image from "next/image"
@@ -50,8 +49,39 @@ function Toast({ message, type, onClose }: ToastProps) {
                 >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    )
+}
+
+// New component for email verification message
+function EmailVerificationMessage({ email }: { email: string }) {
+    return (
+        <div className="w-full max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-lg">
+            <div className="flex flex-col items-center text-center">
+                <div className="mb-4 text-green-500">
+                    <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Verify Your Email</h2>
+                <p className="text-gray-600 mb-6">
+                    We've sent a verification link to <span className="font-semibold">{email}</span>. 
+                    Please check your inbox and click the link to verify your account.
+                </p>
+                <div className="p-4 bg-blue-50 border border-blue-100 rounded-md w-full mb-6">
+                    <p className="text-sm text-blue-800">
+                        <span className="font-medium">Note:</span> You need to verify your email before you can post a job.
+                    </p>
+                </div>
+                <div className="text-gray-600 text-sm">
+                    <p>Didn't receive the email? Check your spam folder or</p>
+                    <button className="text-sky-700 hover:text-sky-900 font-medium mt-2">
+                        Resend verification email
                     </button>
+                </div>
             </div>
         </div>
     )
@@ -79,6 +109,9 @@ export default function ClientRegisterForm() {
     
     // State to handle whatsapp same as phone
     const [whatsappSameAsPhone, setWhatsappSameAsPhone] = useState(false)
+    
+    // State to track whether registration is complete and we should show verification message
+    const [registrationComplete, setRegistrationComplete] = useState(false)
 
     const showToast = (message: string, type: 'success' | 'error') => {
         setToast({ message, type })
@@ -149,18 +182,24 @@ export default function ClientRegisterForm() {
                 const result = await res.json()
                 showToast(result.message || 'Something went wrong.', 'error')
             } else {
-                showToast('Account created successfully! You can now post your job.', 'success')
+                showToast('Account created successfully! Please verify your email.', 'success')
                 
-                // Redirect to login page after successful registration
-                setTimeout(() => {
-                    router.push('/postjob')
-                }, 2000)
+                // Instead of redirecting, set registration complete to true
+                setRegistrationComplete(true)
             }
         } catch {
             showToast('Network error. Please check your connection.', 'error')
         } finally {
             setLoading(false)
         }
+    }
+
+    if (registrationComplete) {
+        return (
+            <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-center py-6 sm:py-10">
+                <EmailVerificationMessage email={formData.email} />
+            </div>
+        )
     }
 
     return (
@@ -188,7 +227,10 @@ export default function ClientRegisterForm() {
                     <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
                         Client Registration
                     </h2>
-
+                    {/* Safety Disclaimer */}
+                    <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <h4 className="text-sm font-semibold text-yellow-800 mb-2">Create account to post your job</h4>
+                    </div>
                     <form onSubmit={handleSubmit} className="flex flex-col border border-gray-300 rounded-lg mt-4 shadow-md p-4 sm:p-6 w-full">
                         <label className="text-md sm:text-lg font-medium mb-1">Full Name:</label>
                         <input
@@ -406,7 +448,7 @@ export default function ClientRegisterForm() {
                         </button>
                         
                         <p className="text-center mt-4 text-sm text-gray-600">
-                            Already have account? <a href="/login" className="text-sky-700 hover:text-sky-900">Login here</a>
+                            Already have an account? <a href="/clientlogin" className="text-sky-700 hover:text-sky-900">Login here</a>
                         </p>
                     </form>
                 </div>
