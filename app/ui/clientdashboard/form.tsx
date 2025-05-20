@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 
@@ -15,8 +15,10 @@ interface ClientInfo {
     area: string;
   };
   joinedDate: string;
-  jobPosts?: JobPost[]; // Add this line
+  jobPosts?: JobPost[];
+  createdAt?: string; // Added for proper typing
 }
+
 interface JobPost {
   id: number;
   clientName: string;
@@ -30,13 +32,21 @@ interface JobPost {
   phone: string;
   whatsapp: string;
   createdAt: string;
-  status?: string; // We'll add this for UI purposes
-  applications?: number; // We'll add this for UI purposes
+  status?: string;
+  applications?: number;
 }
+
 interface MenuItem {
   name: string;
   id: string;
   icon: string;
+}
+
+interface ApiResponse {
+  success: boolean;
+  user: ClientInfo;
+  jobPosts?: JobPost[];
+  message?: string;
 }
 
 const menuItems: MenuItem[] = [
@@ -53,6 +63,7 @@ export default function ClientDashboard(): JSX.Element {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [client, setClient] = useState<ClientInfo | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Handle scroll effect for header
   useEffect(() => {
@@ -64,89 +75,8 @@ export default function ClientDashboard(): JSX.Element {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
- // Fetch client data including job posts
-useEffect(() => {
-  let isMounted = true; // Flag to prevent state updates after component unmounts
-
-  async function fetchClientProfile() {
-    try {
-      setLoading(true);
-      const res = await fetch('/api/client/me');
-      
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
-      const data = await res.json();
-      
-      if (!isMounted) return; // Don't update state if component unmounted
-
-      if (data.success) {
-        // Format the joined date from the API if available, or use current date as fallback
-        const joinedDate = data.user.createdAt 
-          ? new Date(data.user.createdAt).toLocaleDateString('en-US', {
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric'
-            })
-          : new Date().toLocaleDateString('en-US', {
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric'
-            });
-
-        setClient({
-          ...data.user,
-          joinedDate,
-          jobPosts: data.jobPosts?.map((post: any) => ({
-            ...post,
-            // Add derived fields for UI
-            status: determineJobStatus(post), // Custom function to determine status
-            applications: post.applications || 0 // Default to 0 if not provided
-          })) || [] // Fallback to empty array if no job posts
-        });
-      } else {
-        console.error('API Error:', data.message);
-        // You might want to show a user-friendly error message here
-      }
-    } catch (err) {
-      if (isMounted) {
-        console.error('Error fetching client profile:', err);
-        // Optionally set error state to show to user
-        // setError('Failed to load profile data');
-        
-        // Only use mock data for development
-        if (process.env.NODE_ENV === 'development') {
-          setClient({
-            id: 1,
-            name: "John Kamau",
-            email: "john@example.com",
-            phone: "+254 712 345 678",
-            location: {
-              county: "Nairobi",
-              subcounty: "Westlands",
-              area: "Parklands"
-            },
-            joinedDate: new Date().toLocaleDateString('en-US', {
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric'
-            }),
-            jobPosts: [] // Empty array for mock jobs
-          });
-        }
-      }
-    } finally {
-      if (isMounted) {
-        setLoading(false);
-      }
-    }
-  }
-
-  // Helper function to determine job status
-  function determineJobStatus(post: any): string {
-    // Implement your actual business logic here
-    // This is just a placeholder implementation
+  // Helper function to determine job status with proper typing
+  const determineJobStatus = useCallback((post: JobPost): string => {
     const now = new Date();
     const createdAt = new Date(post.createdAt);
     const daysOld = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24);
@@ -154,23 +84,102 @@ useEffect(() => {
     if (daysOld > 30) return 'Completed';
     if (daysOld > 7) return 'In Progress';
     return 'Active';
-  }
+  }, []);
 
-  fetchClientProfile();
+  // Fetch client data including job posts
+  useEffect(() => {
+    let isMounted = true;
 
-  // Cleanup function
-  return () => {
-    isMounted = false;
-  };
-}, []); // Empty dependency array means this runs once on mount
-  // Close sidebar when clicking outside or when navigation is clicked
-  const closeSidebar = (): void => setSidebarOpen(false);
+    async function fetchClientProfile() {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await fetch('/api/client/me');
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
 
-  // Handle navigation - update active section
-  const handleNavigation = (item: MenuItem): void => {
+        const data: ApiResponse = await res.json();
+        
+        if (!isMounted) return;
+
+        if (data.success && data.user) {
+          const joinedDate = data.user.createdAt 
+            ? new Date(data.user.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric'
+              })
+            : new Date().toLocaleDateString('en-US', {
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric'
+              });
+
+          setClient({
+            ...data.user,
+            joinedDate,
+            jobPosts: data.jobPosts?.map((post) => ({
+              ...post,
+              status: determineJobStatus(post),
+              applications: post.applications || 0
+            })) || []
+          });
+        } else {
+          throw new Error(data.message || 'Failed to fetch client data');
+        }
+      } catch (err) {
+        if (isMounted) {
+          const error = err as Error;
+          console.error('Error fetching client profile:', error);
+          setError(error.message);
+          
+          if (process.env.NODE_ENV === 'development') {
+            setClient({
+              id: 1,
+              name: "John Kamau",
+              email: "john@example.com",
+              phone: "+254 712 345 678",
+              location: {
+                county: "Nairobi",
+                subcounty: "Westlands",
+                area: "Parklands"
+              },
+              joinedDate: new Date().toLocaleDateString('en-US', {
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric'
+              }),
+              jobPosts: []
+            });
+          }
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchClientProfile();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [determineJobStatus]);
+
+  const closeSidebar = useCallback((): void => {
+    setSidebarOpen(false);
+  }, []);
+
+  const handleNavigation = useCallback((item: MenuItem): void => {
     setActiveSection(item.id);
     closeSidebar();
-  };
+  }, [closeSidebar]);
+
+  // Rest of your component...
+}
   // Render icon based on name
   const renderIcon = (iconName: string): JSX.Element | null => {
     switch (iconName) {
@@ -502,7 +511,7 @@ useEffect(() => {
         </div>
       ) : (
         <div className="text-center py-12">
-          <div className="text-gray-500 mb-4">You haven't posted any jobs yet</div>
+          <div className="text-gray-500 mb-4">You have not posted any jobs yet</div>
           <Link href="/client/post-job" className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm inline-block">
             Post Your First Job
           </Link>
