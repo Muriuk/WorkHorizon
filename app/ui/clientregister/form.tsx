@@ -67,8 +67,8 @@ function EmailVerificationMessage({ email }: { email: string }) {
                     </svg>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">Verify Your Email</h2>
-                <p className="text-gray-600 mb-6">
-                    We've sent a verification link to <span className="font-semibold">{email}</span>. 
+                                    <p className="text-gray-600 mb-6">
+                    We&apos;ve sent a verification link to <span className="font-semibold">{email}</span>. 
                     Please check your inbox and click the link to verify your account.
                 </p>
                 <div className="p-4 bg-blue-50 border border-blue-100 rounded-md w-full mb-6">
@@ -88,7 +88,7 @@ function EmailVerificationMessage({ email }: { email: string }) {
 }
 
 export default function ClientRegisterForm() {
-    const router = useRouter()
+    const router = useRouter() // We'll keep this for potential future navigation needs
     const [loading, setLoading] = useState(false)
     const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
     const [formData, setFormData] = useState({
