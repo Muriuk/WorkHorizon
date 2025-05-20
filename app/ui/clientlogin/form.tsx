@@ -112,7 +112,7 @@ export default function ClientLoginForm() {
                 
                 // Redirect to dashboard after successful login
                 setTimeout(() => {
-                    router.push('/dashboard')
+                    router.push('/clientdashboard')
                 }, 1500)
             }
         } catch {
