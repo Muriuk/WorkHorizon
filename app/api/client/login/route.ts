@@ -1,9 +1,23 @@
-// app/api/client/login/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 import { RowDataPacket } from 'mysql2';
 import { cookies } from 'next/headers';
 import crypto from 'crypto';
+
+// Define types for session and request body
+interface SessionPayload {
+  id: number;
+  email: string;
+  name: string;
+  userType: 'client';
+  exp: number;
+}
+
+interface LoginRequestBody {
+  email: string;
+  password: string;
+  remember: boolean;
+}
 
 async function getConnection() {
   return await mysql.createConnection({
@@ -14,27 +28,21 @@ async function getConnection() {
   });
 }
 
-// Simple function to create a session token without external libraries
-function createSessionToken(payload: Record<string, any>, secret: string): string {
-  // Create a base64 encoded version of the payload
+// Function to create a session token
+function createSessionToken(payload: SessionPayload, secret: string): string {
   const encodedPayload = Buffer.from(JSON.stringify(payload)).toString('base64');
-  
-  // Create a signature using HMAC
   const signature = crypto
     .createHmac('sha256', secret)
     .update(encodedPayload)
     .digest('base64');
-  
-  // Combine payload and signature
   return `${encodedPayload}.${signature}`;
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const data = await req.json();
+    const data: LoginRequestBody = await req.json();
     const { email, password, remember } = data;
 
-    // Validate required fields
     if (!email || !password) {
       return NextResponse.json({ 
         success: false, 
@@ -43,16 +51,12 @@ export async function POST(req: NextRequest) {
     }
 
     const connection = await getConnection();
-
-    // Fetch user by email
     const [users] = await connection.execute<RowDataPacket[]>(
       'SELECT * FROM client_users WHERE email = ? AND user_type = "client"',
       [email]
     );
-
     await connection.end();
 
-    // Check if user exists
     if (users.length === 0) {
       return NextResponse.json({ 
         success: false, 
@@ -62,7 +66,6 @@ export async function POST(req: NextRequest) {
 
     const user = users[0];
 
-    // Check password
     if (user.password !== password) {
       return NextResponse.json({ 
         success: false, 
@@ -70,7 +73,6 @@ export async function POST(req: NextRequest) {
       }, { status: 401 });
     }
 
-    // Check if user is verified
     if (!user.is_verified) {
       return NextResponse.json({ 
         success: false, 
@@ -78,13 +80,12 @@ export async function POST(req: NextRequest) {
       }, { status: 403 });
     }
 
-    // Create session token
-    const tokenData = {
+    const tokenData: SessionPayload = {
       id: user.id,
       email: user.email,
       name: user.full_name,
       userType: 'client',
-      exp: Math.floor(Date.now() / 1000) + (remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60) // 30 days or 24 hours
+      exp: Math.floor(Date.now() / 1000) + (remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60)
     };
 
     const token = createSessionToken(
@@ -92,9 +93,7 @@ export async function POST(req: NextRequest) {
       process.env.AUTH_SECRET || 'fallback_secret_not_for_production'
     );
 
-    // Set cookie for authentication
     const cookieStore = cookies();
-    
     cookieStore.set({
       name: 'kazibase_session',
       value: token,
@@ -102,11 +101,9 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       path: '/',
-      // Set longer expiration if "remember me" is checked
-      maxAge: remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60, // 30 days or 24 hours
+      maxAge: remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60,
     });
 
-    // Update last login timestamp
     const updateConnection = await getConnection();
     await updateConnection.execute(
       'UPDATE client_users SET last_login = NOW() WHERE id = ?',
@@ -114,7 +111,6 @@ export async function POST(req: NextRequest) {
     );
     await updateConnection.end();
 
-    // Return user data (excluding sensitive information)
     return NextResponse.json({ 
       success: true, 
       message: "Login successful",
@@ -130,7 +126,7 @@ export async function POST(req: NextRequest) {
         }
       }
     }, { status: 200 });
-    
+
   } catch (error: unknown) {
     const err = error as Error;
     console.error("POST /api/client/login error:", err.message);
