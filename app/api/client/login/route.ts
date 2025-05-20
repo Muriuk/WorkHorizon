@@ -65,6 +65,7 @@ export async function POST(req: NextRequest) {
 
     const user = users[0];
 
+    // TODO: Replace plain password comparison with hashed password check if using hashes
     if (user.password !== password) {
       return NextResponse.json({ 
         success: false, 
@@ -87,10 +88,16 @@ export async function POST(req: NextRequest) {
       exp: Math.floor(Date.now() / 1000) + (remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60)
     };
 
-    const token = createSessionToken(
-      tokenData,
-      process.env.AUTH_SECRET || 'fallback_secret_not_for_production'
-    );
+    const secret = process.env.AUTH_SECRET;
+    if (!secret) {
+      console.error("Missing AUTH_SECRET environment variable");
+      return NextResponse.json({ 
+        success: false,
+        message: "Server configuration error."
+      }, { status: 500 });
+    }
+
+    const token = createSessionToken(tokenData, secret);
 
     const response = NextResponse.json({ 
       success: true, 
@@ -108,20 +115,30 @@ export async function POST(req: NextRequest) {
       }
     }, { status: 200 });
 
-    response.cookies.set('kazibase_session', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      path: '/',
-      maxAge: remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60,
-    });
+    try {
+      response.cookies.set('kazibase_session', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/',
+        maxAge: remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60,
+      });
+    } catch (cookieError) {
+      console.error("Error setting cookie:", cookieError);
+      // Still continue, but log error
+    }
 
-    const updateConnection = await getConnection();
-    await updateConnection.execute(
-      'UPDATE client_users SET last_login = NOW() WHERE id = ?',
-      [user.id]
-    );
-    await updateConnection.end();
+    try {
+      const updateConnection = await getConnection();
+      await updateConnection.execute(
+        'UPDATE client_users SET last_login = NOW() WHERE id = ?',
+        [user.id]
+      );
+      await updateConnection.end();
+    } catch (updateError) {
+      console.error("Error updating last_login:", updateError);
+      // Not critical, so continue
+    }
 
     return response;
 
