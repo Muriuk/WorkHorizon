@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import PostJob from '@/app/ui/postjob/form'
 
 interface ClientInfo {
   id: number;
@@ -334,98 +335,7 @@ export default function ClientDashboard(): JSX.Element {
       case "post-job":
         return (
           <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <h4 className="text-lg font-medium text-sky-900 mb-6">Post a New Job</h4>
-            
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                    placeholder="e.g. House Cleaning, Plumbing Repair"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-                    <option value="">Select a category</option>
-                    <option value="cleaning">Cleaning</option>
-                    <option value="plumbing">Plumbing</option>
-                    <option value="electrical">Electrical</option>
-                    <option value="painting">Painting</option>
-                    <option value="gardening">Gardening</option>
-                    <option value="carpentry">Carpentry</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Job Description</label>
-                <textarea 
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500 h-32"
-                  placeholder="Describe the job in detail including requirements, materials needed, etc."
-                ></textarea>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Budget (KES)</label>
-                  <input 
-                    type="number" 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                    placeholder="e.g. 2000"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-                  <input 
-                    type="date" 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-                    <option value="">Select duration</option>
-                    <option value="few_hours">Few hours</option>
-                    <option value="one_day">One day</option>
-                    <option value="few_days">Few days</option>
-                    <option value="one_week">One week</option>
-                    <option value="ongoing">Ongoing</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Location (Area)</label>
-                <input 
-                  type="text" 
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                  placeholder="e.g. Parklands, Westlands"
-                  defaultValue={client?.location.area || ""}
-                />
-              </div>
-              
-              <div className="pt-4">
-                <button 
-                  type="submit"
-                  className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded-lg transition-colors"
-                >
-                  Post Job
-                </button>
-                <button 
-                  type="button"
-                  className="ml-4 text-gray-600 hover:text-gray-800 py-2 px-6 rounded-lg transition-colors"
-                >
-                  Save as Draft
-                </button>
-              </div>
-            </form>
+            <PostJob /> {/* Use the PostJob component here */}
           </div>
         );
       case "my-jobs":
@@ -440,7 +350,7 @@ export default function ClientDashboard(): JSX.Element {
             <option>Pending</option>
             <option>Completed</option>
           </select>
-          <Link href="/client/post-job" className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm">
+          <Link href="/postjob" className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm">
             + New Job
           </Link>
         </div>
@@ -519,7 +429,7 @@ export default function ClientDashboard(): JSX.Element {
       ) : (
         <div className="text-center py-12">
           <div className="text-gray-500 mb-4">You have not posted any jobs yet</div>
-          <Link href="/client/post-job" className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm inline-block">
+          <Link href="/postjob" className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-4 rounded-md text-sm inline-block">
             Post Your First Job
           </Link>
         </div>
