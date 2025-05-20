@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 import { RowDataPacket } from 'mysql2';
-import { cookies } from 'next/headers';
 import crypto from 'crypto';
 
 // Define types for session and request body
@@ -93,25 +92,7 @@ export async function POST(req: NextRequest) {
       process.env.AUTH_SECRET || 'fallback_secret_not_for_production'
     );
 
-    const cookieStore = cookies();
-    cookieStore.set({
-      name: 'kazibase_session',
-      value: token,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      path: '/',
-      maxAge: remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60,
-    });
-
-    const updateConnection = await getConnection();
-    await updateConnection.execute(
-      'UPDATE client_users SET last_login = NOW() WHERE id = ?',
-      [user.id]
-    );
-    await updateConnection.end();
-
-    return NextResponse.json({ 
+    const response = NextResponse.json({ 
       success: true, 
       message: "Login successful",
       user: {
@@ -126,6 +107,23 @@ export async function POST(req: NextRequest) {
         }
       }
     }, { status: 200 });
+
+    response.cookies.set('kazibase_session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
+      maxAge: remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60,
+    });
+
+    const updateConnection = await getConnection();
+    await updateConnection.execute(
+      'UPDATE client_users SET last_login = NOW() WHERE id = ?',
+      [user.id]
+    );
+    await updateConnection.end();
+
+    return response;
 
   } catch (error: unknown) {
     const err = error as Error;
