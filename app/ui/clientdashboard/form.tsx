@@ -905,6 +905,11 @@ export default function ClientDashboard(): JSX.Element {
             </div>
           </div>
         </footer>
+        {error && (
+  <div className="bg-red-100 text-red-700 p-3 rounded mt-4">
+    ⚠️ {error}
+  </div>
+)}
       </div>
     </div>
   );
