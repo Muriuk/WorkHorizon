@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import mysql from 'mysql2/promise';
 import { RowDataPacket } from 'mysql2';
 import { cookies } from 'next/headers';
-import { sign } from 'jsonwebtoken';
+import crypto from 'crypto';
 
 async function getConnection() {
   return await mysql.createConnection({
@@ -12,6 +12,21 @@ async function getConnection() {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
   });
+}
+
+// Simple function to create a session token without external libraries
+function createSessionToken(payload: Record<string, any>, secret: string): string {
+  // Create a base64 encoded version of the payload
+  const encodedPayload = Buffer.from(JSON.stringify(payload)).toString('base64');
+  
+  // Create a signature using HMAC
+  const signature = crypto
+    .createHmac('sha256', secret)
+    .update(encodedPayload)
+    .digest('base64');
+  
+  // Combine payload and signature
+  return `${encodedPayload}.${signature}`;
 }
 
 export async function POST(req: NextRequest) {
@@ -68,20 +83,20 @@ export async function POST(req: NextRequest) {
       id: user.id,
       email: user.email,
       name: user.full_name,
-      userType: 'client'
+      userType: 'client',
+      exp: Math.floor(Date.now() / 1000) + (remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60) // 30 days or 24 hours
     };
 
-    const token = sign(
+    const token = createSessionToken(
       tokenData,
-      process.env.JWT_SECRET || 'fallback_secret_not_for_production',
-      { expiresIn: remember ? '30d' : '24h' }
+      process.env.AUTH_SECRET || 'fallback_secret_not_for_production'
     );
 
     // Set cookie for authentication
     const cookieStore = cookies();
     
     cookieStore.set({
-      name: 'kazibase_token',
+      name: 'kazibase_session',
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -124,4 +139,3 @@ export async function POST(req: NextRequest) {
       message: "Server error." 
     }, { status: 500 });
   }
-}
