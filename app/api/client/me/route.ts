@@ -12,7 +12,7 @@ async function getConnection() {
   });
 }
 
-// Define expected row structure
+// Define expected row structure for client user
 interface ClientUserRow extends RowDataPacket {
   id: number;
   full_name: string;
@@ -21,6 +21,22 @@ interface ClientUserRow extends RowDataPacket {
   county: string;
   subcounty: string;
   location: string;
+}
+
+// Define expected row structure for job posts
+interface JobPostRow extends RowDataPacket {
+  id: number;
+  client_name: string;
+  title: string;
+  description: string;
+  county: string;
+  number_of_workers: number;
+  gender: string;
+  duration: string;
+  budget: string;
+  phone: string;
+  whatsapp: string;
+  created_at: string;
 }
 
 export async function GET(req: NextRequest) {
@@ -48,17 +64,30 @@ export async function GET(req: NextRequest) {
     }
 
     const connection = await getConnection();
-    const [rows] = await connection.execute<ClientUserRow[]>(
+    
+    // Get client user details
+    const [clientRows] = await connection.execute<ClientUserRow[]>(
       'SELECT id, full_name, email, phone_number, county, subcounty, location FROM client_users WHERE id = ?',
       [payload.id]
     );
-    await connection.end();
 
-    if (rows.length === 0) {
+    if (clientRows.length === 0) {
+      await connection.end();
       return NextResponse.json({ success: false, message: 'Client not found' }, { status: 404 });
     }
 
-    const user = rows[0];
+    const user = clientRows[0];
+
+    // Get job posts associated with this client (by email or phone)
+    const [jobPosts] = await connection.execute<JobPostRow[]>(
+      `SELECT id, client_name, title, description, county, number_of_workers, 
+       gender, duration, budget, phone, whatsapp, created_at 
+       FROM job_posts 
+       WHERE phone = ? OR whatsapp = ?`,
+      [user.phone_number, user.phone_number] // Assuming phone_number matches job_posts.phone/whatsapp
+    );
+
+    await connection.end();
 
     return NextResponse.json({
       success: true,
@@ -72,7 +101,21 @@ export async function GET(req: NextRequest) {
           subcounty: user.subcounty,
           area: user.location
         }
-      }
+      },
+      jobPosts: jobPosts.map(post => ({
+        id: post.id,
+        clientName: post.client_name,
+        title: post.title,
+        description: post.description,
+        county: post.county,
+        numberOfWorkers: post.number_of_workers,
+        gender: post.gender,
+        duration: post.duration,
+        budget: post.budget,
+        phone: post.phone,
+        whatsapp: post.whatsapp,
+        createdAt: post.created_at
+      }))
     });
   } catch (error) {
     const err = error as Error;
