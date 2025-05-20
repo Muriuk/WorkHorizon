@@ -226,7 +226,7 @@ export default function ClientDashboard(): JSX.Element {
                 ⚠️ Important Information
               </p>
               <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
-                Thank you for using Kazibase! As a client, you have access to Kenya's largest network of skilled workers.
+                Thank you for using Kazibase! As a client, you have access to Kenyas largest network of skilled workers.
                 For the best experience, please provide detailed job descriptions when posting new jobs.
                 Always verify worker identification before allowing them to start work at your premises.
                 Remember to rate workers after job completion to help maintain service quality on our platform.
