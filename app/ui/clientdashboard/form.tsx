@@ -332,12 +332,12 @@ export default function ClientDashboard(): JSX.Element {
             </div>
           </>
         );
-      case "post-job":
-        return (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <PostJob /> {/* Use the PostJob component here */}
-          </div>
-        );
+     case "post-job":
+  return (
+    <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border border-gray-100 p-2 sm:p-4 md:p-6 w-full h-full">
+      <PostJob />
+    </div>
+  );
       case "my-jobs":
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
