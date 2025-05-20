@@ -240,51 +240,58 @@ export default function ClientDashboard(): JSX.Element {
                 Welcome {client?.name} 👋
               </h2>
             </div>
+{/* Quick Stats */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+  {/* Active Jobs */}
+  <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-gray-500 text-sm">Active Jobs</p>
+        <h4 className="text-2xl font-semibold text-sky-900">
+          {client?.jobPosts?.filter(job => job.status === "Active").length ?? 0}
+        </h4>
+      </div>
+      <div className="bg-sky-100 p-3 rounded-full">
+        <svg className="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+    </div>
+  </div>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-500 text-sm">Active Jobs</p>
-                    <h4 className="text-2xl font-semibold text-sky-900">3</h4>
-                  </div>
-                  <div className="bg-sky-100 p-3 rounded-full">
-                    <svg className="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
+  {/* Applications (still static) */}
+  <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-gray-500 text-sm">Applications</p>
+        <h4 className="text-2xl font-semibold text-sky-900">0</h4>
+      </div>
+      <div className="bg-green-100 p-3 rounded-full">
+        <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    </div>
+  </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-500 text-sm">Applications</p>
-                    <h4 className="text-2xl font-semibold text-sky-900">12</h4>
-                  </div>
-                  <div className="bg-green-100 p-3 rounded-full">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
+  {/* Completed Jobs */}
+  <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-gray-500 text-sm">Completed Jobs</p>
+        <h4 className="text-2xl font-semibold text-sky-900">
+          {client?.jobPosts?.filter(job => job.status === "Completed").length ?? 0}
+        </h4>
+      </div>
+      <div className="bg-orange-100 p-3 rounded-full">
+        <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-500 text-sm">Completed Jobs</p>
-                    <h4 className="text-2xl font-semibold text-sky-900">7</h4>
-                  </div>
-                  <div className="bg-orange-100 p-3 rounded-full">
-                    <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
 {/* Recent Activity */}
 <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
   <h4 className="text-lg font-medium text-sky-900 mb-4">Recent Activity</h4>
