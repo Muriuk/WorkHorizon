@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+
 
 // Toast notification component
 interface ToastProps {
@@ -77,7 +77,7 @@ function EmailVerificationMessage({ email }: { email: string }) {
                     </p>
                 </div>
                 <div className="text-gray-600 text-sm">
-                    <p>Didn't receive the email? Check your spam folder or</p>
+                    <p>Didn&apos;t receive the email? Check your spam folder or</p>
                     <button className="text-sky-700 hover:text-sky-900 font-medium mt-2">
                         Resend verification email
                     </button>
@@ -88,7 +88,6 @@ function EmailVerificationMessage({ email }: { email: string }) {
 }
 
 export default function ClientRegisterForm() {
-    const router = useRouter() // We'll keep this for potential future navigation needs
     const [loading, setLoading] = useState(false)
     const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
     const [formData, setFormData] = useState({
