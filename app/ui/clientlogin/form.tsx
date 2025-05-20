@@ -218,7 +218,7 @@ export default function ClientLoginForm() {
                         </button>
                         
                         <p className="text-center mt-4 text-sm text-gray-600">
-                            Don't have an account? <a href="/register" className="text-sky-700 hover:text-sky-900">Register here</a>
+                            Don&apos;t have an account? <a href="/clientregister" className="text-sky-700 hover:text-sky-900">Register here</a>
                         </p>
                     </form>
                 </div>
