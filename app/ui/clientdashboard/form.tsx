@@ -292,35 +292,64 @@ export default function ClientDashboard(): JSX.Element {
   </div>
 </div>
 
-{/* Recent Activity */}
-<div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
-  <h4 className="text-lg font-medium text-sky-900 mb-4">Recent Activity</h4>
-  <div className="space-y-4">
-    {client?.jobPosts?.length ? (
-      client.jobPosts
-        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // ✅ Fixed
-        .slice(0, 5)
-        .map((job) => (
-          <div key={job.id} className="border-l-4 border-sky-500 pl-4 py-2">
-            <p className="font-medium">Job posted successfully</p>
-            <p className="text-sm text-gray-500">{job.title} - {job.county}</p>
-            <p className="text-xs text-gray-400">
-              {new Date(job.createdAt).toLocaleString('en-US', {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-              })}
-            </p>
-          </div>
-        ))
-    ) : (
-      <div className="text-gray-500 text-sm">No recent job activity found.</div>
-    )}
+{/* Recent Activity - Premium Edition */}
+<div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl">
+  <div className="p-6 pb-4">
+    <div className="flex items-center justify-between mb-5">
+      <h4 className="text-xl font-semibold text-sky-900 tracking-tight">Recent Activity</h4>
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-sky-50 text-sky-600">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+        </svg>
+      </span>
+    </div>
+    
+    <div className="space-y-4">
+      {client?.jobPosts?.length ? (
+        client.jobPosts
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+          .slice(0, 5)
+          .map((job) => (
+            <div 
+              key={job.id} 
+              className="relative border-l-2 border-sky-400 pl-4 py-2 group transition-all duration-200 hover:border-sky-500 hover:pl-5"
+            >
+              <div className="absolute -left-1.5 top-3 w-3 h-3 bg-sky-400 rounded-full group-hover:bg-sky-500 transition-colors duration-200"></div>
+              <p className="font-medium text-sky-800 group-hover:text-sky-900 transition-colors duration-200">Job posted successfully</p>
+              <p className="text-sm text-gray-600 mt-1">{job.title} - {job.county}</p>
+              <p className="text-xs text-gray-400 mt-1 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {new Date(job.createdAt).toLocaleString('en-US', {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                })}
+              </p>
+            </div>
+          ))
+      ) : (
+        <div className="flex flex-col items-center justify-center py-6 text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-2 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+          <p className="text-sm">No recent job activity found</p>
+        </div>
+      )}
+    </div>
   </div>
+  
+  {client?.jobPosts?.length > 5 && (
+    <div className="px-6 py-3 bg-gray-50 border-t border-gray-100 text-right">
+      <button className="text-xs font-medium text-sky-600 hover:text-sky-700 transition-colors duration-200">
+        View all activity →
+      </button>
+    </div>
+  )}
 </div>
-
 
             {/* Important notice */}
             <div className="p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto shadow-sm">
