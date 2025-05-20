@@ -284,28 +284,34 @@ export default function ClientDashboard(): JSX.Element {
                 </div>
               </div>
             </div>
-
-            {/* Recent Activity */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
-              <h4 className="text-lg font-medium text-sky-900 mb-4">Recent Activity</h4>
-              <div className="space-y-4">
-                <div className="border-l-4 border-green-500 pl-4 py-2">
-                  <p className="font-medium">New application received</p>
-                  <p className="text-sm text-gray-500">Worker: David Mwangi applied for Plumbing job</p>
-                  <p className="text-xs text-gray-400">Today at 10:30 AM</p>
-                </div>
-                <div className="border-l-4 border-sky-500 pl-4 py-2">
-                  <p className="font-medium">Job posted successfully</p>
-                  <p className="text-sm text-gray-500">House Painting - Parklands area</p>
-                  <p className="text-xs text-gray-400">Yesterday at 3:45 PM</p>
-                </div>
-                <div className="border-l-4 border-orange-500 pl-4 py-2">
-                  <p className="font-medium">Job completed</p>
-                  <p className="text-sm text-gray-500">Electrical Installation by James Odhiambo</p>
-                  <p className="text-xs text-gray-400">May 18, 2025</p>
-                </div>
-              </div>
-            </div>
+{/* Recent Activity */}
+<div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
+  <h4 className="text-lg font-medium text-sky-900 mb-4">Recent Activity</h4>
+  <div className="space-y-4">
+    {client?.jobPosts?.length ? (
+      client.jobPosts
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Most recent first
+        .slice(0, 5) // Limit to recent 5 jobs
+        .map((job) => (
+          <div key={job.id} className="border-l-4 border-sky-500 pl-4 py-2">
+            <p className="font-medium">Job posted successfully</p>
+            <p className="text-sm text-gray-500">{job.title} - {job.county}</p>
+            <p className="text-xs text-gray-400">
+              {new Date(job.createdAt).toLocaleString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+              })}
+            </p>
+          </div>
+        ))
+    ) : (
+      <div className="text-gray-500 text-sm">No recent job activity found.</div>
+    )}
+  </div>
+</div>
 
             {/* Important notice */}
             <div className="p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto shadow-sm">
