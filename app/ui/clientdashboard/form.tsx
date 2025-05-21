@@ -234,12 +234,25 @@ export default function ClientDashboard(): JSX.Element {
       case "dashboard":
         return (
           <>
-            {/* Welcome header */}
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-semibold mb-6 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
-                Welcome {client?.name} 👋
-              </h2>
-            </div>
+           {/* Dynamic Welcome header based on time of day */}
+<div className="text-center mb-8">
+  <h2 className="text-2xl font-semibold mb-6 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
+    {(() => {
+      const hour = new Date().getHours();
+      let greeting;
+      
+      if (hour < 12) {
+        greeting = 'Good morning';
+      } else if (hour < 18) {
+        greeting = 'Good afternoon';
+      } else {
+        greeting = 'Good evening';
+      }
+      
+      return `${greeting} ${client?.name || ''} 👋`;
+    })()}
+  </h2>
+</div>
 {/* Quick Stats */}
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
   {/* Active Jobs */}
