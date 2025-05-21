@@ -387,7 +387,7 @@ export default function ClientDashboard(): JSX.Element {
       </svg>
     </span>
     <p className="text-lg text-amber-800 leading-relaxed font-semibold mt-2">
-     ⚠️ Important Information
+     Important Information
     </p>
   </div>
   <div className="space-y-3 text-sm text-amber-700/90">
