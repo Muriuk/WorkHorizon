@@ -28,8 +28,8 @@ export default function HomeHead() {
         <span className="text-green-500 font-medium"> WhatsApp</span> — quick, easy, and hassle-free.
       </p>
 
-      {/* CTA Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 pt-4">
+      {/* CTA Buttons - Horizontal Layout */}
+      <div className="flex flex-row flex-wrap gap-4 pt-4">
         <Link href="/clientregister">
           <button className="relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
             <span className="relative z-10 flex items-center gap-2">
@@ -66,19 +66,19 @@ export default function HomeHead() {
         </p>
       </div>
 
-      {/* Login Buttons */}
+      {/* Login Buttons - Colored Version */}
       <div className="flex flex-col gap-4 pt-4">
         <Link href="/login">
-          <button className="w-full text-center bg-sky-900 hover:bg-sky-900 text-white-800 font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-sky-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <button className="w-full text-center bg-sky-900 hover:bg-sky-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
             Worker Login
           </button>
         </Link>
         <Link href="/clientlogin">
-          <button className="w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <button className="w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             Client Login
@@ -86,7 +86,8 @@ export default function HomeHead() {
         </Link>
       </div>
     </div>
-  
+  </div>
+
             {/* New Jobs Section */}
             <div className="w-full bg-gradient-to-r from-sky-50 to-orange-50 2xl:bg-gradient-to-r 2xl:from-sky-100 2xl:to-orange-100 py-16 2xl:py-20 3xl:py-24 4xl:py-28 5xl:py-32 rounded-2xl 2xl:rounded-3xl 3xl:rounded-4xl shadow-lg animate-fadeInUp border-2 border-transparent hover:border-gradient-jobs transition-all duration-700 relative overflow-hidden">
                 {/* Background Animation */}
