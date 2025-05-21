@@ -38,10 +38,17 @@ jobs:
         run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
           if [ ! -f "supabase/config.toml" ]; then
-            echo "N" | npx supabase init  # Auto-decline Deno settings prompts
+            printf "N\nN\n" | npx supabase init  # Auto-decline all prompts
           fi
 
       - name: Link to Supabase project
         run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
           npx supabase link --project-ref=$SUPABASE_PROJECT_ID --password=$SUPABASE_DB_PASSWORD
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      - name: Verify connection
+        run: |
+          export PATH="$PATH:$(pwd)/node_modules/.bin"
+          npx supabase status
