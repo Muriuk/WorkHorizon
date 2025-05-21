@@ -262,19 +262,20 @@ export default function ClientDashboard(): JSX.Element {
   </h2>
 </div>
 
-{/* Premium Stats Cards with hover effects */}
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-10">
+{/* Premium Stats Cards with glass morphism effect */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
   {/* Active Jobs */}
-  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg border border-gray-100 dark:border-gray-700 p-6 md:p-7 transition-all duration-300 hover:translate-y-1 group">
+  <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl border border-gray-200/80 p-6 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-br from-sky-100/50 to-white opacity-80 -z-10"></div>
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-gray-500 dark:text-gray-300 text-sm font-medium mb-2">Active Jobs</p>
-        <h4 className="text-3xl font-bold bg-gradient-to-r from-sky-700 to-sky-900 dark:from-sky-400 dark:to-sky-300 bg-clip-text text-transparent">
+        <p className="text-gray-600 text-sm font-medium mb-2">Active Jobs</p>
+        <h4 className="text-3xl font-bold bg-gradient-to-r from-sky-700 to-sky-900 bg-clip-text text-transparent">
           {client?.jobPosts?.filter(job => job.status === "Active").length ?? 0}
         </h4>
       </div>
-      <div className="bg-sky-100 dark:bg-sky-900/30 p-3 md:p-4 rounded-full transform group-hover:scale-110 transition-transform duration-300">
-        <svg className="w-6 h-6 md:w-7 md:h-7 text-sky-600 dark:text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-white p-3 rounded-full shadow-sm transform group-hover:scale-110 transition-transform duration-300 border border-gray-100">
+        <svg className="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
       </div>
@@ -282,14 +283,15 @@ export default function ClientDashboard(): JSX.Element {
   </div>
   
   {/* Applications */}
-  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg border border-gray-100 dark:border-gray-700 p-6 md:p-7 transition-all duration-300 hover:translate-y-1 group">
+  <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl border border-gray-200/80 p-6 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-br from-green-100/50 to-white opacity-80 -z-10"></div>
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-gray-500 dark:text-gray-300 text-sm font-medium mb-2">Applications</p>
-        <h4 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-800 dark:from-green-400 dark:to-green-300 bg-clip-text text-transparent">0</h4>
+        <p className="text-gray-600 text-sm font-medium mb-2">Applications</p>
+        <h4 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">0</h4>
       </div>
-      <div className="bg-green-100 dark:bg-green-900/30 p-3 md:p-4 rounded-full transform group-hover:scale-110 transition-transform duration-300">
-        <svg className="w-6 h-6 md:w-7 md:h-7 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-white p-3 rounded-full shadow-sm transform group-hover:scale-110 transition-transform duration-300 border border-gray-100">
+        <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
@@ -297,16 +299,17 @@ export default function ClientDashboard(): JSX.Element {
   </div>
   
   {/* Completed Jobs */}
-  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg border border-gray-100 dark:border-gray-700 p-6 md:p-7 transition-all duration-300 hover:translate-y-1 group">
+  <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl border border-gray-200/80 p-6 transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-br from-orange-100/50 to-white opacity-80 -z-10"></div>
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-gray-500 dark:text-gray-300 text-sm font-medium mb-2">Completed Jobs</p>
-        <h4 className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-700 dark:from-orange-400 dark:to-orange-300 bg-clip-text text-transparent">
+        <p className="text-gray-600 text-sm font-medium mb-2">Completed Jobs</p>
+        <h4 className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-orange-700 bg-clip-text text-transparent">
           {client?.jobPosts?.filter(job => job.status === "Completed").length ?? 0}
         </h4>
       </div>
-      <div className="bg-orange-100 dark:bg-orange-900/30 p-3 md:p-4 rounded-full transform group-hover:scale-110 transition-transform duration-300">
-        <svg className="w-6 h-6 md:w-7 md:h-7 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-white p-3 rounded-full shadow-sm transform group-hover:scale-110 transition-transform duration-300 border border-gray-100">
+        <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
         </svg>
       </div>
@@ -314,12 +317,13 @@ export default function ClientDashboard(): JSX.Element {
   </div>
 </div>
 
-{/* Recent Activity - Premium Edition (Type-Safe Version) */}
-<div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl">
+{/* Recent Activity - Premium Edition */}
+<div className="bg-white rounded-xl shadow-lg border border-gray-200/80 overflow-hidden transition-all duration-300 hover:shadow-xl relative">
+  <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50/80 -z-10"></div>
   <div className="p-6 pb-4">
     <div className="flex items-center justify-between mb-5">
       <h4 className="text-xl font-semibold text-sky-900 tracking-tight">Recent Activity</h4>
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-sky-50 text-sky-600">
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-sky-100 text-sky-600 shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
         </svg>
@@ -335,12 +339,12 @@ export default function ClientDashboard(): JSX.Element {
             .map((job) => (
               <div 
                 key={job.id} 
-                className="relative border-l-2 border-sky-400 pl-4 py-2 group transition-all duration-200 hover:border-sky-500 hover:pl-5"
+                className="relative border-l-2 border-sky-400 pl-4 py-2 group transition-all duration-200 hover:border-sky-500 hover:pl-5 bg-white/50 rounded-lg"
               >
                 <div className="absolute -left-1.5 top-3 w-3 h-3 bg-sky-400 rounded-full group-hover:bg-sky-500 transition-colors duration-200"></div>
                 <p className="font-medium text-sky-800 group-hover:text-sky-900 transition-colors duration-200">Job posted successfully</p>
                 <p className="text-sm text-gray-600 mt-1">{job.title} - {job.county}</p>
-                <p className="text-xs text-gray-400 mt-1 flex items-center">
+                <p className="text-xs text-gray-500 mt-1 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -355,7 +359,7 @@ export default function ClientDashboard(): JSX.Element {
               </div>
             ))}
           {(client.jobPosts?.length ?? 0) > 5 && (
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-100 text-right">
+            <div className="px-6 py-3 bg-gray-50/70 border-t border-gray-200/50 text-right">
               <button className="text-xs font-medium text-sky-600 hover:text-sky-700 transition-colors duration-200">
                 View all activity →
               </button>
@@ -363,7 +367,7 @@ export default function ClientDashboard(): JSX.Element {
           )}
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center py-6 text-gray-400">
+        <div className="flex flex-col items-center justify-center py-6 text-gray-400 bg-white/50 rounded-lg">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-2 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>
@@ -374,23 +378,37 @@ export default function ClientDashboard(): JSX.Element {
   </div>
 </div>
 
-            {/* Important notice */}
-            <div className="p-4 sm:p-5 md:p-6 lg:p-8 bg-yellow-50 border border-yellow-200 rounded-lg max-w-4xl mx-auto shadow-sm">
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-yellow-700 leading-relaxed text-center font-semibold mb-2">
-                ⚠️ Important Information
-              </p>
-              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify">
-                Thank you for using Kazibase! As a client, you have access to Kenyas largest network of skilled workers.
-                For the best experience, please provide detailed job descriptions when posting new jobs.
-                Always verify worker identification before allowing them to start work at your premises.
-                Remember to rate workers after job completion to help maintain service quality on our platform.
-              </p>
-              <p className="text-xs sm:text-sm md:text-base text-yellow-700 leading-relaxed text-justify mt-4 font-semibold">
-                📌 All workers are required to carry their original ID when visiting your premises.
-              </p>
-            </div>
-          </>
-        );
+{/* Important notice */}
+<div className="p-5 bg-gradient-to-r from-yellow-50 to-amber-50 border border-amber-200/80 rounded-lg max-w-4xl mx-auto shadow-sm backdrop-blur-sm">
+  <div className="text-center mb-4">
+    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-100 text-amber-600 shadow-sm mx-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+      </svg>
+    </span>
+    <p className="text-lg text-amber-800 leading-relaxed font-semibold mt-2">
+     ⚠️ Important Information
+    </p>
+  </div>
+  <div className="space-y-3 text-sm text-amber-700/90">
+    <p className="text-justify">
+      Thank you for using Kazibase! As a client, you have access to Kenya's largest network of skilled workers.
+      For the best experience, please provide detailed job descriptions when posting new jobs.
+    </p>
+    <p className="text-justify">
+      Always verify worker identification before allowing them to start work at your premises.
+      Remember to rate workers after job completion to help maintain service quality on our platform.
+    </p>
+    <div className="flex items-start mt-4 bg-white/50 p-3 rounded-lg border border-amber-200/50">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mt-0.5 text-amber-600 flex-shrink-0 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <p className="font-medium text-amber-800">
+        📌 All workers are required to carry their original ID when visiting your premises.
+      </p>
+    </div>
+  </div>
+</div>
      case "post-job":
   return (
     <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border border-gray-100 p-2 sm:p-4 md:p-6 w-full h-full">
