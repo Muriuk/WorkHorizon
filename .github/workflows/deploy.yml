@@ -10,8 +10,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
@@ -20,22 +18,40 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Supabase CLI
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
         run: |
-          npm install supabase --save-dev
+          npm install --legacy-peer-deps
+          npm install supabase@latest --save-dev --legacy-peer-deps
+
+      - name: Verify Supabase installation
+        run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
           npx supabase --version
 
-      - name: Debug Project ID length
+      - name: Debug Project ID
         run: |
-          echo "Project ID length: ${#SUPABASE_PROJECT_ID}"
-          echo "Project ID preview: ${SUPABASE_PROJECT_ID:0:4}...${SUPABASE_PROJECT_ID: -4}"
+          echo "Project ID: $SUPABASE_PROJECT_ID"
+          echo "Length: ${#SUPABASE_PROJECT_ID}"
+          if [ ${#SUPABASE_PROJECT_ID} -ne 20 ]; then
+            echo "Error: Project ID must be exactly 20 characters long"
+            exit 1
+          fi
+
+      - name: Initialize Supabase (if needed)
+        run: |
+          export PATH="$PATH:$(pwd)/node_modules/.bin"
+          if [ ! -f "supabase/config.toml" ]; then
+            npx supabase init --no-ssh
+          fi
 
       - name: Link to Supabase project
         run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
-          if [ -z "$(find . -name 'supabase' -type d)" ]; then
-            npx supabase init
-          fi
           npx supabase link --project-ref $SUPABASE_PROJECT_ID --password $SUPABASE_DB_PASSWORD
- 
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
