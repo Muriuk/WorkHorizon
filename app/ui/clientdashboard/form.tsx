@@ -409,6 +409,8 @@ export default function ClientDashboard(): JSX.Element {
     </div>
   </div>
 </div>
+          </>
+          );
      case "post-job":
   return (
     <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border border-gray-100 p-2 sm:p-4 md:p-6 w-full h-full">
