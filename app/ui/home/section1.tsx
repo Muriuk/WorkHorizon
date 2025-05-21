@@ -86,7 +86,7 @@ export default function HomeHead() {
         </Link>
       </div>
     </div>
-  </div>
+
 
             {/* New Jobs Section */}
             <div className="w-full bg-gradient-to-r from-sky-50 to-orange-50 2xl:bg-gradient-to-r 2xl:from-sky-100 2xl:to-orange-100 py-16 2xl:py-20 3xl:py-24 4xl:py-28 5xl:py-32 rounded-2xl 2xl:rounded-3xl 3xl:rounded-4xl shadow-lg animate-fadeInUp border-2 border-transparent hover:border-gradient-jobs transition-all duration-700 relative overflow-hidden">
