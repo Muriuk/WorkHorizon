@@ -18,6 +18,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Verify Supabase secrets
+        run: |
+          if [ -z "$SUPABASE_PROJECT_ID" ]; then
+            echo "::error::SUPABASE_PROJECT_ID secret is not set"
+            exit 1
+          fi
+          if [ -z "$SUPABASE_ACCESS_TOKEN" ]; then
+            echo "::error::SUPABASE_ACCESS_TOKEN secret is not set"
+            exit 1
+          fi
+          if [ -z "$SUPABASE_DB_PASSWORD" ]; then
+            echo "::error::SUPABASE_DB_PASSWORD secret is not set"
+            exit 1
+          fi
+          echo "All required secrets are present"
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -27,27 +43,25 @@ jobs:
         run: |
           npm install --legacy-peer-deps
           npm install supabase@latest --save-dev --legacy-peer-deps
+          npm audit fix --force || true
 
       - name: Verify Supabase installation
         run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
           npx supabase --version
 
-      - name: Debug Project ID
+      - name: Validate Project ID format
         run: |
-          echo "Project ID: $SUPABASE_PROJECT_ID"
-          echo "Length: ${#SUPABASE_PROJECT_ID}"
+          echo "Project ID preview: ${SUPABASE_PROJECT_ID:0:4}...${SUPABASE_PROJECT_ID: -4}"
           if [ ${#SUPABASE_PROJECT_ID} -ne 20 ]; then
-            echo "Error: Project ID must be exactly 20 characters long"
+            echo "::error::Invalid Project ID length. Expected 20 characters, got ${#SUPABASE_PROJECT_ID}"
             exit 1
           fi
 
-      - name: Initialize Supabase (if needed)
+      - name: Initialize Supabase
         run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
-          if [ ! -f "supabase/config.toml" ]; then
-            npx supabase init --no-ssh
-          fi
+          npx supabase init --no-ssh
 
       - name: Link to Supabase project
         run: |
