@@ -62,7 +62,7 @@ export default function HomeHead() {
           Verified <span className="text-orange-500">Skilled Workers</span> Across Kenya
         </h3>
         <p className="text-lg lg:text-xl font-light text-gray-700 leading-relaxed">
-          Every worker on <span className="font-semibold text-sky-900">Kazibase</span> undergoes skill verification, ensuring quality service whether you're in Nairobi, Mombasa, Kisumu, or any village across our beautiful country.
+          Every worker on <span className="font-semibold text-sky-900">Kazibase</span> undergoes skill verification, ensuring quality service whether you are in Nairobi, Mombasa, Kisumu, or any village across our beautiful country.
         </p>
       </div>
 
