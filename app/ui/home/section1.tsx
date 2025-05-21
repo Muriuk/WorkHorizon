@@ -69,7 +69,7 @@ export default function HomeHead() {
       {/* Login Buttons */}
       <div className="flex flex-col gap-4 pt-4">
         <Link href="/login">
-          <button className="w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+          <button className="w-full text-center bg-sky-900 hover:bg-sky-900 text-white-800 font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-sky-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
