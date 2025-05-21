@@ -234,9 +234,9 @@ export default function ClientDashboard(): JSX.Element {
       case "dashboard":
         return (
           <>
-          {/* Dynamic Welcome header with elegant styling */}
-<div className="text-center mb-6 md:mb-8">
-  <h2 className="text-xl md:text-2xl font-medium md:font-semibold mb-4 w-fit mx-auto text-sky-800 dark:text-sky-200 px-4 py-2 rounded-lg bg-gradient-to-r from-sky-50 to-orange-50 dark:from-sky-900 dark:to-gray-800 shadow-sm">
+          {/* Dynamic Welcome header with responsive font sizing */}
+<div className="text-center mb-5 md:mb-7">
+  <h2 className="text-lg md:text-2xl font-medium md:font-semibold mb-3 w-fit mx-auto text-sky-800 dark:text-sky-200 px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-gradient-to-r from-sky-50 to-orange-50 dark:from-sky-900 dark:to-gray-800 shadow-sm">
     {(() => {
       const hour = new Date().getHours();
       let greeting;
@@ -250,9 +250,12 @@ export default function ClientDashboard(): JSX.Element {
       }
       
       return (
-        <span className="inline-flex items-center">
-          {greeting} {client?.name || ''} 
-          <span className="ml-2 text-orange-400 dark:text-orange-300">👋</span>
+        <span className="inline-flex items-center flex-wrap justify-center gap-x-1.5">
+          <span className="whitespace-nowrap">{greeting}</span>
+          <span className="whitespace-nowrap">
+            {client?.name || ''}
+            <span className="ml-1.5 text-orange-400 dark:text-orange-300">👋</span>
+          </span>
         </span>
       );
     })()}
