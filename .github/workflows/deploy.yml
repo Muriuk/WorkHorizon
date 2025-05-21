@@ -34,14 +34,14 @@ jobs:
           export PATH="$PATH:$(pwd)/node_modules/.bin"
           npx supabase --version
 
-      - name: Initialize Supabase
+      - name: Initialize Supabase (non-interactive)
         run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
           if [ ! -f "supabase/config.toml" ]; then
-            npx supabase init
+            echo "N" | npx supabase init  # Auto-decline Deno settings prompts
           fi
 
       - name: Link to Supabase project
         run: |
           export PATH="$PATH:$(pwd)/node_modules/.bin"
-          npx supabase link --project-ref $SUPABASE_PROJECT_ID --password $SUPABASE_DB_PASSWORD
+          npx supabase link --project-ref=$SUPABASE_PROJECT_ID --password=$SUPABASE_DB_PASSWORD
