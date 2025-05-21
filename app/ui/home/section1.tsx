@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 export default function HomeHead() {
     return (
+        <> 
        <div className="container mx-auto w-[90%] lg:w-[95%] xl:w-[90%] 2xl:w-[85%] 3xl:w-[80%]">
   <div className="mx-auto w-full pt-8 xl:pt-24 2xl:pt-32 3xl:pt-40 pb-16 lg:pb-24 xl:pb-32 2xl:pb-40 grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20">
     {/* Left Column */}
@@ -87,6 +88,7 @@ export default function HomeHead() {
     </div>
   </div>
 </div>
+        
             {/* New Jobs Section */}
             <div className="w-full bg-gradient-to-r from-sky-50 to-orange-50 2xl:bg-gradient-to-r 2xl:from-sky-100 2xl:to-orange-100 py-16 2xl:py-20 3xl:py-24 4xl:py-28 5xl:py-32 rounded-2xl 2xl:rounded-3xl 3xl:rounded-4xl shadow-lg animate-fadeInUp border-2 border-transparent hover:border-gradient-jobs transition-all duration-700 relative overflow-hidden">
                 {/* Background Animation */}
@@ -146,8 +148,9 @@ export default function HomeHead() {
                         </button>
                     </Link>
                 </div>
-            </div>
-            
+        </div>
+        
+        
             <style jsx>{`
                 .glow-orange {
                     box-shadow: 0 0 5px rgba(249, 115, 22, 0.5), 0 0 10px rgba(249, 115, 22, 0.3), 0 0 15px rgba(249, 115, 22, 0.2);
@@ -355,5 +358,7 @@ export default function HomeHead() {
                 }
             `}</style>
         </div>
+        </>
+        
     );
 }
