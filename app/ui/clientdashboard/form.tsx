@@ -234,9 +234,9 @@ export default function ClientDashboard(): JSX.Element {
       case "dashboard":
         return (
           <>
-           {/* Dynamic Welcome header based on time of day */}
-<div className="text-center mb-8">
-  <h2 className="text-2xl font-semibold mb-6 w-fit mx-auto text-sky-900 border-b border-orange-500 px-1">
+          {/* Dynamic Welcome header with elegant styling */}
+<div className="text-center mb-6 md:mb-8">
+  <h2 className="text-xl md:text-2xl font-medium md:font-semibold mb-4 w-fit mx-auto text-sky-800 dark:text-sky-200 px-4 py-2 rounded-lg bg-gradient-to-r from-sky-50 to-orange-50 dark:from-sky-900 dark:to-gray-800 shadow-sm">
     {(() => {
       const hour = new Date().getHours();
       let greeting;
@@ -249,7 +249,12 @@ export default function ClientDashboard(): JSX.Element {
         greeting = 'Good evening';
       }
       
-      return `${greeting} ${client?.name || ''} 👋`;
+      return (
+        <span className="inline-flex items-center">
+          {greeting} {client?.name || ''} 
+          <span className="ml-2 text-orange-400 dark:text-orange-300">👋</span>
+        </span>
+      );
     })()}
   </h2>
 </div>
