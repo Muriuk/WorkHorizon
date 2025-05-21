@@ -392,7 +392,7 @@ export default function ClientDashboard(): JSX.Element {
   </div>
   <div className="space-y-3 text-sm text-amber-700/90">
     <p className="text-justify">
-      Thank you for using Kazibase! As a client, you have access to Kenya's largest network of skilled workers.
+      Thank you for using Kazibase! As a client, you have access to Kenyas largest network of skilled workers.
       For the best experience, please provide detailed job descriptions when posting new jobs.
     </p>
     <p className="text-justify">
