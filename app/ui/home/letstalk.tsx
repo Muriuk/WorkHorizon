@@ -1,7 +1,6 @@
 'use client'
 import { kenyaCounties } from "@/app/lib/counties";
 import { Message } from "@/app/lib/elements";
-
 import { MailIcon, MapPin, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import React, { useEffect, useState } from "react";
 export default function LetsTalk() {
     const [submit, setSubmit] = useState<boolean>(false);
     const [contactNumber, setContactNumber] = useState<string | undefined>('');
+    const [showToast, setShowToast] = useState<boolean>(false);
 
     const handleContactNumber = (value: string): void => {
         let receivedEntry = value.replace(/\D/g, '');
@@ -57,6 +57,8 @@ export default function LetsTalk() {
 
             if (response2.ok) {
                 setSubmit(true);
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 5000); // Hide toast after 5 seconds
             } else {
                 console.error('Email sending failed');
             }
@@ -76,6 +78,13 @@ export default function LetsTalk() {
 
     return (
         <div className='w-full bg-special-blue py-10 lg:py-0 lg:mt-[13rem]'>
+            {/* Toast Notification */}
+            {showToast && (
+                <div className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in">
+                    <p>Your message has been sent. Thank you! We will reach back immediately.</p>
+                </div>
+            )}
+
             <div className="container relative grid grid-cols-1 lg:grid-cols-[50%,50%]">
                 <div className="py-10 lg:py-20">
                     <h3 className="text-sm lg:text-lg text-gray-300 font-normal border-b border-orange-500 w-fit capitalize leading-1"> Achieve success with Kazibase Kenya</h3>
