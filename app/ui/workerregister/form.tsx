@@ -3,7 +3,6 @@
 
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 
 // Toast notification component
 interface ToastProps {
