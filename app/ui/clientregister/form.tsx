@@ -1,5 +1,5 @@
 'use client'
-
+import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 
@@ -439,7 +439,7 @@ export default function ClientRegisterForm() {
                             </button>
                         </div>
 
-                        {/* Terms & Conditions Checkbox */}
+                       {/* Terms & Conditions Checkbox */}
 <div className="mt-4 flex items-center">
     <input
         type="checkbox"
@@ -449,7 +449,10 @@ export default function ClientRegisterForm() {
         className="mr-2 rounded text-sky-900 focus:ring-sky-900"
     />
     <label htmlFor="termsCheckbox" className="text-sm text-gray-700">
-        By ticking this box, you agree to our <a href="/" className="text-sky-900 hover:underline">Terms of Service</a> and <a href="/" className="text-sky-900 hover:underline">Privacy Policy</a>.
+        By ticking this box, you agree to our{' '}
+        <Link href="/terms" className="text-sky-900 hover:underline">Terms of Service</Link>{' '}
+        and{' '}
+        <Link href="/privacy" className="text-sky-900 hover:underline">Privacy Policy</Link>.
     </label>
 </div>
                         <button
