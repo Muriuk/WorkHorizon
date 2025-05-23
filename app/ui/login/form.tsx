@@ -298,7 +298,7 @@ export default function LoginForm() {
 
                         <div className="mt-6 text-center text-sm">
                             <p className="text-gray-600">
-                                Don't have an account?{' '}
+                                Do not have an account?{' '}
                                 <a href="/contact" className="font-medium text-sky-600 hover:text-sky-500">
                                     Contact support
                                 </a>
