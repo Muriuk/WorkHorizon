@@ -40,7 +40,7 @@ export default function LetsTalk() {
             status: '',
         };
 
-        const response = await fetch('/api/message', {
+        const response = await fetch('/api/sendmail', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             credentials: 'include',
@@ -48,7 +48,7 @@ export default function LetsTalk() {
         });
 
         if (response.ok) {
-            const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/message/sendEmail`, {
+            const response2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sendmail`, {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
                 credentials: 'include',
