@@ -443,51 +443,22 @@ export default function RegisterForm() {
                             </button>
                         </div>
 
-                        <div className="mt-4 space-y-3">
-                            <div className="flex items-start">
-                                <div className="flex items-center h-5">
-                                    <input
-                                        id="terms"
-                                        name="terms"
-                                        type="checkbox"
-                                        className="focus:ring-sky-500 h-4 w-4 text-sky-600 border-gray-300 rounded"
-                                        checked={acceptedTerms}
-                                        onChange={(e) => setAcceptedTerms(e.target.checked)}
-                                        required
-                                    />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                    <label htmlFor="terms" className="font-medium text-gray-700">
-                                        I agree to the{' '}
-                                        <Link href="/terms" className="text-sky-600 hover:text-sky-500">
-                                            Terms of Service
-                                        </Link>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start">
-                                <div className="flex items-center h-5">
-                                    <input
-                                        id="privacy"
-                                        name="privacy"
-                                        type="checkbox"
-                                        className="focus:ring-sky-500 h-4 w-4 text-sky-600 border-gray-300 rounded"
-                                        checked={acceptedPrivacy}
-                                        onChange={(e) => setAcceptedPrivacy(e.target.checked)}
-                                        required
-                                    />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                    <label htmlFor="privacy" className="font-medium text-gray-700">
-                                        I agree to the{' '}
-                                        <Link href="/privacy" className="text-sky-600 hover:text-sky-500">
-                                            Privacy Policy
-                                        </Link>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                       {/* Terms & Conditions Checkbox */}
+<div className="mt-4 flex items-center">
+    <input
+        type="checkbox"
+        id="termsCheckbox"
+        name="termsCheckbox"
+        required
+        className="mr-2 rounded text-sky-900 focus:ring-sky-900"
+    />
+    <label htmlFor="termsCheckbox" className="text-sm text-gray-700">
+        By ticking this box, you agree to our{' '}
+        <Link href="/terms" className="text-sky-900 hover:underline">Terms of Service</Link>{' '}
+        and{' '}
+        <Link href="/privacy" className="text-sky-900 hover:underline">Privacy Policy</Link>.
+    </label>
+</div>
                         
                         <button
                             className={`text-md sm:text-lg font-semibold mt-6 px-6 py-3 rounded-lg tracking-wide transition-colors duration-300
