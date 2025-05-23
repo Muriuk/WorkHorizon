@@ -57,7 +57,7 @@ function Toast({ message, type, onClose }: ToastProps) {
 }
 
 export default function RegisterForm() {
-    const router = useRouter()
+    
     const [loading, setLoading] = useState(false)
     const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
     const [formData, setFormData] = useState({
