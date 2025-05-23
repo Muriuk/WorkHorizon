@@ -3,7 +3,7 @@
 
 import Image from "next/image"
 import { useState, useEffect } from "react"
-
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 // Toast notification component
@@ -59,7 +59,7 @@ function Toast({ message, type, onClose }: ToastProps) {
 }
 
 export default function RegisterForm() {
-   
+     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
     const [formData, setFormData] = useState({
