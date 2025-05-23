@@ -53,7 +53,10 @@ export default function HomeHead() {
     </button>
   </Link>
 </div>
-
+</div>
+      </div>
+           </div>
+    
     {/* Right Column */}
     <div className="flex flex-col justify-center space-y-6 lg:space-y-8 xl:space-y-10 bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-100 shadow-sm">
       <div className="space-y-6">
