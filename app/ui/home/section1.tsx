@@ -42,7 +42,7 @@ export default function HomeHead() {
       <span className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
     </button>
   </Link>
-  <Link href="/login">
+  <Link href="/workerregister">
     <button className="relative overflow-hidden bg-gradient-to-r from-sky-900 to-sky-800 text-white font-medium py-3 px-6 sm:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group whitespace-nowrap">
       <span className="relative z-10 flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
