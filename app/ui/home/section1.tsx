@@ -6,9 +6,10 @@ export default function HomeHead() {
     return (
         <> 
        <div className="container mx-auto w-[90%] lg:w-[95%] xl:w-[90%] 2xl:w-[85%] 3xl:w-[80%]">
-  <div className="mx-auto w-full pt-8 xl:pt-24 2xl:pt-32 3xl:pt-40 pb-16 lg:pb-24 xl:pb-32 2xl:pb-40 grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20">
-    {/* Left Column */}
-    <div className="flex flex-col justify-center space-y-6 lg:space-y-8 xl:space-y-10">
+  {/* Changed grid alignment to center on mobile */}
+  <div className="mx-auto w-full pt-8 xl:pt-24 2xl:pt-32 3xl:pt-40 pb-16 lg:pb-24 xl:pb-32 2xl:pb-40 grid justify-items-center lg:justify-items-start lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20">
+    {/* Left Column - now centered on mobile */}
+    <div className="flex flex-col justify-center space-y-6 lg:space-y-8 xl:space-y-10 w-full max-w-[500px] lg:max-w-none">
       {/* Tagline Badge */}
       <div className="w-fit">
         <div className="text-xs lg:text-sm xl:text-base font-medium leading-tight bg-gradient-to-r from-sky-900 to-orange-500 text-white rounded-full px-4 py-2 shadow-lg shadow-sky-900/30 animate-float">
@@ -54,9 +55,9 @@ export default function HomeHead() {
   </Link>
 </div>
 </div>
-    </div>
-    {/* Right Column */}
-    <div className="flex flex-col justify-center space-y-6 lg:space-y-8 xl:space-y-10 bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-100 shadow-sm">
+
+    {/* Right Column - now centered on mobile */}
+    <div className="flex flex-col justify-center space-y-6 lg:space-y-8 xl:space-y-10 bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-100 shadow-sm w-full max-w-[500px] lg:max-w-none">
       <div className="space-y-6">
         <h3 className="text-xl lg:text-2xl font-semibold text-gray-800">
           Verified <span className="text-orange-500">Skilled Workers</span> Across Kenya
@@ -87,8 +88,8 @@ export default function HomeHead() {
       </div>
     </div>
 
-    {/* New Jobs Section */}
-    <div className="lg:col-span-2 w-full bg-gradient-to-r from-sky-50 to-orange-50 xl:from-sky-100 xl:to-orange-100 py-16 2xl:py-20 3xl:py-24 rounded-2xl xl:rounded-3xl shadow-lg animate-fadeInUp border-2 border-transparent hover:border-gradient-jobs transition-all duration-700 relative overflow-hidden">
+    {/* New Jobs Section - centered on mobile */}
+    <div className="lg:col-span-2 w-full max-w-[800px] lg:max-w-none bg-gradient-to-r from-sky-50 to-orange-50 xl:from-sky-100 xl:to-orange-100 py-16 2xl:py-20 3xl:py-24 rounded-2xl xl:rounded-3xl shadow-lg animate-fadeInUp border-2 border-transparent hover:border-gradient-jobs transition-all duration-700 relative overflow-hidden">
       {/* Background Animation */}
       <div className="absolute inset-0 bg-gradient-to-r from-sky-100/30 to-orange-100/30 opacity-0 animate-breathe rounded-2xl xl:rounded-3xl"></div>
       
