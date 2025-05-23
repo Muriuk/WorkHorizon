@@ -75,8 +75,6 @@ export default function RegisterForm() {
     // States to handle show password toggle
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-    const [acceptedTerms, setAcceptedTerms] = useState(false)
-    const [acceptedPrivacy, setAcceptedPrivacy] = useState(false)
     const [passwordFocused, setPasswordFocused] = useState(false)
 
     const showToast = (message: string, type: 'success' | 'error') => {
@@ -133,11 +131,7 @@ export default function RegisterForm() {
             return
         }
 
-        if (!acceptedTerms || !acceptedPrivacy) {
-            showToast('You must accept both Terms of Service and Privacy Policy to register.', 'error')
-            setLoading(false)
-            return
-        }
+     
 
         try {
             const res = await fetch('/api/register', {
