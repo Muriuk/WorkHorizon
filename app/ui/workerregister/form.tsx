@@ -205,9 +205,21 @@ export default function RegisterForm() {
                     />
 
                     <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
-                        Create Your Account
+                        Create Worker Account
                     </h2>
-
+{/* Safety & Accountability Disclaimer */}  
+<div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-xs">  
+    <h4 className="font-medium text-yellow-800">  
+        For your safety and platform integrity:  
+        <ul className="list-disc pl-5 mt-1 space-y-1">  
+            <li>Use <strong>official, verifiable details</strong>—misrepresentation may lead to account deactivation.</li>  
+            <li>Only select jobs matching your <strong>certified skills</strong>.</li>  
+            <li>Carry a <strong>valid ID card</strong> when visiting clients.</li>  
+            <li>Always use the <strong>job reference code</strong> for security tracking.</li>  
+        </ul>  
+        <p className="mt-1">We prioritize collective responsibility and safety for all users.</p>  
+    </h4>  
+</div>  
                     <form onSubmit={handleSubmit} className="flex flex-col border border-gray-300 rounded-lg mt-6 shadow-md p-4 sm:p-6 w-full">
                         <label className="text-md sm:text-lg font-medium mb-1">Full Name:</label>
                         <input
