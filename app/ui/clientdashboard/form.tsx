@@ -646,101 +646,119 @@ export default function ClientDashboard(): JSX.Element {
     </div>
   );
       case "settings":
-        return (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-lg font-medium text-gray-800 mb-3">Account Settings</h4>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                    <div>
-                      <p className="font-medium">Email Notifications</p>
-                      <p className="text-sm text-gray-500">Receive emails about new job opportunities</p>
-                    </div>
-                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
-                      <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                    <div>
-                      <p className="font-medium">SMS Alerts</p>
-                      <p className="text-sm text-gray-500">Get SMS notifications for job updates</p>
-                    </div>
-                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
-                      <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                    <div>
-                      <p className="font-medium">Language Preference</p>
-                      <p className="text-sm text-gray-500">Choose your preferred language</p>
-                    </div>
-                    <select className="bg-gray-50 border border-gray-300 text-gray-700 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-sky-500">
-                      <option>English</option>
-                      <option>Swahili</option>
-                    </select>
-                  </div>
-                  
-                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                    <div>
-                      <p className="font-medium">Password</p>
-                      <p className="text-sm text-gray-500">Last updated 3 months ago</p>
-                    </div>
-                    <button className="text-sky-600 hover:text-sky-800 font-medium">
-                      Change
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="text-lg font-medium text-gray-800 mb-3">Privacy Settings</h4>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                    <div>
-                      <p className="font-medium">Profile Visibility</p>
-                      <p className="text-sm text-gray-500">Allow employers to view your profile</p>
-                    </div>
-                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
-                      <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                    <div>
-                      <p className="font-medium">Show Contact Info</p>
-                      <p className="text-sm text-gray-500">Display your contact information to employers</p>
-                    </div>
-                    <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-sky-500">
-                      <div className="bg-white h-4 w-4 rounded-full shadow-md transform translate-x-5"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+       return (
+  <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 max-w-3xl mx-auto backdrop-blur-sm bg-opacity-90">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="pb-2 border-b border-gray-100">
+        <h3 className="text-2xl font-semibold text-gray-900">Job Posting Preferences</h3>
+        <p className="text-gray-400 mt-1">Customize your manual job posting experience</p>
+      </div>
 
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                <div>
-                  <p className="font-medium">Two-Factor Authentication</p>
-                  <p className="text-sm text-gray-500">Add an extra layer of security</p>
-                </div>
-                <div className="h-6 w-11 flex items-center rounded-full p-1 cursor-pointer bg-gray-300">
-                  <div className="bg-white h-4 w-4 rounded-full shadow-md"></div>
-                </div>
+      {/* Notification Settings */}
+      <div className="space-y-6">
+        <h4 className="text-lg font-medium text-gray-800 flex items-center">
+          <svg className="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+          </svg>
+          Notification Settings
+        </h4>
+
+        <div className="space-y-4">
+          {[
+            { 
+              title: "New Applications", 
+              desc: "Instant alerts when candidates apply",
+              active: true 
+            },
+            { 
+              title: "Candidate Messages", 
+              desc: "Notify when applicants message you",
+              active: true 
+            },
+            { 
+              title: "Job Expiration", 
+              desc: "Remind before jobs automatically close",
+              active: false 
+            }
+          ].map((item, index) => (
+            <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition-all duration-200">
+              <div className="flex-1">
+                <p className="font-medium text-gray-800">{item.title}</p>
+                <p className="text-sm text-gray-400 mt-1">{item.desc}</p>
               </div>
-              
-              <div className="pt-4">
-                <button className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded transition-colors">
-                  Save Settings
-                </button>
-                <button className="ml-4 text-gray-600 hover:text-gray-800 py-2 px-6 transition-colors">
-                  Cancel
-                </button>
+              <div className={`relative inline-flex items-center h-6 w-11 rounded-full transition-colors duration-300 ${item.active ? 'bg-blue-500' : 'bg-gray-200'}`}>
+                <span className={`inline-block w-4 h-4 transform transition-transform duration-300 rounded-full bg-white shadow-md ${item.active ? 'translate-x-6' : 'translate-x-1'}`}/>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Posting Preferences */}
+      <div className="space-y-6">
+        <h4 className="text-lg font-medium text-gray-800 flex items-center">
+          <svg className="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/>
+          </svg>
+          Posting Preferences
+        </h4>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Default Job Duration</label>
+            <select className="w-full bg-white border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 px-3 py-2 transition-all duration-200">
+              {["30 days", "15 days", "7 days", "Until closed"].map(option => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
           </div>
-        );
+
+          <div className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Application Limit</label>
+            <input 
+              type="number" 
+              className="w-full bg-white border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 px-3 py-2 transition-all duration-200" 
+              placeholder="No limit"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Advanced Settings */}
+      <div className="space-y-4">
+        <h4 className="text-lg font-medium text-gray-800 flex items-center">
+          <svg className="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/>
+          </svg>
+          Advanced Settings
+        </h4>
+
+        <div className="p-4 bg-gray-50 rounded-xl transition-all duration-200 hover:bg-gray-100">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium text-gray-800">Require Screening Questions</p>
+              <p className="text-sm text-gray-400 mt-1">Add mandatory questions for applicants</p>
+            </div>
+            <div className="relative inline-flex items-center h-6 w-11 rounded-full bg-gray-200 transition-colors duration-300">
+              <span className="inline-block w-4 h-4 transform translate-x-1 rounded-full bg-white shadow-md transition-transform duration-300"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex items-center justify-end space-x-3 pt-4">
+        <button className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-800 rounded-lg transition-all duration-200 hover:bg-gray-100">
+          Cancel
+        </button>
+        <button className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5">
+          Save Preferences
+        </button>
+      </div>
+    </div>
+  </div>
+);
       default:
         return <div>Select a section from the menu</div>;
     }
