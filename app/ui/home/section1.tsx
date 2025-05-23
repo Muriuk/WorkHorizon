@@ -28,32 +28,31 @@ export default function HomeHead() {
         <span className="text-green-500 font-medium"> WhatsApp</span> — quick, easy, and hassle-free.
       </p>
 
-      {/* CTA Buttons - Horizontal Layout */}
-      <div className="flex flex-row flex-wrap gap-4 pt-4">
-        <Link href="/clientregister">
-          <button className="relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium py-3 px-6 sm:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
-            <span className="relative z-10 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Post a Job
-            </span>
-            <span className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          </button>
-        </Link>
-        <Link href="/login">
-          <button className="relative overflow-hidden bg-gradient-to-r from-sky-900 to-sky-800 text-white font-medium py-3 px-6 sm:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
-            <span className="relative z-10 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              Join as Worker
-            </span>
-            <span className="absolute inset-0 bg-gradient-to-r from-sky-800 to-sky-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          </button>
-        </Link>
-      </div>
-    </div>
+     {/* CTA Buttons - Horizontal Layout */}
+<div className="flex flex-row flex-nowrap gap-4 pt-4">
+  <Link href="/clientregister">
+    <button className="relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium py-3 px-6 sm:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group whitespace-nowrap">
+      <span className="relative z-10 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        Post a Job
+      </span>
+      <span className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+    </button>
+  </Link>
+  <Link href="/login">
+    <button className="relative overflow-hidden bg-gradient-to-r from-sky-900 to-sky-800 text-white font-medium py-3 px-6 sm:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group whitespace-nowrap">
+      <span className="relative z-10 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        Join as Worker
+      </span>
+      <span className="absolute inset-0 bg-gradient-to-r from-sky-800 to-sky-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+    </button>
+  </Link>
+</div>
 
     {/* Right Column */}
     <div className="flex flex-col justify-center space-y-6 lg:space-y-8 xl:space-y-10 bg-white/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-100 shadow-sm">
