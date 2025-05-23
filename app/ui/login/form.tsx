@@ -59,22 +59,19 @@ function Toast({ message, type, onClose }: ToastProps) {
 
 export default function LoginForm() {
     const router = useRouter()
-    const [tab, setTab] = useState<'login' | 'register'>('login')
     const [loading, setLoading] = useState(false)
     const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
     const [formData, setFormData] = useState({
-        name: '',
         email: '',
         password: '',
-        confirmPassword: '',
-        phone: '',
-        category: '',
-        county: '',
     })
     
     // States to handle show password toggle
     const [showPassword, setShowPassword] = useState(false)
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    // State for remember me checkbox
+    const [rememberMe, setRememberMe] = useState(false)
+    // State for social login options
+    const [socialLoginLoading, setSocialLoginLoading] = useState<'google' | 'facebook' | null>(null)
 
     const showToast = (message: string, type: 'success' | 'error') => {
         setToast({ message, type })
@@ -84,76 +81,46 @@ export default function LoginForm() {
         setToast(null)
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    const handleSocialLogin = (provider: 'google' | 'facebook') => {
+        setSocialLoginLoading(provider)
+        // Simulate social login
+        setTimeout(() => {
+            showToast(`Redirecting to ${provider} authentication...`, 'success')
+            setSocialLoginLoading(null)
+            // In a real app, you would redirect to the provider's auth page
+            // or use their SDK to handle the authentication
+        }, 1500)
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
 
-        // Password validation for register tab
-        if (tab === 'register') {
-            if (!passwordRegex.test(formData.password)) {
-                showToast('Password must be at least 6 characters long, include uppercase, lowercase, a number, and a special character.', 'error')
-                setLoading(false)
-                return
-            }
-
-            if (formData.password !== formData.confirmPassword) {
-                showToast('Passwords do not match.', 'error')
-                setLoading(false)
-                return
-            }
-        }
-
-        const endpoint = tab === 'login' ? '/api/login' : '/api/register'
-
-        const payload = tab === 'login'
-            ? { email: formData.email, password: formData.password }
-            : {
-                full_name: formData.name,
-                email: formData.email,
-                phone_number: formData.phone,
-                password: formData.password,
-                work_category: formData.category,
-                county: formData.county,
-            }
-
         try {
-            const res = await fetch(endpoint, {
+            const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                    rememberMe
+                }),
             })
 
             if (!res.ok) {
                 const result = await res.json()
-                showToast(result.message || 'Something went wrong.', 'error')
+                showToast(result.message || 'Invalid email or password.', 'error')
             } else {
-                const successMessage = tab === 'login' ? 'Login successful!' : 'Account created successfully!'
-                showToast(successMessage, 'success')
+                showToast('Login successful! Redirecting...', 'success')
                 
-                if (tab === 'login') {
-                    // Delay navigation slightly to show the toast
-                    setTimeout(() => {
-                        router.push('/portal/dashboard')
-                    }, 1000)
-                } else {
-                    setTab('login')
-                    // Clear form data after successful registration
-                    setFormData({
-                        name: '',
-                        email: '',
-                        password: '',
-                        confirmPassword: '',
-                        phone: '',
-                        category: '',
-                        county: '',
-                    })
-                }
+                // Delay navigation slightly to show the toast
+                setTimeout(() => {
+                    router.push('/portal/dashboard')
+                }, 1000)
             }
         } catch {
             showToast('Network error. Please check your connection.', 'error')
@@ -161,9 +128,10 @@ export default function LoginForm() {
             setLoading(false)
         }
     }
+
     return (
-         <>
-        {/* Toast notifications */}
+        <>
+            {/* Toast notifications */}
             {toast && (
                 <Toast
                     message={toast.message}
@@ -172,284 +140,173 @@ export default function LoginForm() {
                 />
             )}
     
-        <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
-            <div className="w-full max-w-md">
-                <Image
-                    src={'/assets/login-anime.png'}
-                    className="w-full h-auto mb-6 sm:mb-8"
-                    width={3000}
-                    height={1000}
-                    alt="Kazibase - Login page"
-                    priority
-                />
+            <div className="container mx-auto w-full px-4 sm:px-6 min-h-screen flex flex-col items-center justify-top py-6 sm:py-10">
+                <div className="w-full max-w-md">
+                    <Image
+                        src={'/assets/login-anime.png'}
+                        className="w-full h-auto mb-6 sm:mb-8"
+                        width={3000}
+                        height={1000}
+                        alt="Kazibase - Login page"
+                        priority
+                    />
 
-                <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
-                    {`Welcome to Workers Portal`}
-                </h2>
+                    <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
+                        {`Welcome to Workers Portal`}
+                    </h2>
 
-                <div className="mt-4 flex gap-2 justify-center">
-                    <button
-                        onClick={() => setTab('login')}
-                        className={`px-4 py-2 rounded-t-lg ${tab === 'login' ? 'bg-sky-900 text-white' : 'bg-gray-200'}`}
-                    >
-                        Login
-                    </button>
-                    <button
-                        onClick={() => setTab('register')}
-                        className={`px-4 py-2 rounded-t-lg ${tab === 'register' ? 'bg-sky-900 text-white' : 'bg-gray-200'}`}
-                    >
-                        Create Account
-                    </button>
-                </div>
-
-                {tab === 'login' ? (
-                    <form onSubmit={handleSubmit} className="flex flex-col border border-gray-300 rounded-lg mt-2 shadow-md p-4 sm:p-6 w-full">
-                        <label className="text-md sm:text-lg font-medium mb-1">Email:</label>
-                        <input
-                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Enter your email"
-                            required
-                            onChange={handleChange}
-                        />
-
-                       <label className="text-md sm:text-lg font-medium mb-1 mt-4 block">Password:</label>
-                        <div className="relative">
-                <input
-                    className="bg-gray-200 px-3 py-2 rounded-lg shadow-md w-full"
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    value={formData.password}
-                    required
-                    onChange={handleChange}
-                />
-                <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                >
-                    {showPassword ? (
-                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
-                        </svg>
-                    ) : (
-                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
-                        </svg>
-                    )}
-                </button>
-            </div>
+                    <div className="mt-8 flex flex-col border border-gray-300 rounded-lg shadow-md p-4 sm:p-6 w-full">
+                        <h3 className="text-lg sm:text-xl font-semibold mb-4 text-center">Premium Member Login</h3>
                         
-
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-4">
+                        {/* Social Login Options */}
+                        <div className="flex flex-col space-y-3 mb-6">
                             <button
-                                className={`text-md sm:text-lg font-semibold px-6 py-2 rounded-lg tracking-wide
-                                ${loading ? 'bg-gray-300 text-gray-700' : 'bg-sky-900 text-white hover:bg-sky-800'}`}
+                                onClick={() => handleSocialLogin('google')}
+                                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                                disabled={!!socialLoginLoading}
+                            >
+                                {socialLoginLoading === 'google' ? (
+                                    <span className="flex items-center">
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Processing...
+                                    </span>
+                                ) : (
+                                    <>
+                                        <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12.545 10.239v3.821h5.445c-0.712 2.315-2.647 3.972-5.445 3.972-3.332 0-6.033-2.701-6.033-6.032s2.701-6.032 6.033-6.032c1.498 0 2.866 0.549 3.921 1.453l2.814-2.814c-1.784-1.664-4.153-2.675-6.735-2.675-5.522 0-10 4.479-10 10s4.478 10 10 10c8.396 0 10-7.524 10-10 0-0.167-0.007-0.334-0.016-0.5-0.006-0.112-0.016-0.223-0.016-0.334 0-0.667 0.056-1.333 0.167-2h-9.945z"/>
+                                        </svg>
+                                        Continue with Google
+                                    </>
+                                )}
+                            </button>
+                            <button
+                                onClick={() => handleSocialLogin('facebook')}
+                                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                                disabled={!!socialLoginLoading}
+                            >
+                                {socialLoginLoading === 'facebook' ? (
+                                    <span className="flex items-center">
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Processing...
+                                    </span>
+                                ) : (
+                                    <>
+                                        <svg className="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                                        </svg>
+                                        Continue with Facebook
+                                    </>
+                                )}
+                            </button>
+                        </div>
+
+                        <div className="flex items-center my-4">
+                            <div className="flex-grow border-t border-gray-300"></div>
+                            <span className="mx-4 text-gray-500">OR</span>
+                            <div className="flex-grow border-t border-gray-300"></div>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="flex flex-col w-full">
+                            <label className="text-md sm:text-lg font-medium mb-1">Email:</label>
+                            <input
+                                className="bg-gray-100 px-3 py-2 rounded-lg shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                required
+                                onChange={handleChange}
+                            />
+
+                            <label className="text-md sm:text-lg font-medium mb-1 mt-4 block">Password:</label>
+                            <div className="relative">
+                                <input
+                                    className="bg-gray-100 px-3 py-2 rounded-lg shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full"
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    id="password"
+                                    placeholder="Enter your password"
+                                    required
+                                    onChange={handleChange}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                >
+                                    {showPassword ? (
+                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                            <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
+                                        </svg>
+                                    ) : (
+                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd"/>
+                                            <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z"/>
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+
+                            <div className="flex items-center justify-between mt-4">
+                                <div className="flex items-center">
+                                    <input
+                                        id="remember-me"
+                                        name="remember-me"
+                                        type="checkbox"
+                                        checked={rememberMe}
+                                        onChange={(e) => setRememberMe(e.target.checked)}
+                                        className="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300 rounded"
+                                    />
+                                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                                        Remember me
+                                    </label>
+                                </div>
+
+                                <a href="/forgot-password" className="text-sm text-sky-600 hover:text-sky-800">
+                                    Forgot password?
+                                </a>
+                            </div>
+
+                            <button
+                                className={`mt-6 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors duration-200 ${
+                                    loading ? 'opacity-75 cursor-not-allowed' : ''
+                                }`}
                                 disabled={loading}
                                 type="submit"
                             >
-                                {loading ? 'Logging In...' : 'Login'}
+                                {loading ? (
+                                    <>
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Signing in...
+                                    </>
+                                ) : (
+                                    'Sign in'
+                                )}
                             </button>
+                        </form>
 
-                            <a href="#" className="text-sky-700 hover:text-sky-900 mt-3 sm:mt-0 text-sm">Forgot password?</a>
+                        <div className="mt-6 text-center text-sm">
+                            <p className="text-gray-600">
+                                Don't have an account?{' '}
+                                <a href="/contact" className="font-medium text-sky-600 hover:text-sky-500">
+                                    Contact support
+                                </a>
+                            </p>
                         </div>
-                    </form>
-                ) : (
-                    <form onSubmit={handleSubmit} className="flex flex-col border border-gray-300 rounded-lg mt-2 shadow-md p-4 sm:p-6 w-full">
-                        <label className="text-md sm:text-lg font-medium mb-1">Full Name:</label>
-                        <input
-                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Enter your full name"
-                            required
-                            onChange={handleChange}
-                        />
-
-                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Email:</label>
-                        <input
-                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Enter your email"
-                            required
-                            onChange={handleChange}
-                        />
-
-                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Phone Number:</label>
-                        <input
-                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                            type="tel"
-                            name="phone"
-                            id="phone"
-                            placeholder="Enter your phone number"
-                            required
-                            onChange={handleChange}
-                        />
-
-                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Work Category:</label>
-                        <select
-                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                            name="category"
-                            id="category"
-                            required
-                            onChange={handleChange}
-                        >
-                            <option value="">-- Select work you can do --</option>
-                            <option value="construction">Construction Worker</option>
-                            <option value="plumbing">Plumber</option>
-                            <option value="electrical">Electrician</option>
-                            <option value="carpentry">Carpenter</option>
-                            <option value="painting">Painter</option>
-                            <option value="cleaning">Cleaner</option>
-                            <option value="gardening">Gardener</option>
-                            <option value="driving">Driver</option>
-                            <option value="delivery">Delivery Personnel</option>
-                            <option value="mechanic">Mechanic</option>
-                            <option value="cooking">Cook/Chef</option>
-                            <option value="tailoring">Tailor</option>
-                            <option value="welding">Welder</option>
-                            <option value="hair_beauty">Hair & Beauty</option>
-                            <option value="security">Security Guard</option>
-                            <option value="farming">Farm Worker</option>
-                        </select>
-
-                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">County:</label>
-                        <select
-                            className="bg-gray-200 px-3 py-2 rounded-lg shadow-md"
-                            name="county"
-                            id="county"
-                            required
-                            onChange={handleChange}
-                        >
-                            <option value="">-- Select your county --</option>
-                            <option value="Baringo">Baringo</option>
-                            <option value="Bomet">Bomet</option>
-                            <option value="Bungoma">Bungoma</option>
-                            <option value="Busia">Busia</option>
-                            <option value="Elgeyo-Marakwet">Elgeyo-Marakwet</option>
-                            <option value="Embu">Embu</option>
-                            <option value="Garissa">Garissa</option>
-                            <option value="Homa Bay">Homa Bay</option>
-                            <option value="Isiolo">Isiolo</option>
-                            <option value="Kajiado">Kajiado</option>
-                            <option value="Kakamega">Kakamega</option>
-                            <option value="Kericho">Kericho</option>
-                            <option value="Kiambu">Kiambu</option>
-                            <option value="Kilifi">Kilifi</option>
-                            <option value="Kirinyaga">Kirinyaga</option>
-                            <option value="Kisii">Kisii</option>
-                            <option value="Kisumu">Kisumu</option>
-                            <option value="Kitui">Kitui</option>
-                            <option value="Kwale">Kwale</option>
-                            <option value="Laikipia">Laikipia</option>
-                            <option value="Lamu">Lamu</option>
-                            <option value="Machakos">Machakos</option>
-                            <option value="Makueni">Makueni</option>
-                            <option value="Mandera">Mandera</option>
-                            <option value="Marsabit">Marsabit</option>
-                            <option value="Meru">Meru</option>
-                            <option value="Migori">Migori</option>
-                            <option value="Mombasa">Mombasa</option>
-                            <option value="Muranga">Muranga</option>
-                            <option value="Nairobi">Nairobi</option>
-                            <option value="Nakuru">Nakuru</option>
-                            <option value="Nandi">Nandi</option>
-                            <option value="Narok">Narok</option>
-                            <option value="Nyamira">Nyamira</option>
-                            <option value="Nyandarua">Nyandarua</option>
-                            <option value="Nyeri">Nyeri</option>
-                            <option value="Samburu">Samburu</option>
-                            <option value="Siaya">Siaya</option>
-                            <option value="Taita-Taveta">Taita-Taveta</option>
-                            <option value="Tana River">Tana River</option>
-                            <option value="Tharaka-Nithi">Tharaka-Nithi</option>
-                            <option value="Trans Nzoia">Trans Nzoia</option>
-                            <option value="Turkana">Turkana</option>
-                            <option value="Uasin Gishu">Uasin Gishu</option>
-                            <option value="Vihiga">Vihiga</option>
-                            <option value="Wajir">Wajir</option>
-                            <option value="West Pokot">West Pokot</option>
-                        </select>
-
-                        <label className="text-md sm:text-lg font-medium mb-1 mt-4">Password:</label>
-            <div className="relative">
-                <input
-                    className="bg-gray-200 px-3 py-2 rounded-lg shadow-md w-full"
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    id="password"
-                    placeholder="Create a password"
-                    value={formData.password}
-                    required
-                    onChange={handleChange}
-                />
-                <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                >
-                    {showPassword ? (
-                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
-                        </svg>
-                    ) : (
-                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
-                        </svg>
-                    )}
-                </button>
+                    </div>
+                </div>
             </div>
-           
-
-            <label className="text-md sm:text-lg font-medium mb-1 mt-4">Confirm Password:</label>
-            <div className="relative">
-                <input
-                    className="bg-gray-200 px-3 py-2 rounded-lg shadow-md w-full"
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    required
-                    onChange={handleChange}
-                />
-                <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                >
-                    {showConfirmPassword ? (
-                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
-                        </svg>
-                    ) : (
-                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 4a6 6 0 00-6 6c0 2.867 1.867 5.334 4.5 7.037L10 18l1.5-4.963A6.002 6.002 0 0010 4zM10 10a4 4 0 01-4-4c0-1.5.75-2.833 1.957-3.85L10 8l2.043-5.85C13.25 6.167 14 7.833 14 10a4 4 0 01-4 4z" clipRule="evenodd" />
-                        </svg>
-                    )}
-                </button>
-            </div>
-            
-
-          
-                        <button
-                            className="text-md sm:text-lg font-semibold mt-6 px-6 py-2 rounded-lg tracking-wide bg-sky-900 text-white hover:bg-sky-800"
-                            type="submit"
-                        >
-                            Create Account
-                        </button>
-                    </form>
-                )}
-            </div>
-        </div>
-
-   </>
+        </>
     )
 }
