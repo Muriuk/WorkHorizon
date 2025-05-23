@@ -71,7 +71,7 @@ export default function LoginForm() {
     // State for remember me checkbox
     const [rememberMe, setRememberMe] = useState(false)
     // State for social login options
-    const [socialLoginLoading, setSocialLoginLoading] = useState<'google' | 'facebook' | null>(null)
+    const [socialLoginLoading, setSocialLoginLoading] = useState<'google' | null>(null)
 
     const showToast = (message: string, type: 'success' | 'error') => {
         setToast({ message, type })
@@ -85,7 +85,7 @@ export default function LoginForm() {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSocialLogin = (provider: 'google' | 'facebook') => {
+    const handleSocialLogin = (provider: 'google' ) => {
         setSocialLoginLoading(provider)
         // Simulate social login
         setTimeout(() => {
@@ -182,28 +182,7 @@ export default function LoginForm() {
                                     </>
                                 )}
                             </button>
-                            <button
-                                onClick={() => handleSocialLogin('facebook')}
-                                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                                disabled={!!socialLoginLoading}
-                            >
-                                {socialLoginLoading === 'facebook' ? (
-                                    <span className="flex items-center">
-                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        Processing...
-                                    </span>
-                                ) : (
-                                    <>
-                                        <svg className="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
-                                        </svg>
-                                        Continue with Facebook
-                                    </>
-                                )}
-                            </button>
+                           
                         </div>
 
                         <div className="flex items-center my-4">
@@ -299,8 +278,8 @@ export default function LoginForm() {
                         <div className="mt-6 text-center text-sm">
                             <p className="text-gray-600">
                                 Do not have an account?{' '}
-                                <a href="/contact" className="font-medium text-sky-600 hover:text-sky-500">
-                                    Contact support
+                                <a href="/workerregister" className="font-medium text-sky-600 hover:text-sky-500">
+                                    click here
                                 </a>
                             </p>
                         </div>
