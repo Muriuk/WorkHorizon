@@ -226,10 +226,12 @@ export default function ClientRegisterForm() {
                     <h2 className='text-xl sm:text-2xl lg:text-3xl font-semibold capitalize text-sky-900 border-b border-orange-500 px-1 pb-1 text-center'>
                         Client Registration
                     </h2>
-                    {/* Safety Disclaimer */}
-                    <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                        <h4 className="text-sm font-semibold text-yellow-800 mb-2">Create account to post your job</h4>
-                    </div>
+                    {/* Safety Disclaimer */}  
+<div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-xs">  
+    <h4 className="font-medium text-yellow-800">  
+        To post a job, you need to create an account. This helps us ensure the safety of our workers.  
+    </h4>  
+</div>  
                     <form onSubmit={handleSubmit} className="flex flex-col border border-gray-300 rounded-lg mt-4 shadow-md p-4 sm:p-6 w-full">
                         <label className="text-md sm:text-lg font-medium mb-1">Full Name:</label>
                         <input
@@ -437,6 +439,19 @@ export default function ClientRegisterForm() {
                             </button>
                         </div>
 
+                        {/* Terms & Conditions Checkbox */}
+<div className="mt-4 flex items-center">
+    <input
+        type="checkbox"
+        id="termsCheckbox"
+        name="termsCheckbox"
+        required
+        className="mr-2 rounded text-sky-900 focus:ring-sky-900"
+    />
+    <label htmlFor="termsCheckbox" className="text-sm text-gray-700">
+        By ticking this box, you agree to our <a href="/" className="text-sky-900 hover:underline">Terms of Service</a> and <a href="/" className="text-sky-900 hover:underline">Privacy Policy</a>.
+    </label>
+</div>
                         <button
                             className={`text-md sm:text-lg font-semibold mt-6 px-6 py-2 rounded-lg tracking-wide
                             ${loading ? 'bg-gray-300 text-gray-700' : 'bg-sky-900 text-white hover:bg-sky-800'}`}
